@@ -13,10 +13,8 @@ import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
 import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
-import { getLinkUrlByRole } from 'containers/App/helpers';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
-import PrivateLayout from 'components/PrivateLayout';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectRehydrated } from 'containers/App/selectors';
 import saga from './saga';
@@ -35,12 +33,7 @@ export function Authentication(props) {
   return (
     isAuthenticated && user ?
       // child component will be rendered here
-      <PrivateLayout
-        user={user}
-        getLinkUrlByRole={getLinkUrlByRole}
-      >
-        {props.children}
-      </PrivateLayout> :
+      <div>{props.children}</div> :
       <div>
         {removeToken()}
         <Redirect

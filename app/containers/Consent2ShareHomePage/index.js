@@ -14,7 +14,6 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import Consent2ShareHome from 'components/Consent2ShareHome';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -25,10 +24,9 @@ export class Consent2ShareHomePage extends React.Component { // eslint-disable-l
     return (
       <div>
         <Helmet>
-          <title>Consent2Share</title>
+          <title>Home</title>
           <meta name="description" content="Patient Summary page of Consent2Share Smart On Fhir" />
         </Helmet>
-        <Consent2ShareHome patient={this.props.patient} />
       </div>
     );
   }

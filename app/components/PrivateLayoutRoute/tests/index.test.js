@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import C2SLayout from '../index';
+// import PrivateLayoutRoute from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<C2SLayout />', () => {
+describe('<PrivateLayoutRoute />', () => {
   it('Expect to have unit tests specified', () => {
-    // expect(true).toEqual(false);
+    expect(true).toEqual(false);
   });
 });

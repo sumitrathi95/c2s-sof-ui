@@ -1,17 +1,19 @@
 /*
- * C2SPrivateHeader Messages
+ * PrivateHeader Messages
  *
- * This contains all the text for the C2SPrivateHeader component.
+ * This contains all the text for the PrivateHeader component.
  */
 import { defineMessages } from 'react-intl';
 
+const scope = 'app.containers.PrivateHeader';
+
 export default defineMessages({
   brandImg: {
-    id: 'ocpui.containers.C2SPrivateHeader.brandImg',
+    id: `${scope}.brandImg`,
     defaultMessage: 'Consent2Share brand image',
   },
   homeButton: {
-    id: 'ocpui.containers.C2SPrivateHeader.homeButton',
+    id: `${scope}.homeButton`,
     defaultMessage: 'Home',
   },
 });
