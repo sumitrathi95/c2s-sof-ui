@@ -5,8 +5,6 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { REHYDRATE } from 'redux-persist/constants';
-import { asyncSessionStorage } from 'redux-persist/storages';
 
 import globalReducer from 'containers/App/reducer';
 import contextReducer from 'containers/App/contextReducer';
@@ -41,47 +39,17 @@ function routeReducer(state = routeInitialState, action) {
   }
 }
 
-function rehydrateReducer(state = false, action) {
-  switch (action.type) {
-    case REHYDRATE: {
-      return true;
-    }
-    default:
-      return state;
-  }
-}
-
 /**
  * Creates the main reducer with the dynamically injected ones
  * Will reset entirely the redux state when receives logout action
  */
 // TODO: Might keep some unsecured cache data like lookup based on required
 export default function createReducer(injectedReducers) {
-  return (state, action) => {
-    let proxyState = state;
-    if (action.type === LOGOUT) {
-      // on LOGOUT, set `rehydrated` to true, so the app knows this is not a full page load/refresh
-      proxyState = fromJS({ rehydrated: true });
-      Object.keys(state.toJS()).forEach((key) => {
-        // clear reduxPersist:* from session storage
-        asyncSessionStorage.removeItem(`reduxPersist:${key}`);
-      });
-    }
-    const reducers = {
-      global: globalReducer,
-      context: contextReducer,
-      route: routeReducer,
-      language: languageProviderReducer,
-      rehydrated: rehydrateReducer,
-      ...injectedReducers,
-    };
-    // TODO: redux-persist is causing failures in unit tests, so it is being disabled in test environment until the issues can be resolved
-    const testEnvironment = process.env.NODE_ENV === 'test';
-    if (testEnvironment) {
-      // remove rehydrateReducer in test environment
-      delete reducers.rehydrated;
-    }
-    const appReducer = combineReducers(reducers);
-    return appReducer(proxyState, action);
-  };
+  return (state, action) => combineReducers({
+    global: globalReducer,
+    context: contextReducer,
+    route: routeReducer,
+    language: languageProviderReducer,
+    ...injectedReducers,
+  })(action.type === LOGOUT ? undefined : state, action);
 }

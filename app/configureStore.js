@@ -6,13 +6,11 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import { autoRehydrate, persistStore } from 'redux-persist-immutable';
-import { asyncSessionStorage } from 'redux-persist/storages';
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default function configureStore(initialState = { rehydrated: false }, history) {
+export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
@@ -39,24 +37,11 @@ export default function configureStore(initialState = { rehydrated: false }, his
       : compose;
   /* eslint-enable */
 
-  // TODO: redux-persist is causing failures in unit tests, so it is being disabled in test environment until the issues can be resolved
-  const testEnvironment = process.env.NODE_ENV === 'test';
-  const storeEnhancers = [...enhancers];
-  // enable autoRehydrate enhancer if not in test environment
-  if (!testEnvironment) {
-    // add autohydrate enchancer
-    storeEnhancers.push(autoRehydrate({ log: false }));
-  }
   const store = createStore(
     createReducer(),
     fromJS(initialState),
-    composeEnhancers(...storeEnhancers),
+    composeEnhancers(...enhancers),
   );
-  // initialize persistor if not in test environment
-  if (!testEnvironment) {
-    // persist store
-    store.persistor = persistStore(store, { storage: asyncSessionStorage });
-  }
 
   // Extensions
   store.runSaga = sagaMiddleware.run;

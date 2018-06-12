@@ -16,7 +16,6 @@ import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
-import { makeSelectRehydrated } from 'containers/App/selectors';
 import saga from './saga';
 
 export function Authentication(props) {
@@ -25,11 +24,7 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
-  const { user, rehydrated, location } = props;
-  if (!rehydrated) {
-    // do not render until rehydration is complete
-    return null;
-  }
+  const { user, location } = props;
   return (
     isAuthenticated && user ?
       // child component will be rendered here
@@ -55,14 +50,12 @@ Authentication.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
   }),
   user: PropTypes.object,
-  rehydrated: PropTypes.bool,
   location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   auth: makeSelectAuth(),
   user: makeSelectUser(),
-  rehydrated: makeSelectRehydrated(),
 });
 
 const withConnect = connect(mapStateToProps);

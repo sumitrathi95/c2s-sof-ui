@@ -13,7 +13,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -39,9 +38,7 @@ Consent2ShareHomePage.propTypes = {
   }),
 };
 
-const mapStateToProps = createStructuredSelector({
-  patient: makeSelectPatient(),
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {

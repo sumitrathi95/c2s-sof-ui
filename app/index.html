@@ -10,13 +10,13 @@
     <meta name="mobile-web-app-capable" content="yes">
      <script>
        (function () {
-         var devPort = '3000';
+         var devPort = '9000';
          var port = location && location.port;
          var baseHref = port === devPort ? '/' : '/' + (window.location.pathname.split('/')[1] ? window.location.pathname.split('/')[1] + '/' : '');
          document.write('<base href="' + baseHref + '" />');
        })();
     </script>
-    <title>OCP</title>
+    <title>C2S SOF UI</title>
   </head>
   <body>
     <!-- Display a message if JS has been disabled on the browser. -->
