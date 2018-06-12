@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import StyledCheckbox from '../index';
+// import PublicLayoutRoute from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<StyledCheckbox />', () => {
+describe('<PublicLayoutRoute />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });

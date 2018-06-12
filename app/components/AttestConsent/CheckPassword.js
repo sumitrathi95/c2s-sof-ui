@@ -11,7 +11,6 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import Close from '@material-ui/icons/Close';
 
-import H2 from 'components/H1';
 import TextField from 'components/TextField';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -27,7 +26,7 @@ function CheckPassword(props) {
           <Close />
         </StyledIconButton>
       </StyledTooltip>
-      <H2>{<FormattedMessage {...messages.authentication.header} />}</H2>
+      <h2>{<FormattedMessage {...messages.authentication.header} />}</h2>
       <FormattedMessage {...messages.authentication.term} />
       <Formik
         onSubmit={(values, actions) => {

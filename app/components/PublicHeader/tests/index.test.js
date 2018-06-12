@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import PrivateNavigation from '../index';
+// import PublicHeader from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<PrivateNavigation />', () => {
+describe('<PublicHeader />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });

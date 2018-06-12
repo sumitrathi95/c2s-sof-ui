@@ -13,7 +13,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router-dom';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
@@ -23,6 +23,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
 import Notification from 'containers/Notification';
 import PrivateLayoutRoute from 'components/PrivateLayoutRoute';
+import PublicLayoutRoute from 'components/PublicLayoutRoute';
 import saga from './saga';
 import './styles.css';
 
@@ -43,7 +44,7 @@ export function App() {
           <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
           <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
-          <Route component={NotFoundPage} />
+          <PublicLayoutRoute component={NotFoundPage} />
         </Switch>
         <Notification />
       </div>
