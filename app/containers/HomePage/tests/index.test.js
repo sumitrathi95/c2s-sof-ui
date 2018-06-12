@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import { Consent2ShareHomePage } from '../index';
+// import { HomePage } from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<Consent2ShareHomePage />', () => {
+describe('<HomePage />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });

@@ -17,11 +17,11 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
+import AttestConsentPage from 'containers/AttestConsentPage/Loadable';
+import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
 import Notification from 'containers/Notification';
-import ManageConsentPage from 'containers/ManageConsentPage';
-import AttestConsentPage from 'containers/AttestConsentPage';
-import Consent2ShareHomePage from 'containers/Consent2ShareHomePage';
 import PrivateLayoutRoute from 'components/PrivateLayoutRoute';
 import saga from './saga';
 import './styles.css';
@@ -39,7 +39,7 @@ export function App() {
       <div>
         <Switch>
           <Redirect exact from="/" to="/c2s-sof-ui/home" />
-          <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={Consent2ShareHomePage} />
+          <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
           <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
