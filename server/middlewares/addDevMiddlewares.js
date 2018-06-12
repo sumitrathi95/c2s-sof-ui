@@ -22,11 +22,12 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 
+  // Configure proxy for dev environment
   const check = '✓';
   const cross = '✗';
+  // Todo: Change to c2s api url
   const routes = [
-    { route: '/ocp-ui-api', url: 'http://localhost:8446' },
-    { route: '/smart', url: 'http://localhost:8449' },
+    { route: '/c2s-sof-ui-api', url: 'http://localhost:8444' },
   ];
   if (proxy) {
     console.log('proxy setup:');
