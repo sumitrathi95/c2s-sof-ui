@@ -11,7 +11,7 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 
-import brandImg from 'images/omnibus-care-plan-logo.png';
+import brandImg from 'images/c2s-logo.png';
 import CardHeader from 'components/CardHeader';
 import TextField from 'components/TextField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
