@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
+import PatientHome from 'components/PatientHome';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -33,7 +34,6 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
       birthDate: '01/05/1986',
       genderCode: 'female',
     };
-    console.log(patient);
 
     return (
       <div>
@@ -41,6 +41,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <title>Home</title>
           <meta name="description" content="Home page of Consent2Share Smart On Fhir" />
         </Helmet>
+        <PatientHome patient={patient} />
       </div>
     );
   }
