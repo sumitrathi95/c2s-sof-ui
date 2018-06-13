@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { LinearProgress } from 'material-ui-next/Progress';
 
 import { makeSelectPatient } from 'containers/Context/selectors';
 import PatientHome from 'components/PatientHome';
@@ -22,8 +23,9 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <title>Home</title>
           <meta name="description" content="Home page of Consent2Share Smart On Fhir" />
         </Helmet>
-        {this.props.patient &&
-        <PatientHome patient={this.props.patient} />
+        {this.props.patient ?
+          <PatientHome patient={this.props.patient} /> :
+          <LinearProgress />
         }
       </div>
     );
