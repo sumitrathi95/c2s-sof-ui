@@ -42,6 +42,7 @@ export function App() {
         <Context>
           <Switch>
             <Redirect exact from="/" to="/c2s-sof-ui/home" />
+            <Redirect exact from="/c2s-sof-ui/" to="/c2s-sof-ui/home" />
             <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
             <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
             <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
