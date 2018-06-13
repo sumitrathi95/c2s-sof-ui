@@ -1,14 +1,13 @@
 
 import { fromJS } from 'immutable';
-import contextReducer from '../contextReducer';
+import contextReducer from '../reducer';
 
 describe('contextReducer', () => {
   it('returns the initial state', () => {
     expect(contextReducer(undefined, {})).toEqual(fromJS({
       user: null,
-      organization: null,
-      location: null,
       patient: null,
+      organization: null,
     }));
   });
 });

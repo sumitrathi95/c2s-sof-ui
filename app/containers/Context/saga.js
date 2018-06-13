@@ -1,17 +1,10 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
-import {
-  GET_LOCATION,
-  GET_ORGANIZATION,
-  GET_PATIENT,
-  REFRESH_LOCATION,
-  REFRESH_ORGANIZATION,
-  REFRESH_PATIENT,
-} from './contextConstants';
-import { makeSelectLocation, makeSelectOrganization, makeSelectPatient } from './contextSelectors';
-import { getLocation, getOrganization, getPatient } from './contextApi';
-import { setLocation, setOrganization, setPatient } from './contextActions';
+import { setOrganization, setPatient } from './actions';
+import { GET_ORGANIZATION, GET_PATIENT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './constants';
+import { makeSelectOrganization, makeSelectPatient } from './selectors';
+import { getOrganization, getPatient } from './api';
 
 export function* refreshPatientSaga() {
   const patient = yield select(makeSelectPatient());
@@ -33,16 +26,6 @@ export function* refreshOrganizationSaga() {
   }
 }
 
-export function* refreshLocationSaga() {
-  const location = yield select(makeSelectLocation());
-  if (location && location.logicalId) {
-    const newLocation = yield call(getLocation, location.logicalId);
-    yield put(setLocation(newLocation));
-  } else {
-    yield put(showNotification('Cannot refresh location context, no location is selected.'));
-  }
-}
-
 export function* getPatientSaga({ logicalId }) {
   if (logicalId) {
     const newPatient = yield call(getPatient, logicalId);
@@ -61,25 +44,12 @@ export function* getOrganizationSaga({ logicalId }) {
   }
 }
 
-export function* getLocationSaga({ logicalId }) {
-  if (logicalId) {
-    const newLocation = yield call(getLocation, logicalId);
-    yield put(setLocation(newLocation));
-  } else {
-    yield put(showNotification('Cannot get location context, no location is selected.'));
-  }
-}
-
 export function* watchRefreshPatientSaga() {
   yield takeLatest(REFRESH_PATIENT, refreshPatientSaga);
 }
 
 export function* watchRefreshOrganizationSaga() {
   yield takeLatest(REFRESH_ORGANIZATION, refreshOrganizationSaga);
-}
-
-export function* watchRefreshLocationSaga() {
-  yield takeLatest(REFRESH_LOCATION, refreshLocationSaga);
 }
 
 export function* watchGetPatientSaga() {
@@ -90,17 +60,11 @@ export function* watchGetOrganizationSaga() {
   yield takeLatest(GET_ORGANIZATION, getOrganizationSaga);
 }
 
-export function* watchGetLocationSaga() {
-  yield takeLatest(GET_LOCATION, getLocationSaga);
-}
-
 export default function* rootSaga() {
   yield all([
     watchRefreshPatientSaga(),
     watchRefreshOrganizationSaga(),
-    watchRefreshLocationSaga(),
     watchGetPatientSaga(),
     watchGetOrganizationSaga(),
-    watchGetLocationSaga(),
   ]);
 }

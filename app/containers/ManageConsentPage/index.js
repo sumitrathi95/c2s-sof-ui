@@ -20,7 +20,7 @@ import {
   makeSelectPurposeOfUse,
   makeSelectSecurityLabel,
 } from 'containers/App/lookupSelectors';
-import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/Context/selectors';
 import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
@@ -74,7 +74,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     }
 
     let careCoordinatorContext = null;
-    if (isCareCoordinator(user.role)) {
+    if (user && user.role && isCareCoordinator(user.role)) {
       careCoordinatorContext = {
         logicalId: user.fhirResource.logicalId,
         name: mapResourceName(user.fhirResource.name),
@@ -101,7 +101,9 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
           <title> Manage Consent </title>
           <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
         </Helmet>
-        <PageHeader title={patient && `I,${mapResourceName(patient.name)},here by authorize`} />
+        {patient &&
+        <PageHeader title={`I,${mapResourceName(patient.name)},here by authorize`} />
+        }
         <PageContent>
           <ManageConsent
             {...consentProps}

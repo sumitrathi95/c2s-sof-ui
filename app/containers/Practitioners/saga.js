@@ -1,6 +1,6 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import {
   getPractitionersInOrganizationError,
   getPractitionersInOrganizationSuccess,

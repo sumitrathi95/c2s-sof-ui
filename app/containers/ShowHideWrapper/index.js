@@ -22,7 +22,7 @@ import {
   PATIENT_ROLE_CODE,
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
-import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectUser } from 'containers/Context/selectors';
 
 export const functionalRoles = [
   OCP_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, PATIENT_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE,

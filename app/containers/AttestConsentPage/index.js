@@ -13,7 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient } from 'containers/Context/selectors';
 import AttestConsent from 'components/AttestConsent';
 import reducer from './reducer';
 import saga from './saga';

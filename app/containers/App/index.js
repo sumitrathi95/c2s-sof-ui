@@ -17,13 +17,14 @@ import { Redirect, Switch } from 'react-router-dom';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
+import Context from 'containers/Context';
+import Notification from 'containers/Notification';
+import PrivateLayoutRoute from 'components/PrivateLayoutRoute';
+import PublicLayoutRoute from 'components/PublicLayoutRoute';
 import AttestConsentPage from 'containers/AttestConsentPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
-import Notification from 'containers/Notification';
-import PrivateLayoutRoute from 'components/PrivateLayoutRoute';
-import PublicLayoutRoute from 'components/PublicLayoutRoute';
 import saga from './saga';
 import './styles.css';
 
@@ -38,14 +39,16 @@ export function App() {
         <meta name="description" content="Consent2Share Smart on Fhir application" />
       </Helmet>
       <div>
-        <Switch>
-          <Redirect exact from="/" to="/c2s-sof-ui/home" />
-          <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
-          <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
-          <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
-          <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
-          <PublicLayoutRoute component={NotFoundPage} />
-        </Switch>
+        <Context>
+          <Switch>
+            <Redirect exact from="/" to="/c2s-sof-ui/home" />
+            <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
+            <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
+            <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
+            <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
+            <PublicLayoutRoute component={NotFoundPage} />
+          </Switch>
+        </Context>
         <Notification />
       </div>
     </div>

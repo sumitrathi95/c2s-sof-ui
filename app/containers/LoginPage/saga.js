@@ -8,7 +8,7 @@ import { checkAuthenticated } from 'utils/auth';
 import { showNotification } from 'containers/Notification/actions';
 import { autologin } from 'containers/Authentication/actions';
 import { makeSelectLocation } from 'containers/App/selectors';
-import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
+import { setOrganization, setPatient, setUser } from 'containers/Context/actions';
 import { getLinkUrlByRole, getRoleByScope } from 'containers/App/helpers';
 import { OCP_ADMIN_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import { getLoginErrorDetail, getUserContext, login } from './api';

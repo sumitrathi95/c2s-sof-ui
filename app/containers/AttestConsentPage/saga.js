@@ -6,7 +6,7 @@ import { call, put, takeLatest, all, select } from 'redux-saga/effects';
 
 import { getLoginErrorDetail, login } from 'containers/LoginPage/api';
 import { showNotification } from 'containers/Notification/actions';
-import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectUser } from 'containers/Context/selectors';
 import { getConsent, attestConsent } from './api';
 import { getConsentError, getConsentSuccess, checkPasswordError, attestConsentError, checkPasswordSuccess } from './actions';
 import { GET_CONSENT, CHECK_PASSWORD, ATTEST_CONSENT } from './constants';

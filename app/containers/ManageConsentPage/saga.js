@@ -1,7 +1,7 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient } from 'containers/Context/selectors';
 import { showNotification } from 'containers/Notification/actions';
 import { getConsentError, getConsentSuccess, saveConsentError } from './actions';
 import { getConsent, getErrorDetail, saveConsent } from './api';

@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
-import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectUser } from 'containers/Context/selectors';
 import saga from './saga';
 
 export function Authentication(props) {
