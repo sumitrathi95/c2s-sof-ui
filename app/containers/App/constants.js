@@ -20,10 +20,6 @@ export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
 
-export const GET_CONFIG = 'ocpui/App/GET_CONFIG';
-export const GET_CONFIG_SUCCESS = 'ocpui/App/GET_CONFIG_SUCCESS';
-export const GET_CONFIG_ERROR = 'ocpui/App/GET_CONFIG_ERROR';
-
 /**
  *  Global object keys
  * @type {string}
@@ -48,9 +44,6 @@ export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
  */
 export const LOGIN_URL = '/ocp-ui/login';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
-export const ADMIN_MANAGE_PERMISSIONS_URL = '/ocp-ui/manage-permissions';
-export const MANAGE_USERS_URL = '/ocp-ui/manage-users';
-export const MANAGE_CLIENT_URL = '/ocp-ui/manage-client';
 
 /**
  *  Constants to hold the workspace urls
