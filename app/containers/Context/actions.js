@@ -11,6 +11,7 @@ import {
   CLEAR_USER,
   GET_ORGANIZATION,
   GET_PATIENT,
+  INITIALIZE_CONTEXT,
   REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
   SET_ORGANIZATION,
@@ -18,6 +19,15 @@ import {
   SET_USER,
 } from './constants';
 
+
+export function initializeContext(userId, patientId, organizationId) {
+  return {
+    type: INITIALIZE_CONTEXT,
+    userId,
+    patientId,
+    organizationId,
+  };
+}
 
 export function setPatient(patient) {
   return {

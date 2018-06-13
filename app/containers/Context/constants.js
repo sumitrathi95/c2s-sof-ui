@@ -8,6 +8,7 @@
  *  Context action types
  *  @type {string}
  */
+export const INITIALIZE_CONTEXT = 'c2s/Context/INITIALIZE_CONTEXT';
 export const SET_PATIENT = 'c2s/Context/SET_PATIENT';
 export const SET_USER = 'c2s/Context/SET_USER';
 export const SET_ORGANIZATION = 'c2s/Context/SET_ORGANIZATION';

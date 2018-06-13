@@ -1,10 +1,34 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
-import { setOrganization, setPatient } from './actions';
-import { GET_ORGANIZATION, GET_PATIENT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './constants';
+import {
+  getOrganization as getOrganizationAction,
+  getPatient as getPatientAction,
+  refreshOrganization,
+  refreshPatient,
+  setOrganization,
+  setPatient,
+} from './actions';
+import { GET_ORGANIZATION, GET_PATIENT, INITIALIZE_CONTEXT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './constants';
 import { makeSelectOrganization, makeSelectPatient } from './selectors';
 import { getOrganization, getPatient } from './api';
+
+
+export function* initializeContextSaga({ patientId, organizationId }) {
+  const patient = yield select(makeSelectPatient());
+  const organization = yield select(makeSelectOrganization());
+  if (patient && patient.id && patient.id === patientId) {
+    yield put(refreshPatient());
+  } else {
+    yield put(getPatientAction(patientId));
+  }
+
+  if (organization && organization.logicalId && organization.logicalId === organizationId) {
+    yield put(refreshOrganization());
+  } else {
+    yield put(getOrganizationAction(organizationId));
+  }
+}
 
 export function* refreshPatientSaga() {
   const patient = yield select(makeSelectPatient());
@@ -44,6 +68,10 @@ export function* getOrganizationSaga({ logicalId }) {
   }
 }
 
+export function* watchInitializeContextSaga() {
+  yield takeLatest(INITIALIZE_CONTEXT, initializeContextSaga);
+}
+
 export function* watchRefreshPatientSaga() {
   yield takeLatest(REFRESH_PATIENT, refreshPatientSaga);
 }
@@ -62,6 +90,7 @@ export function* watchGetOrganizationSaga() {
 
 export default function* rootSaga() {
   yield all([
+    watchInitializeContextSaga(),
     watchRefreshPatientSaga(),
     watchRefreshOrganizationSaga(),
     watchGetPatientSaga(),
