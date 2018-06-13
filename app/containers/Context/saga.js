@@ -3,7 +3,9 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
 import {
   getOrganization as getOrganizationAction,
+  getOrganizationError,
   getPatient as getPatientAction,
+  getPatientError,
   refreshOrganization,
   refreshPatient,
   setOrganization,
@@ -11,7 +13,7 @@ import {
 } from './actions';
 import { GET_ORGANIZATION, GET_PATIENT, INITIALIZE_CONTEXT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './constants';
 import { makeSelectOrganization, makeSelectPatient } from './selectors';
-import { getOrganization, getPatient } from './api';
+import { getErrorDetail, getOrganization, getPatient } from './api';
 
 
 export function* initializeContextSaga({ patientId, organizationId }) {
@@ -51,20 +53,28 @@ export function* refreshOrganizationSaga() {
 }
 
 export function* getPatientSaga({ logicalId }) {
-  if (logicalId) {
-    const newPatient = yield call(getPatient, logicalId);
-    yield put(setPatient(newPatient));
-  } else {
-    yield put(showNotification('Cannot get patient context, no patient is selected.'));
+  try {
+    if (logicalId) {
+      const newPatient = yield call(getPatient, logicalId);
+      yield put(setPatient(newPatient));
+    } else {
+      yield put(showNotification('Cannot get patient context, no patient is selected.'));
+    }
+  } catch (error) {
+    yield put(getPatientError(getErrorDetail(error)));
   }
 }
 
 export function* getOrganizationSaga({ logicalId }) {
-  if (logicalId) {
-    const newOrganization = yield call(getOrganization, logicalId);
-    yield put(setOrganization(newOrganization));
-  } else {
-    yield put(showNotification('Cannot get organization context, no organization is selected.'));
+  try {
+    if (logicalId) {
+      const newOrganization = yield call(getOrganization, logicalId);
+      yield put(setOrganization(newOrganization));
+    } else {
+      yield put(showNotification('Cannot get organization context, no organization is selected.'));
+    }
+  } catch (error) {
+    yield put(getOrganizationError(getErrorDetail(error)));
   }
 }
 

@@ -2,7 +2,7 @@ import isUndefined from 'lodash/isUndefined';
 import some from 'lodash/some';
 import includes from 'lodash/includes';
 
-// Todo: Make server side configurable
+
 const BASE_API_URL = '/c2s-sof-ui-api';
 
 /**
@@ -27,6 +27,7 @@ const apiEndpoints = [
   { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/ocp-fis/lookups`, isSecured: false },
 
+  // Todo: Change configuration to c2s sof ui urls
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/consents` },
   { key: BASE_PATIENTS_API_URL, url: `${BASE_API_URL}/patients` },
   { key: BASE_ORGANIZATIONS_API_URL, url: `${BASE_API_URL}/organizations` },

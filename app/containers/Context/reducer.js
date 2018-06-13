@@ -10,6 +10,8 @@ import {
   CLEAR_ORGANIZATION,
   CLEAR_PATIENT,
   CLEAR_USER,
+  GET_ORGANIZATION_ERROR,
+  GET_PATIENT_ERROR,
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
@@ -24,6 +26,10 @@ const initialState = fromJS({
 
 function contextReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_PATIENT_ERROR:
+      return state.setIn(['error', 'patient'], fromJS(action.error));
+    case GET_ORGANIZATION_ERROR:
+      return state.setIn(['error', 'organization'], fromJS(action.error));
     case SET_PATIENT:
       return state.set('patient', fromJS(action.patient));
     case SET_USER:

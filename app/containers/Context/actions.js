@@ -10,7 +10,9 @@ import {
   CLEAR_PATIENT,
   CLEAR_USER,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_ERROR,
   GET_PATIENT,
+  GET_PATIENT_ERROR,
   INITIALIZE_CONTEXT,
   REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
@@ -93,9 +95,23 @@ export function getPatient(logicalId) {
   };
 }
 
+export function getPatientError(error) {
+  return {
+    type: GET_PATIENT_ERROR,
+    error,
+  };
+}
+
 export function getOrganization(logicalId) {
   return {
     type: GET_ORGANIZATION,
     logicalId,
+  };
+}
+
+export function getOrganizationError(error) {
+  return {
+    type: GET_ORGANIZATION_ERROR,
+    error,
   };
 }

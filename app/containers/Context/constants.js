@@ -19,7 +19,9 @@ export const CLEAR_ALL = 'c2s/Context/CLEAR_ALL';
 export const REFRESH_PATIENT = 'c2s/Context/REFRESH_PATIENT';
 export const REFRESH_ORGANIZATION = 'c2s/Context/REFRESH_ORGANIZATION';
 export const GET_PATIENT = 'c2s/Context/GET_PATIENT';
+export const GET_PATIENT_ERROR = 'c2s/Context/GET_PATIENT_ERROR';
 export const GET_ORGANIZATION = 'c2s/Context/GET_ORGANIZATION';
+export const GET_ORGANIZATION_ERROR = 'c2s/Context/GET_ORGANIZATION_ERROR';
 
 
 /**

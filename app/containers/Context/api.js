@@ -12,3 +12,11 @@ export function getOrganization(id) {
   const requestURL = `${baseEndpoint}/${id}`;
   return request(requestURL);
 }
+
+export function getErrorDetail(error) {
+  let errorDetail = error.message;
+  if (error && error.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  }
+  return errorDetail;
+}
