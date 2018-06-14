@@ -18,4 +18,12 @@ export default defineMessages({
     id: 'ocpui.containers.ErrorPage.invalidLaunchParams',
     defaultMessage: 'Missing launch parameters: {details}',
   },
+  invalidState: {
+    id: 'ocpui.containers.ErrorPage.invalidState',
+    defaultMessage: 'Invalid state, state cannot be found in session storage. {details}',
+  },
+  tokenRetrieveFailed: {
+    id: 'ocpui.containers.ErrorPage.tokenRetrieveFailed',
+    defaultMessage: 'Failed to retrieve token.',
+  },
 });
