@@ -3,10 +3,11 @@ import jp from 'jsonpath';
 
 import request from 'utils/request';
 import Util from 'utils/Util';
+import LaunchService from 'utils/LaunchService';
 import { GET_METADATA } from './constants';
 
 export function* getMetadataSaga({ iss, launch }) {
-  sessionStorage.clear();
+  LaunchService.clear();
   const state = yield call(Util.randomString, 10);
   const metadata = yield call(request, `${iss}/metadata`);
   const extensions = jp.query(metadata, '$.rest[?(@.mode=="server")].security.extension[?(@.url=="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris")].extension');
@@ -19,9 +20,7 @@ export function* getMetadataSaga({ iss, launch }) {
   console.log('authorize', authorize);
   console.log('token', token);
 
-  sessionStorage.setItem('c2s.state', state);
-  sessionStorage.setItem(`c2s.state.${state}.authorize`, authorize);
-  sessionStorage.setItem(`c2s.state.${state}.token`, token);
+  LaunchService.saveLaunchState(state, authorize, token);
 
   // TODO: get hardcoded parameters from the configured backend
   const c2sClientId = 'c2s';
