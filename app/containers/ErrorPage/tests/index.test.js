@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import PrivateLayoutRoute from '../index';
+// import { ErrorPage } from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<PrivateLayoutRoute />', () => {
+describe('<ErrorPage />', () => {
   it('Expect to have unit tests specified', () => {
     // TODO: add unit tests
     // expect(true).toEqual(false);
