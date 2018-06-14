@@ -44,6 +44,7 @@ export function App() {
         <Context>
           <Switch>
             <Redirect exact from="/" to="/c2s-sof-ui/home" />
+            <Redirect exact from="/c2s-sof-ui/" to="/c2s-sof-ui/home" />
             <PublicLayoutRoute exact path="/c2s-sof-ui/launch" component={LaunchPage} />
             <PublicLayoutRoute exact path="/c2s-sof-ui/error" component={ErrorPage} />
             <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
