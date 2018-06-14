@@ -99,7 +99,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       <Page color="secondary">
         <Helmet>
           <title> Manage Consent </title>
-          <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
+          <meta name="description" content="Manage Consent page of Consent2Share Smart On Fhir" />
         </Helmet>
         {patient &&
         <PageHeader title={`I,${mapResourceName(patient.name)},here by authorize`} />
