@@ -27,6 +27,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
 import LaunchPage from 'containers/LaunchPage/Loadable';
 import ErrorPage from 'containers/ErrorPage/Loadable';
+import TokenRetrievePage from 'containers/TokenRetrievePage/Loadable';
 import saga from './saga';
 import './styles.css';
 
@@ -43,7 +44,7 @@ export function App() {
       <div>
         <Context>
           <Switch>
-            <Redirect exact from="/" to="/c2s-sof-ui/home" />
+            <PublicLayoutRoute exact path="/" component={TokenRetrievePage} />
             <Redirect exact from="/c2s-sof-ui/" to="/c2s-sof-ui/home" />
             <PublicLayoutRoute exact path="/c2s-sof-ui/launch" component={LaunchPage} />
             <PublicLayoutRoute exact path="/c2s-sof-ui/error" component={ErrorPage} />
