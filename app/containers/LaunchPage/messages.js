@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.LaunchPage.header',
-    defaultMessage: 'Consent2Share SMART Launch Page',
+    defaultMessage: 'Launching Consent2Share...',
   },
 });
