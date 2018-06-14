@@ -13,6 +13,10 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
+import { withStyles } from 'material-ui-next/styles';
+import Paper from 'material-ui-next/Paper';
+import Typography from 'material-ui-next/Typography';
+import { LinearProgress } from 'material-ui-next/Progress';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,6 +26,13 @@ import makeSelectLaunchPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+
+const styles = (theme) => ({
+  root: theme.mixins.gutters({
+    padding: 16,
+    margin: theme.spacing.unit * 3,
+  }),
+});
 
 export class LaunchPage extends React.Component {
   static ISS_PARAM_KEY = 'iss';
@@ -63,13 +74,21 @@ export class LaunchPage extends React.Component {
   }
 
   renderDefault() {
+    const { classes } = this.props;
     return (
       <div>
         <Helmet>
           <title>Launch</title>
           <meta name="description" content="SMART on FHIR Launch Page" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
+        <Paper className={classes.root} elevation={4}>
+          <Typography variant="headline" component="h3">
+            <FormattedMessage {...messages.header} />
+          </Typography>
+          <Typography variant="display1">
+            <LinearProgress />
+          </Typography>
+        </Paper>
       </div>
     );
   }
@@ -87,6 +106,7 @@ LaunchPage.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+  classes: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -105,6 +125,7 @@ const withReducer = injectReducer({ key: 'launchPage', reducer });
 const withSaga = injectSaga({ key: 'launchPage', saga });
 
 export default compose(
+  withStyles(styles),
   withReducer,
   withSaga,
   withConnect,
