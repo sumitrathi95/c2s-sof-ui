@@ -16,7 +16,7 @@ export function getOrganization(id) {
 export function getUserContext() {
   // Todo: Get user context from backend
   const fhirResource = {
-    logicalId: '123',
+    logicalId: '319',
     identifiers: null,
     name: [{
       firstName: 'Preston',
@@ -24,6 +24,7 @@ export function getUserContext() {
     }],
     telecoms: null,
     addresses: null,
+    role: '171M00000X',
   };
   return {
     fhirResource,

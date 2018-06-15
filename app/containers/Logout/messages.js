@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  logoutButton: {
-    id: 'c2s.containers.Logout.logoutButton',
-    defaultMessage: 'Sign out',
+  logoutMenuItem: {
+    id: 'c2s.containers.Logout.logoutMenuItem',
+    defaultMessage: 'Logout',
   },
 });

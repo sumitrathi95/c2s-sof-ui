@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import Paper from 'material-ui-next/Paper';
+import Button from 'material-ui-next/Button';
 
 import messages from './messages';
 
@@ -23,6 +24,9 @@ function LogoutPage() {
       </Helmet>
       <Paper>
         <FormattedMessage {...messages.header} />
+        <Button onClick={() => window.close()}>
+          Close window
+        </Button>
       </Paper>
     </div>
   );

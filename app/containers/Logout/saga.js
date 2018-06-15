@@ -1,18 +1,16 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 
 import { removeToken } from 'utils/tokenService';
+import { clearAll } from 'containers/App/contextActions';
 import { showNotification } from 'containers/Notification/actions';
 import { LOGOUT } from './constants';
 
-export function* logoutSaga({ config }) {
+export function* logoutSaga() {
   try {
+    yield call(clearAll);
     yield call(removeToken);
-    const authorizationServerEndpoint = config && config.oauth2 && config.oauth2.authorizationServerEndpoint;
-    const baseHref = document.getElementsByTagName('base')[0].getAttribute('href');
-    const { protocol, port, hostname } = location;
-    setTimeout(() => {
-      window.location = `${authorizationServerEndpoint}/logout.do?redirect=${protocol}//${hostname}${port ? `:${port}` : port}${baseHref}`;
-    }, 0);
+    yield put(push('/c2s-sof-ui/logout'));
   } catch (error) {
     yield put(showNotification('Failed to logout.'));
     throw error;

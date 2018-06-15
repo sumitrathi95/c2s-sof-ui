@@ -41,8 +41,8 @@ export function* initializeContextSaga({ patientId, organizationId }) {
 
   try {
     const userContext = yield call(getUserContext);
-    const { fhirResource: { logicalId, identifiers, name, telecoms, addresses } } = userContext;
-    yield put(setUser({ logicalId, identifiers, name, telecoms, addresses }));
+    const { fhirResource: { logicalId, identifiers, name, telecoms, addresses, role } } = userContext;
+    yield put(setUser({ logicalId, identifiers, name, telecoms, addresses, role }));
   } catch (error) {
     yield put(getUserContextError(getErrorDetail(error)));
   }
