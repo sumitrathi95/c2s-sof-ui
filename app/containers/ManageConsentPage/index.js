@@ -76,9 +76,9 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     let careCoordinatorContext = null;
     if (user && user.role && isCareCoordinator(user.role)) {
       careCoordinatorContext = {
-        logicalId: user.fhirResource.logicalId,
-        name: mapResourceName(user.fhirResource.name),
-        identifiers: user.fhirResource.identifiers,
+        logicalId: user.logicalId,
+        name: mapResourceName(user.name),
+        identifiers: user.identifiers,
         organization: {
           logicalId: organization.logicalId,
           name: organization.name,

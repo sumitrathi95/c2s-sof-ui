@@ -15,8 +15,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { makeSelectLocation } from 'containers/App/selectors';
-import { isAdminWorkspace } from 'containers/App/helpers';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -58,18 +56,16 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
-    const { organization, location: { pathname } } = this.props;
+    const { organization } = this.props;
     this.setState({
       isShowSearchResult: true,
       searchPractitioners: { searchType, searchValue, includeInactive },
     });
 
-    const organizationId = isAdminWorkspace(pathname) ? null : organization.logicalId;
-
     if (organization) {
-      this.props.searchPractitioners(searchType, searchValue, includeInactive, organizationId, this.state.searchPractitioners.currentPage);
+      this.props.searchPractitioners(searchType, searchValue, includeInactive, organization.logicalId, this.state.searchPractitioners.currentPage);
     } else {
-      this.props.searchPractitioners(searchType, searchValue, includeInactive, organizationId, this.state.searchPractitioners.currentPage);
+      this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
     }
   }
 
@@ -158,13 +154,11 @@ Practitioners.propTypes = {
   getPractitionersInOrganization: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
-  location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   practitioners: makeSelectPractitioners(),
-  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {

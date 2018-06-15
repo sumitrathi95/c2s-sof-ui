@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for ShowHideWrapper
+ * Asynchronously loads the component for LogoutPage
  *
  */
 

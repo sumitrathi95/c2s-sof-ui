@@ -1,6 +1,6 @@
 /**
  *
- * HomeButton
+ * MenuButton
  *
  */
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ import Button from 'material-ui-next/Button/index';
 import common from 'material-ui-next/colors/common';
 
 
-const HomeButton = styled(Button)`
+const MenuButton = styled(Button)`
   && {
     color: #6c4e70;
     font-size: 20px;
@@ -22,6 +22,6 @@ const HomeButton = styled(Button)`
   }
 `;
 
-HomeButton.propTypes = {};
+MenuButton.propTypes = {};
 
-export default HomeButton;
+export default MenuButton;

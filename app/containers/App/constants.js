@@ -42,30 +42,11 @@ export const CONSENT_ACTION = 'CONSENT_ACTION';
 export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
 
 /**
- *  Constants to hold the internal urls
- * @type {string}
- */
-export const MANAGE_PRACTITIONER_URL = '/c2s-sof-ui/manage-practitioner';
-
-/**
- *  Constants to hold the workspace urls
- * @type {string}
- */
-export const ADMIN_WORKSPACE = '/ocp-ui/admin-workspace';
-
-/**
  *  Constants to hold the business functional role codes
  * @type {string}
  */
-export const OCP_ADMIN_ROLE_CODE = 'ocpAdminRole';
 export const PATIENT_ROLE_CODE = 'patientRole';
 export const CARE_COORDINATOR_ROLE_CODE = '171M00000X';
-export const CARE_MANAGER_ROLE_CODE = 'CAREMNGR';
-export const ORGANIZATION_ADMIN_ROLE_CODE = 'ORGADMIN';
-export const PCP_ROLE_CODE = 'PCP';
-export const BENEFITS_SPECIALIST_ROLE_CODE = 'BENETSPT';
-export const HEALTH_ASSISTANT_ROLE_CODE = 'HASST';
-export const FRONT_OFFICE_ROLE_CODE = 'FORECEPT';
 
 /**
  *  Constants to hold the default pagination page size and start page number
