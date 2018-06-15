@@ -13,6 +13,7 @@ import {
   GET_ORGANIZATION_ERROR,
   GET_PATIENT,
   GET_PATIENT_ERROR,
+  GET_USER_CONTEXT_ERROR,
   INITIALIZE_CONTEXT,
   REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
@@ -85,6 +86,13 @@ export function refreshPatient() {
 export function refreshOrganization() {
   return {
     type: REFRESH_ORGANIZATION,
+  };
+}
+
+export function getUserContextError(error) {
+  return {
+    type: GET_USER_CONTEXT_ERROR,
+    error,
   };
 }
 

@@ -6,10 +6,12 @@ import {
   getOrganizationError,
   getPatient as getPatientAction,
   getPatientError,
+  getUserContextError,
   refreshOrganization,
   refreshPatient,
   setOrganization,
   setPatient,
+  setUser,
 } from './contextActions';
 import {
   GET_ORGANIZATION,
@@ -19,7 +21,7 @@ import {
   REFRESH_PATIENT,
 } from './contextConstants';
 import { makeSelectOrganization, makeSelectPatient } from './contextSelectors';
-import { getErrorDetail, getOrganization, getPatient } from './contextApi';
+import { getErrorDetail, getOrganization, getPatient, getUserContext } from './contextApi';
 
 
 export function* initializeContextSaga({ patientId, organizationId }) {
@@ -35,6 +37,14 @@ export function* initializeContextSaga({ patientId, organizationId }) {
     yield put(refreshOrganization());
   } else {
     yield put(getOrganizationAction(organizationId));
+  }
+
+  try {
+    const userContext = yield call(getUserContext);
+    const { fhirResource: { logicalId, identifiers, name, telecoms, addresses } } = userContext;
+    yield put(setUser({ logicalId, identifiers, name, telecoms, addresses }));
+  } catch (error) {
+    yield put(getUserContextError(getErrorDetail(error)));
   }
 }
 

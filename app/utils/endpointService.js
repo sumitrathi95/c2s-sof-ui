@@ -9,12 +9,13 @@ const BASE_API_URL = '/c2s-sof-ui-api';
  *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
  */
+export const LOGIN_API_URL = 'c2s/utils/LOGIN_API_URL';
+export const LOOKUPS_API_URL = 'c2s/utils/LOOKUPS_API_URL';
 export const BASE_CONSENTS_API_URL = 'c2s/utils/BASE_CONSENTS_API_URL';
 export const BASE_PATIENTS_API_URL = 'c2s/utils/BASE_PATIENTS_API_URL';
 export const BASE_ORGANIZATIONS_API_URL = 'c2s/utils/BASE_ORGANIZATIONS_API_URL';
-export const LOGIN_API_URL = 'c2s/utils/LOGIN_API_URL';
-export const LOOKUPS_API_URL = 'c2s/utils/LOOKUPS_API_URL';
 export const BASE_PRACTITIONERS_API_URL = 'c2s/utils/BASE_PRACTITIONERS_API_URL';
+export const BASE_USER_CONTEXT_API_URL = 'c2s/utils/BASE_USER_CONTEXT_API_URL';
 
 /**
  * Configure all secured and unsecured endpoints
@@ -23,8 +24,10 @@ export const BASE_PRACTITIONERS_API_URL = 'c2s/utils/BASE_PRACTITIONERS_API_URL'
  */
 const apiEndpoints = [
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/lookups`, isSecured: false },
+  { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
 
   // Todo: Change configuration to c2s sof ui urls
+  { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/consents` },
   { key: BASE_PATIENTS_API_URL, url: `${BASE_API_URL}/patients` },
   { key: BASE_ORGANIZATIONS_API_URL, url: `${BASE_API_URL}/organizations` },

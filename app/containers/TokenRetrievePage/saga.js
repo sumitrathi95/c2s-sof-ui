@@ -44,7 +44,6 @@ export function* getTokenSaga({ code, state }) {
         yield put(initializeContext(user_id, patient, organization));
         yield put(push('/c2s-sof-ui'));
       } catch (error) {
-        console.log('error', error);
         yield put(push('/c2s-sof-ui/error?code=tokenRetrieveFailed'));
       }
     }
