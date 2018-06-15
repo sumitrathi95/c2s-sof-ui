@@ -3,8 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const proxy = require('express-http-proxy');
-const chalk = require('chalk');
+const configureProxy = require('./configureProxy');
 
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
@@ -22,24 +21,8 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 
-  // Configure proxy for dev environment
-  const check = '✓';
-  const cross = '✗';
-  // Todo: Change to c2s api url
-  const routes = [
-    { route: '/c2s-sof-ui-api', url: 'http://localhost:8444' },
-  ];
-  if (proxy) {
-    console.log('proxy setup:');
-    routes.forEach(({ route, url }) => {
-      app.use(route, proxy(url));
-      console.log(`\t ${route} -> ${url} ${(chalk && chalk.green(check)) || check}`);
-    });
-  } else {
-    routes.forEach(({ route, url }) => {
-      console.log(`\t ${route} -> ${url} ${(chalk && chalk.green(cross)) || cross}`);
-    });
-  }
+  // Configure proxy
+  configureProxy(app);
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
