@@ -9,15 +9,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import { withStyles } from 'material-ui-next/styles';
 import Paper from 'material-ui-next/Paper';
 import Typography from 'material-ui-next/Typography';
 import { LinearProgress } from 'material-ui-next/Progress';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
+import { makeSelectConfig } from 'containers/App/selectors';
 import saga from './saga';
 import messages from './messages';
 import { getToken } from './actions';
@@ -38,17 +42,27 @@ export class TokenRetrievePage extends React.Component {
     super(props);
     this.getAuthorizationParams = this.getAuthorizationParams.bind(this);
     this.getMissingRequiredParamKeys = this.getMissingRequiredParamKeys.bind(this);
+    this.getTokenIfConfigReady = this.getTokenIfConfigReady.bind(this);
   }
 
-  componentDidMount() {
+  shouldComponentUpdate(nextProps) {
+    const { config } = this.props;
     const { code, state } = this.getAuthorizationParams();
-    if (code && state) {
-      this.props.getToken(code, state);
+    const { config: configNew } = nextProps;
+    const { code: codeNew, state: stateNew } = this.getAuthorizationParams(nextProps);
+    return !isEqual(code, codeNew) || !isEqual(state, stateNew) || !isEqual(config, configNew);
+  }
+
+  getTokenIfConfigReady() {
+    const { config } = this.props;
+    const { code, state } = this.getAuthorizationParams();
+    if (code && state && config) {
+      this.props.getToken(code, state, config);
     }
   }
 
-  getAuthorizationParams() {
-    const { location } = this.props;
+  getAuthorizationParams(props = this.props) {
+    const { location } = props;
     const { code, state } = queryString.parse(location.search);
     return Util.pickByNonNullAndNonEmptyString({ code, state });
   }
@@ -58,8 +72,19 @@ export class TokenRetrievePage extends React.Component {
     return TokenRetrievePage.REQUIRED_PARAMS.filter((p) => !paramKeys.includes(p));
   }
 
-  render() {
+  renderRedirectToErrorPage() {
+    return (
+      <Redirect
+        to={{
+          pathname: '/c2s-sof-ui/error',
+          search: `?code=invalidTokenRetrieveParams&details=${this.getMissingRequiredParamKeys().join(', ')}`,
+        }}
+      />);
+  }
+
+  renderDefault() {
     const { classes } = this.props;
+    this.getTokenIfConfigReady();
     return (
       <div>
         <Helmet>
@@ -77,23 +102,32 @@ export class TokenRetrievePage extends React.Component {
       </div>
     );
   }
+
+  render() {
+    if (this.getMissingRequiredParamKeys().length > 0) {
+      return this.renderRedirectToErrorPage();
+    }
+    return this.renderDefault();
+  }
 }
 
 TokenRetrievePage.propTypes = {
   getToken: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
   classes: PropTypes.object,
+  config: PropTypes.object,
 };
+
+const mapStateToProps = createStructuredSelector({
+  config: makeSelectConfig(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
-    getToken: (code, state) => dispatch(getToken(code, state)),
+    getToken: (code, state, config) => dispatch(getToken(code, state, config)),
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withSaga = injectSaga({ key: 'tokenRetrievePage', saga });
 

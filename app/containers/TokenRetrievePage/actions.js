@@ -6,11 +6,12 @@
 
 import { GET_TOKEN, GET_TOKEN_ERROR, GET_TOKEN_SUCCESS } from './constants';
 
-export function getToken(code, state) {
+export function getToken(code, state, config) {
   return {
     type: GET_TOKEN,
     code,
     state,
+    config,
   };
 }
 
