@@ -1,7 +1,7 @@
 {
-  "name": "ocp-ui-server",
+  "name": "c2s-sof-ui-server",
   "version": "0.12.0-SNAPSHOT",
-  "description": "OCP UI Server",
+  "description": "C2S SoF App UI Server",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server",
@@ -14,6 +14,7 @@
     "compression": "1.6.2",
     "cross-env": "5.0.0",
     "express": "4.15.3",
+    "express-http-proxy": "1.1.0",
     "ip": "1.1.5",
     "minimist": "1.2.0"
   }
