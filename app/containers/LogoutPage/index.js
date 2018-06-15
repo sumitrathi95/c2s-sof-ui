@@ -10,10 +10,13 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-import Paper from 'material-ui-next/Paper';
+import Card, { CardActions, CardContent } from 'material-ui-next/Card';
+import Typography from 'material-ui-next/Typography';
 import Button from 'material-ui-next/Button';
 
+import Padding from 'components/Padding';
 import messages from './messages';
+
 
 function LogoutPage() {
   return (
@@ -22,12 +25,23 @@ function LogoutPage() {
         <title>Logout</title>
         <meta name="description" content="Logout page of Consent2Share Smart On Fhir" />
       </Helmet>
-      <Paper>
-        <FormattedMessage {...messages.header} />
-        <Button onClick={() => window.close()}>
-          Close window
-        </Button>
-      </Paper>
+      <Padding top={30} right={20} left={20}>
+        <Card>
+          <CardContent>
+            <Typography gutterBottom variant="headline" component="h2">
+              <FormattedMessage {...messages.header} />
+            </Typography>
+            <Typography component="p">
+              <FormattedMessage {...messages.content} />
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button color="default" onClick={() => window.close()}>
+              Close
+            </Button>
+          </CardActions>
+        </Card>
+      </Padding>
     </div>
   );
 }
