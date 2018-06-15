@@ -19,7 +19,7 @@ function PatientBanner(props) {
   const { name, identifier, birthDate, genderCode } = flattenedPatient;
   return (
     <PatientBannerSection>
-      <Padding top="10px" bottom="10px" left="10px" right="10px">
+      <Padding left={10} right={10} top={10} bottom={10}>
         <Grid columns="5% 95%">
           <Cell>
             <UserAvatar size={65} genderCode={patient.genderCode} />

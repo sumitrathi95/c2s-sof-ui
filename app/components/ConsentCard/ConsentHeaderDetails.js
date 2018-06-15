@@ -17,7 +17,7 @@ function ConsentHeaderDetails(props) {
   return (
     <div>
       {medicalInformation &&
-      <Padding left="10px" right="10px" top="5px" bottom="5px">
+      <Padding left={10} right={10} top={5} bottom={5}>
         <TextLabelGroup
           boldText={false}
           label={<FormattedMessage {...messages.consentCardHeader.medicalInfoLabel} />}
@@ -39,7 +39,7 @@ function ConsentHeaderDetails(props) {
       }
       <Divider />
       {purpose &&
-      <Padding left="10px" right="10px" top="5px" bottom="5px">
+      <Padding left={10} right={10} top={5} bottom={5}>
         <TextLabelGroup
           boldText={false}
           label={<FormattedMessage {...messages.consentCardHeader.purposeLabel} />}

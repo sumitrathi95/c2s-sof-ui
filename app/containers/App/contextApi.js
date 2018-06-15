@@ -1,9 +1,4 @@
-import {
-  BASE_ORGANIZATIONS_API_URL,
-  BASE_PATIENTS_API_URL,
-  BASE_USER_CONTEXT_API_URL,
-  getEndpoint,
-} from 'utils/endpointService';
+import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
 
 export function getPatient(id) {
@@ -19,8 +14,20 @@ export function getOrganization(id) {
 }
 
 export function getUserContext() {
-  const requestEndpoint = getEndpoint(BASE_USER_CONTEXT_API_URL);
-  return request(requestEndpoint);
+  // Todo: Get user context from backend
+  const fhirResource = {
+    logicalId: '123',
+    identifiers: null,
+    name: [{
+      firstName: 'Preston',
+      lastName: 'Hawkins',
+    }],
+    telecoms: null,
+    addresses: null,
+  };
+  return {
+    fhirResource,
+  };
 }
 
 export function getErrorDetail(error) {

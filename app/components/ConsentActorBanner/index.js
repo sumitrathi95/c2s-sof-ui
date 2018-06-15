@@ -58,7 +58,7 @@ class ConsentActorBanner extends React.Component {
               </Cell>
             </Grid>
           </BannerHeaderCell>
-          <Padding left="2px" right="2px">
+          <Padding left={2} right={2}>
             <Cell>
               {addresses}
             </Cell>
