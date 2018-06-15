@@ -21,7 +21,6 @@ import { getPractitionersInOrganization, initializePractitioners, searchPractiti
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectPractitioners from './selectors';
-import DefaultViewComponent from './DefaultViewComponent';
 import { flattenPractitionerData } from './helpers';
 
 
@@ -160,10 +159,6 @@ Practitioners.propTypes = {
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
   location: PropTypes.object.isRequired,
-};
-
-Practitioners.defaultProps = {
-  component: DefaultViewComponent,
 };
 
 const mapStateToProps = createStructuredSelector({
