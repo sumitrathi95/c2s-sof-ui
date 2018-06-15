@@ -5,24 +5,7 @@
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import identity from 'lodash/identity';
-
-import { PHONE_SYSTEM } from 'utils/constants';
-import {
-  ADMIN_WORKSPACE,
-  BENEFITS_SPECIALIST_ROLE_CODE,
-  CARE_COORDINATOR_ROLE_CODE,
-  CARE_MANAGER_ROLE_CODE,
-  EMPTY_STRING,
-  FRONT_OFFICE_ROLE_CODE,
-  HEALTH_ASSISTANT_ROLE_CODE,
-  NEW_LINE_CHARACTER,
-  OCP_ADMIN_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE,
-  PATIENT_ROLE_CODE,
-  PATIENT_WORKSPACE,
-  PCP_ROLE_CODE,
-  PRACTITIONER_WORKSPACE,
-} from 'containers/App/constants';
+import { ADMIN_WORKSPACE, EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
 
 
 const SSN_SYSTEM = '2.16.840.1.113883.4.1';
@@ -62,13 +45,6 @@ export function mapToTelecoms(telecoms) {
   }).join(NEW_LINE_CHARACTER);
 }
 
-export function mapToPhone(telecoms) {
-  return telecoms && telecoms
-    .filter((telecom) => telecom.system === PHONE_SYSTEM)
-    .map((telecom) => telecom.value)
-    .join(NEW_LINE_CHARACTER);
-}
-
 export function mapToAddresses(addresses) {
   return addresses && addresses
     .map((address) => combineAddress(address))
@@ -88,57 +64,6 @@ export function combineAddress(address) {
     .join(', ');
 }
 
-export function getLinkUrlByRole(role) {
-  let linkUrl;
-  switch (role) {
-    case OCP_ADMIN_ROLE_CODE:
-      linkUrl = ADMIN_WORKSPACE;
-      break;
-    case PATIENT_ROLE_CODE:
-      linkUrl = PATIENT_WORKSPACE;
-      break;
-    default:
-      linkUrl = PRACTITIONER_WORKSPACE;
-  }
-  return linkUrl;
-}
-
-export function getRoleByScope(scope) {
-  let role;
-  switch (scope.split('.').pop(-1)) {
-    case 'ocpAdmin':
-      role = OCP_ADMIN_ROLE_CODE;
-      break;
-    case 'patient':
-      role = PATIENT_ROLE_CODE;
-      break;
-    case 'careCoordinator':
-      role = CARE_COORDINATOR_ROLE_CODE;
-      break;
-    case 'careManager':
-      role = CARE_MANAGER_ROLE_CODE;
-      break;
-    case 'organizationAdministrator':
-      role = ORGANIZATION_ADMIN_ROLE_CODE;
-      break;
-    case 'primaryCareProvider':
-      role = PCP_ROLE_CODE;
-      break;
-    case 'benefitsSpecialist':
-      role = BENEFITS_SPECIALIST_ROLE_CODE;
-      break;
-    case 'healthAssistant':
-      role = HEALTH_ASSISTANT_ROLE_CODE;
-      break;
-    case 'frontOfficeReceptionist':
-      role = FRONT_OFFICE_ROLE_CODE;
-      break;
-    default:
-      role = null;
-  }
-  return role;
-}
-
 function maskSsn(value) {
   let maskSsnValue = value;
   if (!isEmpty(value)) {
@@ -146,7 +71,6 @@ function maskSsn(value) {
   }
   return maskSsnValue;
 }
-
 
 export function isAdminWorkspace(pathname) {
   return pathname && (pathname === ADMIN_WORKSPACE);

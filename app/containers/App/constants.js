@@ -25,7 +25,6 @@ export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
  * @type {string}
  */
 export const GLOBAL_LOOKUP_STATE_KEY = 'lookup';
-export const GLOBAL_AUTH_STATE_KEY = 'auth';
 
 /**
  * Look up types constants
