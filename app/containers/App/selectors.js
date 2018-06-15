@@ -11,7 +11,7 @@ const makeSelectLocation = () => createSelector(
 
 const makeSelectConfig = () => createSelector(
   selectGlobalDomain,
-  (globalState) => globalState.get('config').toJS(),
+  (globalState) => globalState.get('config') && globalState.get('config').toJS(),
 );
 
 export default selectGlobalDomain;
