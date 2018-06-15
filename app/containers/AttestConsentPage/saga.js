@@ -2,14 +2,18 @@
 
 
 import { goBack } from 'react-router-redux';
-import { call, put, takeLatest, all, select } from 'redux-saga/effects';
-
-import { getLoginErrorDetail, login } from 'containers/LoginPage/api';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectUser } from 'containers/Context/selectors';
-import { getConsent, attestConsent } from './api';
-import { getConsentError, getConsentSuccess, checkPasswordError, attestConsentError, checkPasswordSuccess } from './actions';
-import { GET_CONSENT, CHECK_PASSWORD, ATTEST_CONSENT } from './constants';
+import { attestConsent, getConsent, verifyAttestor, verifyAttestorErrorDetail } from './api';
+import {
+  attestConsentError,
+  checkPasswordError,
+  checkPasswordSuccess,
+  getConsentError,
+  getConsentSuccess,
+} from './actions';
+import { ATTEST_CONSENT, CHECK_PASSWORD, GET_CONSENT } from './constants';
 
 
 function* getConsentSaga({ logicalId }) {
@@ -28,12 +32,12 @@ function* checkPasswordSaga(action) {
     const user = yield select(makeSelectUser());
     const username = user.user_name;
     const password = action.password;
-    yield call(login, { username, password });
+    yield call(verifyAttestor, { username, password });
     yield put(checkPasswordSuccess(true));
     yield call(action.handleSubmitting);
   } catch (error) {
-    yield put(checkPasswordError(getLoginErrorDetail(error)));
-    yield put(showNotification('Failed to login.'));
+    yield put(checkPasswordError(verifyAttestorErrorDetail(error)));
+    yield put(showNotification('Failed to verify attestor.'));
     yield call(action.handleSubmitting);
   }
 }

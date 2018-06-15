@@ -25,7 +25,7 @@ export function* getTokenSaga({ code, state }) {
       // TODO: get hardcoded parameters from the configured backend
       const grantType = 'authorization_code';
       const redirectUri = 'http://localhost:9000';
-      const clientId = 'c2s';
+      const clientId = 'c2s_sof_ui';
       const query = queryString.stringify({
         grant_type: grantType,
         code,

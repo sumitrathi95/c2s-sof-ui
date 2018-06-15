@@ -12,9 +12,7 @@
 
 import { combineReducers } from 'redux-immutable';
 import lookupReducer from './lookupReducer';
-import authReducer from './authReducer';
 
 export default combineReducers({
-  auth: authReducer,
   lookup: lookupReducer,
 });
