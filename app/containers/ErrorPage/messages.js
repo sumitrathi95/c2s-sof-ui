@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'c2s.containers.ErrorPage.invalidLaunchParams',
     defaultMessage: 'Missing launch parameters: {details}',
   },
+  invalidTokenRetrieveParams: {
+    id: 'c2s.containers.ErrorPage.invalidTokenRetrieveParams',
+    defaultMessage: 'Missing token retrieve parameters: {details}',
+  },
   invalidState: {
     id: 'c2s.containers.ErrorPage.invalidState',
     defaultMessage: 'Invalid state, state cannot be found in session storage. {details}',
