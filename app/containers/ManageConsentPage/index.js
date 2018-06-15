@@ -20,7 +20,7 @@ import {
   makeSelectPurposeOfUse,
   makeSelectSecurityLabel,
 } from 'containers/App/lookupSelectors';
-import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/Context/selectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';

@@ -15,8 +15,8 @@ import { MenuItem } from 'material-ui-next/Menu';
 
 import injectSaga from 'utils/injectSaga';
 import { makeSelectConfig } from 'containers/App/selectors';
-import { clearAll } from 'containers/Context/actions';
-import { makeSelectPatient } from 'containers/Context/selectors';
+import { clearAll } from 'containers/App/contextActions';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import { CARE_COORDINATOR_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import { logout } from './actions';

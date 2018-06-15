@@ -14,7 +14,7 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
 import { isAdminWorkspace } from 'containers/App/helpers';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';

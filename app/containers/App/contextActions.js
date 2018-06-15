@@ -19,7 +19,7 @@ import {
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
-} from './constants';
+} from './contextConstants';
 
 
 export function initializeContext(userId, patientId, organizationId) {

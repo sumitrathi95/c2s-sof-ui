@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import request from 'utils/request';
 import { storeToken } from 'utils/tokenService';
 import LaunchService from 'utils/LaunchService';
-import { initializeContext } from 'containers/Context/actions';
+import { initializeContext } from 'containers/App/contextActions';
 import { GET_TOKEN } from './constants';
 
 export function* getTokenSaga({ code, state }) {

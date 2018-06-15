@@ -17,7 +17,6 @@ import { Redirect, Switch } from 'react-router-dom';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
-import Context from 'containers/Context';
 import Notification from 'containers/Notification';
 import PrivateLayoutRoute from 'components/PrivateLayoutRoute';
 import PublicLayoutRoute from 'components/PublicLayoutRoute';
@@ -42,19 +41,17 @@ export function App() {
         <meta name="description" content="Consent2Share Smart on Fhir application" />
       </Helmet>
       <div>
-        <Context>
-          <Switch>
-            <PublicLayoutRoute exact path="/" component={TokenRetrievePage} />
-            <Redirect exact from="/c2s-sof-ui/" to="/c2s-sof-ui/home" />
-            <PublicLayoutRoute exact path="/c2s-sof-ui/launch" component={LaunchPage} />
-            <PublicLayoutRoute exact path="/c2s-sof-ui/error" component={ErrorPage} />
-            <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
-            <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
-            <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
-            <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
-            <PublicLayoutRoute component={NotFoundPage} />
-          </Switch>
-        </Context>
+        <Switch>
+          <PublicLayoutRoute exact path="/" component={TokenRetrievePage} />
+          <Redirect exact from="/c2s-sof-ui/" to="/c2s-sof-ui/home" />
+          <PublicLayoutRoute exact path="/c2s-sof-ui/launch" component={LaunchPage} />
+          <PublicLayoutRoute exact path="/c2s-sof-ui/error" component={ErrorPage} />
+          <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
+          <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
+          <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
+          <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
+          <PublicLayoutRoute component={NotFoundPage} />
+        </Switch>
         <Notification />
       </div>
     </div>

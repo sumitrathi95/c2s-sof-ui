@@ -10,10 +10,16 @@ import {
   refreshPatient,
   setOrganization,
   setPatient,
-} from './actions';
-import { GET_ORGANIZATION, GET_PATIENT, INITIALIZE_CONTEXT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './constants';
-import { makeSelectOrganization, makeSelectPatient } from './selectors';
-import { getErrorDetail, getOrganization, getPatient } from './api';
+} from './contextActions';
+import {
+  GET_ORGANIZATION,
+  GET_PATIENT,
+  INITIALIZE_CONTEXT,
+  REFRESH_ORGANIZATION,
+  REFRESH_PATIENT,
+} from './contextConstants';
+import { makeSelectOrganization, makeSelectPatient } from './contextSelectors';
+import { getErrorDetail, getOrganization, getPatient } from './contextApi';
 
 
 export function* initializeContextSaga({ patientId, organizationId }) {

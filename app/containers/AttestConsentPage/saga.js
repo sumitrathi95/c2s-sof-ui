@@ -4,7 +4,7 @@
 import { goBack } from 'react-router-redux';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
-import { makeSelectUser } from 'containers/Context/selectors';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 import { attestConsent, getConsent, verifyAttestor, verifyAttestorErrorDetail } from './api';
 import {
   attestConsentError,
