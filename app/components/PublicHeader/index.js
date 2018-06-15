@@ -11,7 +11,7 @@ import common from 'material-ui-next/colors/common';
 
 import StyledImage from 'components/StyledImage';
 import StyledToolbar from 'components/StyledToolbar';
-import c2sBrandImg from 'images/c2s-logo.png';
+import c2sBrandWordImg from 'images/c2s-word-logo.png';
 import messages from './messages';
 
 
@@ -20,9 +20,9 @@ function PublicHeader() {
     <StyledToolbar color={common.white} height="60px">
       <ToolbarGroup>
         <StyledImage
-          height="35px"
-          width="40px"
-          src={c2sBrandImg}
+          height="46px"
+          width="175px"
+          src={c2sBrandWordImg}
           alt={<FormattedMessage {...messages.brandImg} />}
         />
       </ToolbarGroup>

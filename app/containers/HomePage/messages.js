@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.HomePage.header',
+    id: 'c2s.containers.HomePage.header',
     defaultMessage: 'This is HomePage container !',
   },
 });

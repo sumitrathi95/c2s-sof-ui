@@ -12,8 +12,8 @@ import {
 describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
-    const numberOfEndpoints = 7;
-    const numberOfUnsecuredEndpoints = 2;
+    const numberOfEndpoints = 5;
+    const numberOfUnsecuredEndpoints = 1;
 
     // Act
     const configuredEndpoints = collectEndpoints();
@@ -30,7 +30,7 @@ describe('endpointService.js', () => {
     const TEST_PATIENTS_API_URL = '/c2s-sof-ui-api/patients';
     const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-ui-api/organizations';
     const TEST_CONSENTS_API_URL = '/c2s-sof-ui-api/consents';
-    const TEST_LOOKUP_URL = '/c2s-sof-ui-api/ocp-fis/lookups';
+    const TEST_LOOKUP_URL = '/c2s-sof-ui-api/lookups';
 
     // Act
     const patientsUrl = getEndpoint(BASE_PATIENTS_API_URL);
@@ -60,8 +60,8 @@ describe('endpointService.js', () => {
 
   it('should verify the endpoint is unsecured or secured', () => {
     // Arrange
-    const TEST_LOOKUP_URL = '/c2s-sof-ui-api/ocp-fis/lookups?testquery';
-    const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-ui-api/ocp-fis/organizations?testquery';
+    const TEST_LOOKUP_URL = '/c2s-sof-ui-api/lookups?testquery';
+    const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-ui-api/organizations?testquery';
 
     // Act
     const isLookupUrlSecured = isSecuredEndpoint(TEST_LOOKUP_URL);

@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.Section.header',
+    id: 'c2s.components.Section.header',
     defaultMessage: 'This is the Section component !',
   },
 });

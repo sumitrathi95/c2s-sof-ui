@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { LinearProgress } from 'material-ui-next/Progress';
 
-import { makeSelectPatient } from 'containers/Context/selectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import PatientHome from 'components/PatientHome';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function

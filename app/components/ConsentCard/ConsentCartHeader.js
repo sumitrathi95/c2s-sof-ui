@@ -37,7 +37,7 @@ class ConsentCartHeader extends React.Component { // eslint-disable-line react/p
     const { fromActor, toActor, period } = flattenedConsent;
     return (
       <div>
-        <Padding left="10px" right="10px">
+        <Padding left={10} right={10}>
           <Grid columns="repeat(3, 1fr) 0.3fr">
             <Cell>
               <TextLabelGroup

@@ -23,7 +23,7 @@ export function* getMetadataSaga({ iss, launch }) {
   LaunchService.saveLaunchState(state, authorize, token);
 
   // TODO: get hardcoded parameters from the configured backend
-  const c2sClientId = 'c2s';
+  const c2sClientId = 'c2s_sof_ui';
   const c2sScopes = 'patient/Patient.read patient/Consent.* launch launch/organization launch/patient openid profile';
   const c2sRedirectUri = 'http://localhost:9000';
   const url = `${authorize}?client_id=${c2sClientId}&response_type=code&scope=${c2sScopes}&redirect_uri=${c2sRedirectUri}&state=${state}&aud=${iss}&launch=${launch}`;

@@ -13,13 +13,14 @@ import {
   GET_ORGANIZATION_ERROR,
   GET_PATIENT,
   GET_PATIENT_ERROR,
+  GET_USER_CONTEXT_ERROR,
   INITIALIZE_CONTEXT,
   REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
-} from './constants';
+} from './contextConstants';
 
 
 export function initializeContext(userId, patientId, organizationId) {
@@ -85,6 +86,13 @@ export function refreshPatient() {
 export function refreshOrganization() {
   return {
     type: REFRESH_ORGANIZATION,
+  };
+}
+
+export function getUserContextError(error) {
+  return {
+    type: GET_USER_CONTEXT_ERROR,
+    error,
   };
 }
 

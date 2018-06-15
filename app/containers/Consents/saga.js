@@ -2,7 +2,7 @@
 
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { GET_CONSENTS } from 'containers/Consents/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/Context/selectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getConsentsError, getConsentsSuccess } from './actions';
 import { getConsents, getErrorDetail } from './api';
 

@@ -22,6 +22,7 @@ export const GET_PATIENT = 'c2s/Context/GET_PATIENT';
 export const GET_PATIENT_ERROR = 'c2s/Context/GET_PATIENT_ERROR';
 export const GET_ORGANIZATION = 'c2s/Context/GET_ORGANIZATION';
 export const GET_ORGANIZATION_ERROR = 'c2s/Context/GET_ORGANIZATION_ERROR';
+export const GET_USER_CONTEXT_ERROR = 'c2s/Context/GET_USER_CONTEXT_ERROR';
 
 
 /**

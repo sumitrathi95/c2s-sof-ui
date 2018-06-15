@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.ControlledAccordion.header',
+    id: 'c2s.components.ControlledAccordion.header',
     defaultMessage: 'This is the ControlledAccordion component !',
   },
 });

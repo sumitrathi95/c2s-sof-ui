@@ -1,7 +1,7 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 import { getLookupTypesNotInStore } from 'utils/LookupService';
-import contextRootSaga from 'containers/Context/saga';
+import contextRootSaga from './contextSaga';
 import { fetchLookups } from './api';
 import { GET_LOOKUPS } from './constants';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from './actions';

@@ -13,6 +13,23 @@ export function getOrganization(id) {
   return request(requestURL);
 }
 
+export function getUserContext() {
+  // Todo: Get user context from backend
+  const fhirResource = {
+    logicalId: '123',
+    identifiers: null,
+    name: [{
+      firstName: 'Preston',
+      lastName: 'Hawkins',
+    }],
+    telecoms: null,
+    addresses: null,
+  };
+  return {
+    fhirResource,
+  };
+}
+
 export function getErrorDetail(error) {
   let errorDetail = error.message;
   if (error && error.message === 'Failed to fetch') {

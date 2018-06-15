@@ -7,31 +7,31 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   purposeOfUseTitle: {
-    id: 'ocpui.components.PurposeOfUse.purposeOfUseTitle',
+    id: 'c2s.components.PurposeOfUse.purposeOfUseTitle',
     defaultMessage: 'Choose for what purposes your medical information may be used.',
   },
   purposeOfUseSubTitle: {
-    id: 'ocpui.components.PurposeOfUse.purposeOfUseSubTitle',
+    id: 'c2s.components.PurposeOfUse.purposeOfUseSubTitle',
     defaultMessage: '<strong>SHARE</strong> my medical record ONLY for the selected purposes of use.',
   },
   dialogPurposeOfUseTitle: {
-    id: 'ocpui.components.PurposeOfUse.dialogPurposeOfUseTitle',
+    id: 'c2s.components.PurposeOfUse.dialogPurposeOfUseTitle',
     defaultMessage: 'Share for selected purpose only',
   },
   addPurposeOfUseButton: {
-    id: 'ocpui.components.PurposeOfUse.addPurposeOfUseButton',
+    id: 'c2s.components.PurposeOfUse.addPurposeOfUseButton',
     defaultMessage: 'Edit',
   },
   purposeOfUseInfo: {
-    id: 'ocpui.components.PurposeOfUse.purposeOfUseInfo',
+    id: 'c2s.components.PurposeOfUse.purposeOfUseInfo',
     defaultMessage: 'Share my iformation only for specified purposes of use.',
   },
   purposeOfUse: {
-    id: 'ocpui.components.PurposeOfUse.purposeOfUse',
+    id: 'c2s.components.PurposeOfUse.purposeOfUse',
     defaultMessage: 'Share my iformation only for specified purposes of use.',
   },
   okButton: {
-    id: 'ocpui.components.PurposeOfUse.okButton',
+    id: 'c2s.components.PurposeOfUse.okButton',
     defaultMessage: 'OK',
   },
 });

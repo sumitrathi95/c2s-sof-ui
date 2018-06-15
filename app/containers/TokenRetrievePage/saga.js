@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import request from 'utils/request';
 import { storeToken } from 'utils/tokenService';
 import LaunchService from 'utils/LaunchService';
-import { initializeContext } from 'containers/Context/actions';
+import { initializeContext } from 'containers/App/contextActions';
 import { GET_TOKEN } from './constants';
 
 export function* getTokenSaga({ code, state }) {
@@ -25,7 +25,7 @@ export function* getTokenSaga({ code, state }) {
       // TODO: get hardcoded parameters from the configured backend
       const grantType = 'authorization_code';
       const redirectUri = 'http://localhost:9000';
-      const clientId = 'c2s';
+      const clientId = 'c2s_sof_ui';
       const query = queryString.stringify({
         grant_type: grantType,
         code,
@@ -44,7 +44,6 @@ export function* getTokenSaga({ code, state }) {
         yield put(initializeContext(user_id, patient, organization));
         yield put(push('/c2s-sof-ui'));
       } catch (error) {
-        console.log('error', error);
         yield put(push('/c2s-sof-ui/error?code=tokenRetrieveFailed'));
       }
     }

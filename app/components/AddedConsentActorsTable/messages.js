@@ -7,19 +7,19 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.AddedConsentActorsTable.header',
+    id: 'c2s.components.AddedConsentActorsTable.header',
     defaultMessage: 'This is the AddedConsentActorsTable component !',
   },
   name: {
-    id: 'ocpui.components.AddedConsentActorsTable.name',
+    id: 'c2s.components.AddedConsentActorsTable.name',
     defaultMessage: 'Name',
   },
   type: {
-    id: 'ocpui.components.AddedConsentActorsTable.type',
+    id: 'c2s.components.AddedConsentActorsTable.type',
     defaultMessage: 'Type',
   },
   identifier: {
-    id: 'ocpui.components.AddedConsentActorsTable.identifier',
+    id: 'c2s.components.AddedConsentActorsTable.identifier',
     defaultMessage: 'Identifier',
   },
 });

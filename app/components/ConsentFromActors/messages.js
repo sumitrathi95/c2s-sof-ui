@@ -7,19 +7,19 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   consentFromActorsButton: {
-    id: 'ocpui.components.ConsentFromActors.consentFromActorsButton',
+    id: 'c2s.components.ConsentFromActors.consentFromActorsButton',
     defaultMessage: 'To authorize my information to',
   },
   consentFromActorsDialogTitle: {
-    id: 'ocpui.components.ConsentFromActors.consentFromActorsDialogTitle',
+    id: 'c2s.components.ConsentFromActors.consentFromActorsDialogTitle',
     defaultMessage: 'Select from actors',
   },
   confirmButton: {
-    id: 'ocpui.components.ConsentFromActors.confirmButton',
+    id: 'c2s.components.ConsentFromActors.confirmButton',
     defaultMessage: 'Confirm',
   },
   cancelButton: {
-    id: 'ocpui.components.ConsentFromActors.cancelButton',
+    id: 'c2s.components.ConsentFromActors.cancelButton',
     defaultMessage: 'Cancel',
   },
 });

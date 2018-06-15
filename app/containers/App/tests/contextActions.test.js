@@ -6,7 +6,7 @@ import {
   setOrganization,
   setPatient,
   setUser,
-} from 'containers/Context/actions';
+} from 'containers/App/contextActions';
 import {
   CLEAR_ALL,
   CLEAR_ORGANIZATION,
@@ -15,7 +15,7 @@ import {
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
-} from 'containers/Context/constants';
+} from 'containers/App/contextConstants';
 
 
 describe('Context actions', () => {

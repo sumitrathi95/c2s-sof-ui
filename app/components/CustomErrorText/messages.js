@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.CustomErrorText.header',
+    id: 'c2s.components.CustomErrorText.header',
     defaultMessage: 'This is the CustomErrorText component !',
   },
 });

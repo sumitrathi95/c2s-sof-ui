@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   brandImg: {
-    id: 'ocpui.components.PublicHeader.brandImg',
+    id: 'c2s.components.PublicHeader.brandImg',
     defaultMessage: 'Consent2Share brand image',
   },
 });
