@@ -10,11 +10,12 @@ import {
   GET_METADATA_ERROR,
 } from './constants';
 
-export function getMetadata(iss, launch) {
+export function getMetadata(iss, launch, config) {
   return {
     type: GET_METADATA,
     iss,
     launch,
+    config,
   };
 }
 

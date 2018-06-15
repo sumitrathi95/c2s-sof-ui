@@ -17,10 +17,12 @@ import { withStyles } from 'material-ui-next/styles';
 import Paper from 'material-ui-next/Paper';
 import Typography from 'material-ui-next/Typography';
 import { LinearProgress } from 'material-ui-next/Progress';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Util from 'utils/Util';
+import { makeSelectConfig } from 'containers/App/selectors';
 import { getMetadata } from './actions';
 import makeSelectLaunchPage from './selectors';
 import reducer from './reducer';
@@ -43,17 +45,27 @@ export class LaunchPage extends React.Component {
     super(props);
     this.getLaunchParams = this.getLaunchParams.bind(this);
     this.getMissingRequiredParamKeys = this.getMissingRequiredParamKeys.bind(this);
+    this.getMetadataIfConfigReady = this.getMetadataIfConfigReady.bind(this);
   }
 
-  componentDidMount() {
+  shouldComponentUpdate(nextProps) {
+    const { config } = this.props;
     const { iss, launch } = this.getLaunchParams();
-    if (iss && launch) {
-      this.props.getMetadata(iss, launch);
+    const { config: configNew } = nextProps;
+    const { iss: issNew, launch: launchNew } = this.getLaunchParams(nextProps);
+    return !isEqual(iss, issNew) || !isEqual(launch, launchNew) || !isEqual(config, configNew);
+  }
+
+  getMetadataIfConfigReady() {
+    const { config } = this.props;
+    const { iss, launch } = this.getLaunchParams();
+    if (iss && launch && config) {
+      this.props.getMetadata(iss, launch, config);
     }
   }
 
-  getLaunchParams() {
-    const { location } = this.props;
+  getLaunchParams(props = this.props) {
+    const { location } = props;
     const { iss, launch } = queryString.parse(location.search);
     return Util.pickByNonNullAndNonEmptyString({ iss, launch });
   }
@@ -75,6 +87,7 @@ export class LaunchPage extends React.Component {
 
   renderDefault() {
     const { classes } = this.props;
+    this.getMetadataIfConfigReady();
     return (
       <div>
         <Helmet>
@@ -103,19 +116,18 @@ export class LaunchPage extends React.Component {
 
 LaunchPage.propTypes = {
   getMetadata: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
   classes: PropTypes.object,
+  config: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   launchpage: makeSelectLaunchPage(),
+  config: makeSelectConfig(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getMetadata: (iss, launch) => dispatch(getMetadata(iss, launch)),
+    getMetadata: (iss, launch, config) => dispatch(getMetadata(iss, launch, config)),
   };
 }
 

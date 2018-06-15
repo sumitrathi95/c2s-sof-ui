@@ -1,4 +1,5 @@
-import { all, call, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import jp from 'jsonpath';
 
 import request from 'utils/request';
@@ -6,7 +7,7 @@ import Util from 'utils/Util';
 import LaunchService from 'utils/LaunchService';
 import { GET_METADATA } from './constants';
 
-export function* getMetadataSaga({ iss, launch }) {
+export function* getMetadataSaga({ iss, launch, config }) {
   LaunchService.clear();
   const state = yield call(Util.randomString, 10);
   const metadata = yield call(request, `${iss}/metadata`);
@@ -14,20 +15,25 @@ export function* getMetadataSaga({ iss, launch }) {
   const authorize = jp.query(extensions, '$..[?(@.url=="authorize")].valueUri').pop();
   const token = jp.query(extensions, '$..[?(@.url=="token")].valueUri').pop();
 
-  // TODO: remove console.log
-  console.log('metadata', metadata);
-  console.log('extensions', extensions);
-  console.log('authorize', authorize);
-  console.log('token', token);
-
   LaunchService.saveLaunchState(state, authorize, token);
 
-  // TODO: get hardcoded parameters from the configured backend
-  const c2sClientId = 'c2s_sof_ui';
-  const c2sScopes = 'patient/Patient.read patient/Consent.* launch launch/organization launch/patient openid profile';
-  const c2sRedirectUri = 'http://localhost:9000';
-  const url = `${authorize}?client_id=${c2sClientId}&response_type=code&scope=${c2sScopes}&redirect_uri=${c2sRedirectUri}&state=${state}&aud=${iss}&launch=${launch}`;
-  window.location = encodeURI(url);
+  const { clientId, scope, redirectUri } = config;
+  if (Util.hasText(clientId) && Util.hasText(scope) && Util.hasText(redirectUri)) {
+    const url = `${authorize}?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=${redirectUri}&state=${state}&aud=${iss}&launch=${launch}`;
+    window.location = encodeURI(url);
+  } else {
+    const missingConfig = [];
+    if (!Util.hasText(clientId)) {
+      missingConfig.push('client_id');
+    }
+    if (!Util.hasText(scope)) {
+      missingConfig.push('scope');
+    }
+    if (!Util.hasText(redirectUri)) {
+      missingConfig.push('redirect_uri');
+    }
+    yield put(push(`/c2s-sof-ui/error?code=missingConfig&details=${missingConfig.join(', ')}`));
+  }
 }
 
 export function* watchGetMetadataSaga() {

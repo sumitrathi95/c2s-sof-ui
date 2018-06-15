@@ -26,4 +26,8 @@ export default defineMessages({
     id: 'c2s.containers.ErrorPage.tokenRetrieveFailed',
     defaultMessage: 'Failed to retrieve token.',
   },
+  missingConfig: {
+    id: 'c2s.containers.ErrorPage.missingConfig',
+    defaultMessage: 'Missing configuration: {details}',
+  },
 });
