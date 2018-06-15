@@ -5,7 +5,7 @@
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import identity from 'lodash/identity';
-import { ADMIN_WORKSPACE, EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
+import { EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
 
 
 const SSN_SYSTEM = '2.16.840.1.113883.4.1';
@@ -70,8 +70,4 @@ function maskSsn(value) {
     maskSsnValue = new Array(value.length - 3).join('X') + value.substr(value.length - 4, 4);
   }
   return maskSsnValue;
-}
-
-export function isAdminWorkspace(pathname) {
-  return pathname && (pathname === ADMIN_WORKSPACE);
 }
