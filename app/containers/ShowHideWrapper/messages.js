@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.ShowHideWrapper.header',
+    id: 'c2s.containers.ShowHideWrapper.header',
     defaultMessage: 'This is ShowHideWrapper container !',
   },
 });

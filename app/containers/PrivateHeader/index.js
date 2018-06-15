@@ -48,7 +48,7 @@ function PrivateHeader() {
         </StyledToolbar> :
         <div>
           {removeToken()}
-          <Redirect to="/ocp-ui/login" />
+          <Redirect to="/c2s-sof-ui/error" />
         </div>
       }
     </div>

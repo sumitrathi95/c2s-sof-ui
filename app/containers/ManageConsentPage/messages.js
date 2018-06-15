@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   createHeader: {
-    id: 'ocpui.containers.ManageConsentPage.createHeader',
+    id: 'c2s.containers.ManageConsentPage.createHeader',
     defaultMessage: 'Create Consent',
   },
 });

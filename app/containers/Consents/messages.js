@@ -7,11 +7,11 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.Consents.header',
+    id: 'c2s.containers.Consents.header',
     defaultMessage: 'This is Consents container !',
   },
   buttonLabelCreateNew: {
-    id: 'ocpui.containers.Consents.buttonLabelCreateNew',
+    id: 'c2s.containers.Consents.buttonLabelCreateNew',
     defaultMessage: 'Add a new consent',
   },
 });

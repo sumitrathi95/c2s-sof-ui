@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.ExpansionTableRow.header',
+    id: 'c2s.components.ExpansionTableRow.header',
     defaultMessage: 'This is the ExpansionTableRow component !',
   },
 });

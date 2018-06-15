@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.NavigationIconMenu.header',
+    id: 'c2s.components.NavigationIconMenu.header',
     defaultMessage: 'This is the NavigationIconMenu component !',
   },
 });

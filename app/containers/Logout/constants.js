@@ -8,7 +8,7 @@
  *  Logout action types
  *  @type {string}
  */
-export const LOGOUT = 'ocpui/Logout/LOGOUT';
+export const LOGOUT = 'c2s/Logout/LOGOUT';
 
 
 /**

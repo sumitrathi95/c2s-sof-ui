@@ -49,7 +49,7 @@ export function App() {
           <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
-          <PrivateLayoutRoute path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
+          <PrivateLayoutRoute path="/c2s-sof-ui/sign-consent/:id" component={AttestConsentPage} />
           <PublicLayoutRoute component={NotFoundPage} />
         </Switch>
         <Notification />

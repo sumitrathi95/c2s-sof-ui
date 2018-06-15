@@ -7,16 +7,16 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   filterHeader: {
-    id: 'ocpui.components.FilterBar.header',
+    id: 'c2s.components.FilterBar.header',
     defaultMessage: 'Filter',
   },
   filterButtonLabel: {
-    id: 'ocpui.components.FilterBar.filterButtonLabel',
+    id: 'c2s.components.FilterBar.filterButtonLabel',
     defaultMessage: 'Filter',
   },
   validation: {
     required: {
-      id: 'ocpui.components.FilterBar.validation.required',
+      id: 'c2s.components.FilterBar.validation.required',
       defaultMessage: 'Required',
     },
   },

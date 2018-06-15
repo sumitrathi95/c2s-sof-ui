@@ -7,11 +7,11 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.NotFoundPage.header',
+    id: 'c2s.components.NotFoundPage.header',
     defaultMessage: '404 Page Not Found',
   },
   goBackButton: {
-    id: 'ocpui.components.NotFoundPage.goBackButton',
+    id: 'c2s.components.NotFoundPage.goBackButton',
     defaultMessage: 'Back to previous page',
   },
 });

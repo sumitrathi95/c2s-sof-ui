@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   selectButton: {
-    id: 'ocpui.components.ConsentActorBanner.selectButton',
+    id: 'c2s.components.ConsentActorBanner.selectButton',
     defaultMessage: 'Select this actor',
   },
 });

@@ -1,7 +1,7 @@
 {
-  "name": "ocp-ui-server",
-  "version": "0.12.0-SNAPSHOT",
-  "description": "OCP UI Server",
+  "name": "c2s-sof-ui",
+  "version": "0.1.0-SNAPSHOT",
+  "description": "Consent2Share Smart On Fhir User Interface",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server",

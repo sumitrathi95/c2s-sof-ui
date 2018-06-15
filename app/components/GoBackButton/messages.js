@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   label: {
-    id: 'ocpui.components.GoBackButton.label',
+    id: 'c2s.components.GoBackButton.label',
     defaultMessage: 'Cancel',
   },
 });

@@ -15,10 +15,10 @@ export const DEFAULT_LOCALE = 'en';
  *  Action type related constants
  * @type {string}
  */
-export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
-export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
-export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
-export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
+export const GET_LOOKUPS = 'c2s/App/GET_LOOKUPS';
+export const GET_LOOKUPS_SUCCESS = 'c2s/App/GET_LOOKUPS_SUCCESS';
+export const GET_LOOKUPS_FROM_STORE = 'c2s/App/GET_LOOKUPS_FROM_STORE';
+export const GET_LOOKUPS_ERROR = 'c2s/App/GET_LOOKUPS_ERROR';
 
 /**
  *  Global object keys
@@ -41,16 +41,13 @@ export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
  *  Constants to hold the internal urls
  * @type {string}
  */
-export const LOGIN_URL = '/ocp-ui/login';
-export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
+export const MANAGE_PRACTITIONER_URL = '/c2s-sof-ui/manage-practitioner';
 
 /**
  *  Constants to hold the workspace urls
  * @type {string}
  */
 export const ADMIN_WORKSPACE = '/ocp-ui/admin-workspace';
-export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
-export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
 
 /**
  *  Constants to hold the business functional role codes

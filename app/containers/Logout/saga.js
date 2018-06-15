@@ -1,9 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
 
 import { removeToken } from 'utils/tokenService';
 import { showNotification } from 'containers/Notification/actions';
-import { LOGIN_URL } from 'containers/App/constants';
 import { LOGOUT } from './constants';
 
 export function* logoutSaga({ config }) {
@@ -15,7 +13,6 @@ export function* logoutSaga({ config }) {
     setTimeout(() => {
       window.location = `${authorizationServerEndpoint}/logout.do?redirect=${protocol}//${hostname}${port ? `:${port}` : port}${baseHref}`;
     }, 0);
-    yield put(push(LOGIN_URL));
   } catch (error) {
     yield put(showNotification('Failed to logout.'));
     throw error;

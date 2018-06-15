@@ -7,11 +7,11 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.ConsentCards.header',
+    id: 'c2s.components.ConsentCards.header',
     defaultMessage: 'This is the ConsentCards component !',
   },
   noConsentFoundText: {
-    id: 'ocpui.components.ConsentCards.noConsentFoundText',
+    id: 'c2s.components.ConsentCards.noConsentFoundText',
     defaultMessage: 'No consent found.',
   },
 });

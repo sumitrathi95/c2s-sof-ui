@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.TokenRetrievePage.header',
+    id: 'c2s.containers.TokenRetrievePage.header',
     defaultMessage: 'Authorizing Consent2Share...',
   },
 });

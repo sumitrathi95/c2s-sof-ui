@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.AttestConsentPage.header',
+    id: 'c2s.containers.AttestConsentPage.header',
     defaultMessage: 'Consent to Share My Medical Information',
   },
 });

@@ -9,4 +9,4 @@
  * @type {string}
  */
 
-export const CHANGE_LOCALE = 'ocpui/LanguageToggle/CHANGE_LOCALE';
+export const CHANGE_LOCALE = 'c2s/LanguageToggle/CHANGE_LOCALE';
