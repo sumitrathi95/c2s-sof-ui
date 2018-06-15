@@ -1,9 +1,10 @@
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
+import union from 'lodash/union';
+
 import Util from 'utils/Util';
 import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
 import { SHARE_ALL } from 'components/SelectMedicalInformation/constants';
-import { upperFirst } from 'lodash';
 
 export function isCareCoordinator(roleCode) {
   return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
@@ -97,25 +98,17 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
   return formData;
 }
 
-function mapToConsentActors(organizationActors, practitionercActors) {
-  const actorDtos = [];
-  actorDtos.push(
-    (organizationActors && organizationActors.length > 0 && organizationActors
-      .flatMap(
-        (actor) => (actorDto(actor)))));
-  actorDtos.push(
-    (practitionercActors && practitionercActors.length > 0 && practitionercActors
-      .flatMap(
-        (actor) => (actorDto(actor)))));
-  const flattened = [].concat(...actorDtos);
-  return flattened;
+function mapToConsentActors(organizations, practitioners) {
+  const organizationActors = organizations.map((org) => mapToReferActor(org));
+  const practitionerActors = practitioners.map((pra) => mapToReferActor(pra));
+  return union(organizationActors, practitionerActors);
 }
 
-function actorDto(actor) {
+function mapToReferActor(actor) {
   return {
     reference: {
       logicalId: actor.id,
-      type: upperFirst(actor.careTeamType),
+      type: actor.careTeamType,
     },
     display: actor.display,
     identifiers: actor.identifiers,
