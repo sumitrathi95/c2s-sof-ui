@@ -23,6 +23,7 @@ import PublicLayoutRoute from 'components/PublicLayoutRoute';
 import AttestConsentPage from 'containers/AttestConsentPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import LogoutPage from 'containers/LogoutPage/Loadable';
 import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
 import LaunchPage from 'containers/LaunchPage/Loadable';
 import ErrorPage from 'containers/ErrorPage/Loadable';
@@ -50,6 +51,7 @@ export function App() {
           <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/sign-consent/:id" component={AttestConsentPage} />
+          <PublicLayoutRoute exact path="/c2s-sof-ui/logout" component={LogoutPage} />
           <PublicLayoutRoute component={NotFoundPage} />
         </Switch>
         <Notification />

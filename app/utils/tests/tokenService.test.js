@@ -1,14 +1,7 @@
 import 'mock-local-storage';
 import jwt from 'jsonwebtoken';
 
-import {
-  isTokenExpired,
-  removeToken,
-  retrieveAuthStatus,
-  retrieveToken,
-  storeAuthStatus,
-  storeToken,
-} from '../tokenService';
+import { isTokenExpired, removeToken, retrieveToken, storeToken } from '../tokenService';
 
 describe('tokenService.js', () => {
   afterEach(() => {
@@ -34,21 +27,8 @@ describe('tokenService.js', () => {
     expect(storedToken).toEqual(testToken);
   });
 
-  it('should return with correct stored auth status', () => {
-    // Arrange
-    const testAuthStatus = false;
-    storeAuthStatus(testAuthStatus);
-
-    // Act
-    const storedAuthStatus = retrieveAuthStatus();
-
-    // Assert
-    expect(storedAuthStatus).toEqual(testAuthStatus);
-  });
-
   it('should clean secured data in session storage when call removeToken', () => {
     // Arrange
-    const testAuthStatus = false;
     const testToken = {
       access_token: 'access_token',
       token_type: 'token_type',
@@ -56,7 +36,6 @@ describe('tokenService.js', () => {
       scope: 'scope',
       jti: 'jti',
     };
-    storeAuthStatus(testAuthStatus);
     storeToken(testToken);
 
     // Act
@@ -64,7 +43,6 @@ describe('tokenService.js', () => {
 
     // Assert
     expect(retrieveToken()).toBeNull();
-    expect(retrieveAuthStatus()).toBeNull();
   });
 
   it('should return with correct token expired status', () => {
