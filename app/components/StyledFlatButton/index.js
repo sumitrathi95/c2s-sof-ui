@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 const StyledFlatButton = styled(({ marginRight, ...rest }) => (<Button {...rest} />))`
   && {
-    color: #366;
+    color: #6c4e70;
     text-transform: capitalize;
     margin-right: ${({ marginRight }) => marginRight}px;
   }
@@ -22,7 +22,7 @@ const StyledFlatButton = styled(({ marginRight, ...rest }) => (<Button {...rest}
   }
  
   &&:disabled {
-    color: rgba(0, 0, 0, 0.3);
+    color: #8a8a8a;
   }
 `;
 
