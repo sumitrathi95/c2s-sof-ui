@@ -13,9 +13,13 @@ import Button from 'material-ui-next/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { Cell, Grid } from 'styled-css-grid';
 import { Document, Page } from 'react-pdf/dist/entry.webpack';
+
 import Util from 'utils/Util';
+import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
+import StyledTooltip from 'components/StyledTooltip';
+import StyledIconButton from 'components/StyledIconButton';
 import messages from './messages';
 
 const CONSENT_STATUS_DRAFT = 'DRAFT';
@@ -69,6 +73,13 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
         </StyledRaisedButton>
         <StyledDialog open={this.state.isManageConsentDialogOpen} onClose={this.handleCloseDialog} fullWidth>
           <DialogTitle>
+            <HorizontalAlignment position={'end'}>
+              <StyledTooltip title="Close">
+                <StyledIconButton onClick={this.handleCloseDialog}>
+                  <CloseIcon />
+                </StyledIconButton>
+              </StyledTooltip>
+            </HorizontalAlignment>
             <FormattedMessage {...messages.consentDialog.title} />
           </DialogTitle>
           <DialogContent>
