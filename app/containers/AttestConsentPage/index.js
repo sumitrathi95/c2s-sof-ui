@@ -14,6 +14,9 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import AttestConsent from 'components/AttestConsent';
 import reducer from './reducer';
 import saga from './saga';
@@ -50,19 +53,22 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
   render() {
     const { consent, isAuthenticated, patient } = this.props;
     return (
-      <div>
+      <Page color="secondary">
         <Helmet>
-          <title>AttestConsentPage</title>
-          <meta name="description" content="Sign consent" />
+          <title>Attest Consent</title>
+          <meta name="description" content="Sign consent page of Consent2Share Smart On Fhir" />
         </Helmet>
-        <AttestConsent
-          onSubmit={this.handleSubmit}
-          checkPassword={this.checkPassword}
-          consent={consent}
-          patient={patient}
-          isAuthenticated={isAuthenticated}
-        />
-      </div>
+        <PageHeader title="Sign Consent" />
+        <PageContent>
+          <AttestConsent
+            onSubmit={this.handleSubmit}
+            checkPassword={this.checkPassword}
+            consent={consent}
+            patient={patient}
+            isAuthenticated={isAuthenticated}
+          />
+        </PageContent>
+      </Page>
     );
   }
 }

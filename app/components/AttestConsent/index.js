@@ -9,16 +9,17 @@ import { Cell, Grid } from 'styled-css-grid';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
+
 import Checkbox from 'components/Checkbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import { flattenConsentData } from 'components/ConsentCard/helpers';
 import TextLabelGroup from 'components/TextLabelGroup';
+import StyledDialog from 'components/StyledDialog';
 import ConsentFormSection from 'components/ConsentFormSection';
 import CheckPassword from './CheckPassword';
-import messages from './messages';
 import AttestConsentGrid from './AttestConsentGrid';
+import messages from './messages';
 
 class AttestConsent extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -55,11 +56,9 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     const flattenedConsent = consent && flattenConsentData(consent);
     return (
       <div>
-        <Dialog
-          open={!isAuthenticated && this.state.authenticationDialogOpen}
-        >
+        <StyledDialog fullWidth open={!isAuthenticated && this.state.authenticationDialogOpen}>
           <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
-        </Dialog>
+        </StyledDialog>
         <Formik
           onSubmit={(values, actions) => onSubmit(values, actions)}
           render={({ isSubmitting }) => (
