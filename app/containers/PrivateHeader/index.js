@@ -51,14 +51,14 @@ class PrivateHeader extends React.Component {
     const { user } = this.props;
     return (
       <div>
-        {user ?
+        {user && user.fhirResource ?
           <StyledToolbar color={common.white} height="60px">
             <ToolbarGroup>
               <UserAvatar />
               <ToolbarTitle
                 text={
                   <StyledText fontWeight={600} whiteSpace fontSize="18px">
-                    {mapUserName(user.name)}
+                    {mapUserName(user.fhirResource.name)}
                   </StyledText>
                 }
               />
@@ -98,7 +98,9 @@ class PrivateHeader extends React.Component {
 
 PrivateHeader.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.array,
+    fhirResource: PropTypes.shape({
+      name: PropTypes.array,
+    }),
   }),
 };
 

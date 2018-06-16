@@ -1,14 +1,10 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { GET_CONSENTS } from 'containers/Consents/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getConsentsError, getConsentsSuccess } from './actions';
 import { getConsents, getErrorDetail } from './api';
 
-/**
- * Root saga manages watcher lifecycle
- */
+
 export function* getConsentsSaga({ pageNumber }) {
   try {
     let queryParams = {
@@ -47,10 +43,11 @@ export function* watchGetConsentsSaga() {
   yield takeLatest(GET_CONSENTS, getConsentsSaga);
 }
 
-
+/**
+ * Root saga manages watcher lifecycle
+ */
 export default function* rootSaga() {
   yield all([
     watchGetConsentsSaga(),
   ]);
 }
-

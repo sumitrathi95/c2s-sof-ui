@@ -23,10 +23,10 @@ import {
 } from './contextConstants';
 
 
-export function initializeContext(userId, patientId, organizationId) {
+export function initializeContext(userAuthContext, patientId, organizationId) {
   return {
     type: INITIALIZE_CONTEXT,
-    userId,
+    userAuthContext,
     patientId,
     organizationId,
   };

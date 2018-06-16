@@ -24,7 +24,7 @@ import { makeSelectOrganization, makeSelectPatient } from './contextSelectors';
 import { getErrorDetail, getOrganization, getPatient, getUserContext } from './contextApi';
 
 
-export function* initializeContextSaga({ patientId, organizationId }) {
+export function* initializeContextSaga({ userAuthContext, patientId, organizationId }) {
   const patient = yield select(makeSelectPatient());
   const organization = yield select(makeSelectOrganization());
   if (patient && patient.id && patient.id === patientId) {
@@ -41,8 +41,9 @@ export function* initializeContextSaga({ patientId, organizationId }) {
 
   try {
     const userContext = yield call(getUserContext);
-    const { fhirResource: { logicalId, identifiers, name, telecoms, addresses, role } } = userContext;
-    yield put(setUser({ logicalId, identifiers, name, telecoms, addresses, role }));
+    const { fhirResource } = userContext;
+    const { user_id, user_name, email, ext_attr } = userAuthContext;
+    yield put(setUser({ user_id, user_name, email, ext_attr, fhirResource }));
   } catch (error) {
     yield put(getUserContextError(getErrorDetail(error)));
   }

@@ -74,11 +74,11 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     }
 
     let careCoordinatorContext = null;
-    if (user && user.role && isCareCoordinator(user.role)) {
+    if (user && user.fhirResource.role && isCareCoordinator(user.fhirResource.role)) {
       careCoordinatorContext = {
-        logicalId: user.logicalId,
-        name: mapResourceName(user.name),
-        identifiers: user.identifiers,
+        logicalId: user.fhirResource.logicalId,
+        name: mapResourceName(user.fhirResource.name),
+        identifiers: user.fhirResource.identifiers,
         organization: {
           logicalId: organization.logicalId,
           name: organization.name,
@@ -157,8 +157,8 @@ ManageConsentPage.propTypes = {
   }),
   saveConsent: PropTypes.func,
   user: PropTypes.shape({
-    role: PropTypes.string.isRequired,
     fhirResource: PropTypes.shape({
+      role: PropTypes.string.isRequired,
       logicalId: PropTypes.string,
       name: PropTypes.array,
       identifiers: PropTypes.arrayOf(PropTypes.shape({

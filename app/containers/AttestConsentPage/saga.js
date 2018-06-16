@@ -1,6 +1,3 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
-
 import { goBack } from 'react-router-redux';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
@@ -21,7 +18,7 @@ function* getConsentSaga({ logicalId }) {
     const consent = yield call(getConsent, logicalId);
     yield put(getConsentSuccess(consent));
   } catch (error) {
-    yield put(showNotification('No matching practitioner found.'));
+    yield put(showNotification('No matching consent found.'));
     yield put(goBack());
     yield put(getConsentError(error));
   }
