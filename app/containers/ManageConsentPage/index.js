@@ -22,7 +22,6 @@ import {
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
-import { isCareCoordinator } from 'containers/App/helpers';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
@@ -75,7 +74,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     }
 
     let careCoordinatorContext = null;
-    if (user && user.fhirResource.role && isCareCoordinator(user.fhirResource.role)) {
+    if (user && !user.isPatient) {
       careCoordinatorContext = {
         logicalId: user.fhirResource.logicalId,
         name: mapResourceName(user.fhirResource.name),
@@ -158,8 +157,8 @@ ManageConsentPage.propTypes = {
   }),
   saveConsent: PropTypes.func,
   user: PropTypes.shape({
+    isPatient: PropTypes.bool.isRequired,
     fhirResource: PropTypes.shape({
-      role: PropTypes.string.isRequired,
       logicalId: PropTypes.string,
       name: PropTypes.array,
       identifiers: PropTypes.arrayOf(PropTypes.shape({

@@ -1,4 +1,5 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import split from 'lodash/split';
 
 import { showNotification } from 'containers/Notification/actions';
 import {
@@ -21,7 +22,8 @@ import {
   REFRESH_PATIENT,
 } from './contextConstants';
 import { makeSelectOrganization, makeSelectPatient } from './contextSelectors';
-import { getErrorDetail, getOrganization, getPatient, getUserContext } from './contextApi';
+import { getErrorDetail, getOrganization, getPatient, getUserProfile } from './contextApi';
+import { isPatientResourceType } from './helpers';
 
 
 export function* initializeContextSaga({ userAuthContext, patientId, organizationId }) {
@@ -40,10 +42,14 @@ export function* initializeContextSaga({ userAuthContext, patientId, organizatio
   }
 
   try {
-    const userContext = yield call(getUserContext);
-    const { fhirResource } = userContext;
-    const { user_id, user_name, email, ext_attr } = userAuthContext;
-    yield put(setUser({ user_id, user_name, email, ext_attr, fhirResource }));
+    const { user_id, user_name, email, profile } = userAuthContext;
+    const profileArray = profile && split(profile, '/', 2);
+    const resourceType = profileArray[0];
+    const resourceLogicalId = profileArray[1];
+    const userProfile = yield call(getUserProfile, resourceType, resourceLogicalId);
+    const { logicalId, name, identifiers, addresses, telecoms } = userProfile;
+    const fhirResource = { logicalId, name, identifiers, addresses, telecoms };
+    yield put(setUser({ user_id, user_name, email, isPatient: isPatientResourceType(resourceType), fhirResource }));
   } catch (error) {
     yield put(getUserContextError(getErrorDetail(error)));
   }

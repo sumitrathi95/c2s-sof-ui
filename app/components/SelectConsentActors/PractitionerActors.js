@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CARE_COORDINATOR_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import StyledText from 'components/StyledText';
@@ -21,11 +20,7 @@ class PractitionerActors extends React.Component {
         <StyledText fontWeight="700">Practitioners</StyledText>
         <PanelToolbar
           showToDoSpecificFilters={false}
-          showUploadIcon={false}
-          showSettingIcon={false}
-          showFilterIcon={false}
           sticky={false}
-          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
           onSearch={onSearch}
         />
         <InfoSection margin="0 0 10px 0">

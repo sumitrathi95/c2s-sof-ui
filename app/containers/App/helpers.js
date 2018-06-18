@@ -2,11 +2,13 @@
  * Helpers is a collection of useful common shared functions are used by OCP Domain containers
  *
  */
+
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import identity from 'lodash/identity';
-import { CARE_COORDINATOR_ROLE_CODE, EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
-import isEqual from 'lodash/isEqual';
+import { EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
+import { RESOURCE_TYPE } from 'containers/App/contextConstants';
+import Util from 'utils/Util';
 
 
 const SSN_SYSTEM = '2.16.840.1.113883.4.1';
@@ -16,8 +18,8 @@ const SSN_SYSTEM_DISPLAY = 'SSN';
  * Mapping Fhir resources
  * @returns {*}
  */
-export function isCareCoordinator(roleCode) {
-  return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
+export function isPatientResourceType(resourceType) {
+  return Util.equalsIgnoreCase(resourceType, RESOURCE_TYPE.PATIENT);
 }
 
 export function mapToName(nameArray) {
