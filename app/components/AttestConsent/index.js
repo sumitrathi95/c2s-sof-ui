@@ -50,8 +50,9 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { onSubmit, consent, isAuthenticated, patient } = this.props;
+    const { onSubmit, consent, isAuthenticated, patient, careCoordinatorContext } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
+    const careCoordinatorName = careCoordinatorContext && careCoordinatorContext.name;
 
     const flattenedConsent = consent && flattenConsentData(consent);
     return (
@@ -114,7 +115,14 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                     <Checkbox
                       name="agreement"
                       checked={isAuthenticated}
-                      label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
+                      label={
+                        careCoordinatorName ?
+                          <FormattedHTMLMessage
+                            {...messages.agreementTermOnBehalfOfPatient}
+                            values={{ careCoordinatorName, patientName }}
+                          /> :
+                          <FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />
+                      }
                       onCheck={this.handleCheckPassword}
                     />
                   </ConsentFormSection>
@@ -150,6 +158,10 @@ AttestConsent.propTypes = {
   consent: PropTypes.object,
   patient: PropTypes.object,
   isAuthenticated: PropTypes.bool,
+  careCoordinatorContext: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    name: PropTypes.string,
+  }),
 };
 
 export default AttestConsent;

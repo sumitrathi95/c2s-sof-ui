@@ -62,6 +62,10 @@ export default defineMessages({
     id: 'c2s.components.AttestConsent.agreementTerm',
     defaultMessage: 'I, <strong>{patientName}</strong>, hereby accept and understand the terms of this consent.',
   },
+  agreementTermOnBehalfOfPatient: {
+    id: 'c2s.components.AttestConsent.agreementTerm',
+    defaultMessage: 'I, <strong>{careCoordinatorName}</strong> on behalf of <strong>{patientName}</strong>, hereby accept and understand the terms of this consent.',
+  },
   authentication: {
     header: {
       id: 'c2s.components.AttestConsent.authentication.header',

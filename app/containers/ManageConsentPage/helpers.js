@@ -1,14 +1,9 @@
-import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import union from 'lodash/union';
 
 import Util from 'utils/Util';
-import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
 import { SHARE_ALL } from 'components/SelectMedicalInformation/constants';
 
-export function isCareCoordinator(roleCode) {
-  return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
-}
 
 export function mapResourceName(nameArray) {
   let name = {};

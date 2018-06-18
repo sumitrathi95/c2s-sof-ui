@@ -13,7 +13,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { isCareCoordinator, mapToName } from 'containers/App/helpers';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
@@ -22,6 +23,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { attestConsent, checkPassword, getConsent, initializeAttestConsentPage } from './actions';
 import { makeSelectConsent, makeSelectIsAuthenticated } from './selectors';
+
 
 export class AttestConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -51,7 +53,15 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { consent, isAuthenticated, patient } = this.props;
+    const { consent, isAuthenticated, patient, user } = this.props;
+    let careCoordinatorContext = null;
+    if (user && user.fhirResource.role && isCareCoordinator(user.fhirResource.role)) {
+      careCoordinatorContext = {
+        logicalId: user.fhirResource.logicalId,
+        name: mapToName(user.fhirResource.name),
+        identifiers: user.fhirResource.identifiers,
+      };
+    }
     return (
       <Page color="secondary">
         <Helmet>
@@ -66,6 +76,7 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
             consent={consent}
             patient={patient}
             isAuthenticated={isAuthenticated}
+            careCoordinatorContext={careCoordinatorContext}
           />
         </PageContent>
       </Page>
@@ -82,12 +93,27 @@ AttestConsentPage.propTypes = {
   consent: PropTypes.object,
   patient: PropTypes.object,
   isAuthenticated: PropTypes.bool,
+  user: PropTypes.shape({
+    fhirResource: PropTypes.shape({
+      role: PropTypes.string.isRequired,
+      logicalId: PropTypes.string,
+      name: PropTypes.array,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
   isAuthenticated: makeSelectIsAuthenticated(),
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

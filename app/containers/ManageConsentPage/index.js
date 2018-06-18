@@ -22,6 +22,7 @@ import {
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
+import { isCareCoordinator } from 'containers/App/helpers';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
@@ -31,7 +32,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { getConsent, saveConsent } from './actions';
 import { makeSelectConsent } from './selectors';
-import { initialConsentFormValues, isCareCoordinator, mapResourceName } from './helpers';
+import { initialConsentFormValues, mapResourceName } from './helpers';
 
 
 export class ManageConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function

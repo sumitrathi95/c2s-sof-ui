@@ -5,7 +5,8 @@
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import identity from 'lodash/identity';
-import { EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
+import isEqual from 'lodash/isEqual';
 
 
 const SSN_SYSTEM = '2.16.840.1.113883.4.1';
@@ -15,6 +16,9 @@ const SSN_SYSTEM_DISPLAY = 'SSN';
  * Mapping Fhir resources
  * @returns {*}
  */
+export function isCareCoordinator(roleCode) {
+  return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
+}
 
 export function mapToName(nameArray) {
   let name;
