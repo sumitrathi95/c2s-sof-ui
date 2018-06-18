@@ -12,12 +12,8 @@ export default defineMessages({
     id: `${scope}.brandImg`,
     defaultMessage: 'Consent2Share brand image',
   },
-  menuButton: {
-    id: `${scope}.menuButton`,
-    defaultMessage: 'Menu',
-  },
-  homeMenuItem: {
-    id: `${scope}.homeMenuItem`,
+  homeButton: {
+    id: `${scope}.homeButton`,
     defaultMessage: 'Home',
   },
 });
