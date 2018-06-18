@@ -24,6 +24,16 @@ export const GET_ORGANIZATION = 'c2s/Context/GET_ORGANIZATION';
 export const GET_ORGANIZATION_ERROR = 'c2s/Context/GET_ORGANIZATION_ERROR';
 export const GET_USER_CONTEXT_ERROR = 'c2s/Context/GET_USER_CONTEXT_ERROR';
 
+/**
+ *  Constants to hold the FHIR resource types
+ * @type {string}
+ */
+export const PRACTITIONER = 'c2s/Context/PRACTITIONER';
+export const PATIENT = 'c2s/Context/PATIENT';
+export const RESOURCE_TYPE = {
+  PRACTITIONER,
+  PATIENT,
+};
 
 /**
  *  Other constants

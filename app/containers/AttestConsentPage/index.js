@@ -14,7 +14,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { isCareCoordinator, mapToName } from 'containers/App/helpers';
+import { mapToName } from 'containers/App/helpers';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
@@ -55,7 +55,7 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
   render() {
     const { consent, isAuthenticated, patient, user } = this.props;
     let careCoordinatorContext = null;
-    if (user && user.fhirResource.role && isCareCoordinator(user.fhirResource.role)) {
+    if (user && !user.isPatient) {
       careCoordinatorContext = {
         logicalId: user.fhirResource.logicalId,
         name: mapToName(user.fhirResource.name),
@@ -94,8 +94,8 @@ AttestConsentPage.propTypes = {
   patient: PropTypes.object,
   isAuthenticated: PropTypes.bool,
   user: PropTypes.shape({
+    isPatient: PropTypes.bool.isRequired,
     fhirResource: PropTypes.shape({
-      role: PropTypes.string.isRequired,
       logicalId: PropTypes.string,
       name: PropTypes.array,
       identifiers: PropTypes.arrayOf(PropTypes.shape({

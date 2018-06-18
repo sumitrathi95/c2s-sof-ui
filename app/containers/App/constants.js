@@ -42,13 +42,6 @@ export const CONSENT_ACTION = 'CONSENT_ACTION';
 export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
 
 /**
- *  Constants to hold the business functional role codes
- * @type {string}
- */
-export const PATIENT_ROLE_CODE = 'patientRole';
-export const CARE_COORDINATOR_ROLE_CODE = '171M00000X';
-
-/**
  *  Constants to hold the default pagination page size and start page number
  * @type {number}
  */
