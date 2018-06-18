@@ -41,6 +41,7 @@ export class TokenRetrievePage extends React.Component {
   constructor(props) {
     super(props);
     this.getAuthorizationParams = this.getAuthorizationParams.bind(this);
+    this.getAuthorizationErrorParams = this.getAuthorizationErrorParams.bind(this);
     this.getMissingRequiredParamKeys = this.getMissingRequiredParamKeys.bind(this);
     this.getTokenIfConfigReady = this.getTokenIfConfigReady.bind(this);
   }
@@ -67,17 +68,26 @@ export class TokenRetrievePage extends React.Component {
     return Util.pickByNonNullAndNonEmptyString({ code, state });
   }
 
+  getAuthorizationErrorParams(props = this.props) {
+    const { location } = props;
+    const { error, error_description } = queryString.parse(location.search);
+    if (Util.hasText(error) && Util.hasText(error_description)) {
+      return { error, error_description };
+    }
+    return null;
+  }
+
   getMissingRequiredParamKeys() {
     const paramKeys = Object.keys(this.getAuthorizationParams());
     return TokenRetrievePage.REQUIRED_PARAMS.filter((p) => !paramKeys.includes(p));
   }
 
-  renderRedirectToErrorPage() {
+  renderRedirectToErrorPage(code, details) {
     return (
       <Redirect
         to={{
           pathname: '/c2s-sof-ui/error',
-          search: `?code=invalidTokenRetrieveParams&details=${this.getMissingRequiredParamKeys().join(', ')}`,
+          search: `?code=${code}&details=${details}`,
         }}
       />);
   }
@@ -104,8 +114,11 @@ export class TokenRetrievePage extends React.Component {
   }
 
   render() {
-    if (this.getMissingRequiredParamKeys().length > 0) {
-      return this.renderRedirectToErrorPage();
+    const authError = this.getAuthorizationErrorParams();
+    if (authError) {
+      return this.renderRedirectToErrorPage('authorizationError', authError.error_description);
+    } else if (this.getMissingRequiredParamKeys().length > 0) {
+      return this.renderRedirectToErrorPage('invalidTokenRetrieveParams', this.getMissingRequiredParamKeys().join(', '));
     }
     return this.renderDefault();
   }
