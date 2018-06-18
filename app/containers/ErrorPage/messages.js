@@ -22,6 +22,10 @@ export default defineMessages({
     id: 'c2s.containers.ErrorPage.invalidTokenRetrieveParams',
     defaultMessage: 'Missing token retrieve parameters: {details}',
   },
+  authorizationError: {
+    id: 'c2s.containers.ErrorPage.authorizationError',
+    defaultMessage: 'Authorization Failed: {details}',
+  },
   invalidState: {
     id: 'c2s.containers.ErrorPage.invalidState',
     defaultMessage: 'Invalid state, state cannot be found in session storage. {details}',
