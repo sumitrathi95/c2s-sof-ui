@@ -27,10 +27,10 @@ describe('endpointService.js', () => {
 
   it('should return with correct request url', () => {
     // Arrange
-    const TEST_PATIENTS_API_URL = '/c2s-sof-ui-api/patients';
-    const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-ui-api/organizations';
-    const TEST_CONSENTS_API_URL = '/c2s-sof-ui-api/consents';
-    const TEST_LOOKUP_URL = '/c2s-sof-ui-api/lookups';
+    const TEST_PATIENTS_API_URL = '/c2s-sof-api/patients';
+    const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-api/organizations';
+    const TEST_CONSENTS_API_URL = '/c2s-sof-api/consents';
+    const TEST_LOOKUP_URL = '/c2s-sof-api/lookups';
 
     // Act
     const patientsUrl = getEndpoint(BASE_PATIENTS_API_URL);
@@ -60,8 +60,8 @@ describe('endpointService.js', () => {
 
   it('should verify the endpoint is unsecured or secured', () => {
     // Arrange
-    const TEST_LOOKUP_URL = '/c2s-sof-ui-api/lookups?testquery';
-    const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-ui-api/organizations?testquery';
+    const TEST_LOOKUP_URL = '/c2s-sof-api/lookups?testquery';
+    const TEST_ORGANIZATIONS_API_URL = '/c2s-sof-api/organizations?testquery';
 
     // Act
     const isLookupUrlSecured = isSecuredEndpoint(TEST_LOOKUP_URL);
