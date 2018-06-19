@@ -3,8 +3,7 @@ import some from 'lodash/some';
 import includes from 'lodash/includes';
 
 
-const BASE_API_URL = '/c2s-sof-ui-api';
-const BASE_API_ROUTE = '/c2s-sof-api';
+const BASE_API_URL = '/c2s-sof-api';
 
 /**
  *  Constants to hold the external UI Api endpoint Keys
@@ -25,7 +24,7 @@ export const BASE_USER_CONTEXT_API_URL = 'c2s/utils/BASE_USER_CONTEXT_API_URL';
  * @type {*[]}
  */
 const apiEndpoints = [
-  { key: CONFIG_API_URL, url: `${BASE_API_ROUTE}/config`, isSecured: false },
+  { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/lookups`, isSecured: false },
   { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
 
