@@ -50,6 +50,7 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
         consentEnd,
         purpose,
         consentFromActors: fromActor,
+        medicalInformation: securityLabels,
       };
     } else {
       formData = {

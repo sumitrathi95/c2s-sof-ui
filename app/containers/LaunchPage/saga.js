@@ -15,7 +15,7 @@ export function* getMetadataSaga({ iss, launch, config }) {
   const authorize = jp.query(extensions, '$..[?(@.url=="authorize")].valueUri').pop();
   const token = jp.query(extensions, '$..[?(@.url=="token")].valueUri').pop();
 
-  LaunchService.saveLaunchState(state, authorize, token);
+  LaunchService.saveLaunchState(state, authorize, token, iss);
 
   const { clientId, scope, redirectUri } = config;
   if (Util.hasText(clientId) && Util.hasText(scope) && Util.hasText(redirectUri)) {
