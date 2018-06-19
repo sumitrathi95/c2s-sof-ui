@@ -28,7 +28,6 @@ const apiEndpoints = [
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/lookups`, isSecured: false },
   { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
 
-  // Todo: Change configuration to c2s sof ui urls
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/consents` },
   { key: BASE_PATIENTS_API_URL, url: `${BASE_API_URL}/patients` },

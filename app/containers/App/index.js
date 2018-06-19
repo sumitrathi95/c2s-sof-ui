@@ -13,7 +13,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Redirect, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
@@ -42,8 +42,7 @@ export function App() {
       </Helmet>
       <div>
         <Switch>
-          <PublicLayoutRoute exact path="/" component={TokenRetrievePage} />
-          <Redirect exact from="/c2s-sof-ui/" to="/c2s-sof-ui/home" />
+          <PublicLayoutRoute exact path="/c2s-sof-ui" component={TokenRetrievePage} />
           <PublicLayoutRoute exact path="/c2s-sof-ui/launch" component={LaunchPage} />
           <PublicLayoutRoute exact path="/c2s-sof-ui/error" component={ErrorPage} />
           <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
