@@ -42,7 +42,7 @@ export function* getTokenSaga({ code, state, config }) {
           const { profile } = jwt.decode(id_token);
           storeToken(tokenResponse);
           yield put(initializeContext({ user_id, user_name, email, profile }, patient, organization));
-          yield put(push('/c2s-sof-ui'));
+          yield put(push('/c2s-sof-ui/home'));
         } catch (error) {
           yield put(push('/c2s-sof-ui/error?code=tokenRetrieveFailed'));
         }
