@@ -15,9 +15,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import { flattenConsentData } from 'components/ConsentCard/helpers';
 import TextLabelGroup from 'components/TextLabelGroup';
-import StyledDialog from 'components/StyledDialog';
 import ConsentFormSection from 'components/ConsentFormSection';
-import CheckPassword from './CheckPassword';
+import SignatureAuthentication from './SignatureAuthentication';
 import AttestConsentGrid from './AttestConsentGrid';
 import messages from './messages';
 
@@ -27,39 +26,39 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     super(props);
     this.state = {
       isAuthenticated: false,
-      authenticationDialogOpen: false,
+      signatureDialogOpen: false,
     };
-    this.handleCheckPassword = this.handleCheckPassword.bind(this);
-    this.handleDialogCallback = this.handleDialogCallback.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
+    this.handleSignatureDialogOpen = this.handleSignatureDialogOpen.bind(this);
+    this.handleSignatureDialogClose = this.handleSignatureDialogClose.bind(this);
+    this.confirmAuthenticated = this.confirmAuthenticated.bind(this);
   }
 
-  handleCheckPassword() {
-    this.setState({ authenticationDialogOpen: true });
+  handleSignatureDialogOpen() {
+    this.setState({
+      signatureDialogOpen: true,
+      isAuthenticated: false,
+    });
   }
 
-  handleDialogCallback() {
-    this.setState({ authenticationDialogOpen: false });
+  handleSignatureDialogClose() {
+    this.setState({ signatureDialogOpen: false });
   }
 
-  checkPassword(password, actions) {
-    this.props.checkPassword(password, actions);
-    if (this.props.isAuthenticated) {
-      this.setState({ authenticationDialogOpen: false });
+  confirmAuthenticated(hasSigned, signatureData) {
+    if (hasSigned && signatureData) {
+      this.setState({ isAuthenticated: true });
+      console.log(signatureData);
     }
   }
 
   render() {
-    const { onSubmit, consent, isAuthenticated, patient, careCoordinatorContext } = this.props;
+    const { onSubmit, consent, patient, careCoordinatorContext } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
     const careCoordinatorName = careCoordinatorContext && careCoordinatorContext.name;
 
     const flattenedConsent = consent && flattenConsentData(consent);
     return (
       <div>
-        <StyledDialog fullWidth open={!isAuthenticated && this.state.authenticationDialogOpen}>
-          <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
-        </StyledDialog>
         <Formik
           onSubmit={(values, actions) => onSubmit(values, actions)}
           render={({ isSubmitting }) => (
@@ -114,7 +113,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                     </Grid>
                     <Checkbox
                       name="agreement"
-                      checked={isAuthenticated}
+                      checked={this.state.isAuthenticated}
                       label={
                         careCoordinatorName ?
                           <FormattedHTMLMessage
@@ -123,7 +122,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                           /> :
                           <FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />
                       }
-                      onCheck={this.handleCheckPassword}
+                      onCheck={this.handleSignatureDialogOpen}
                     />
                   </ConsentFormSection>
                 </Cell>
@@ -133,7 +132,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                       <StyledRaisedButton
                         fullWidth
                         type="submit"
-                        disabled={!isAuthenticated}
+                        disabled={!this.state.isAuthenticated}
                       >
                         Complete
                       </StyledRaisedButton>
@@ -147,6 +146,11 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
             </Form>
           )}
         />
+        <SignatureAuthentication
+          signatureDialogOpen={this.state.signatureDialogOpen}
+          onSignatureDialogClose={this.handleSignatureDialogClose}
+          onConfirmAuthenticated={this.confirmAuthenticated}
+        />
       </div>
     );
   }
@@ -154,10 +158,8 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
 
 AttestConsent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
   careCoordinatorContext: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     name: PropTypes.string,

@@ -69,15 +69,19 @@ export default defineMessages({
   authentication: {
     header: {
       id: 'c2s.components.AttestConsent.authentication.header',
-      defaultMessage: 'Please Authenticate',
+      defaultMessage: 'Attest Consent Authentication',
     },
-    term: {
-      id: 'c2s.components.AttestConsent.authentication.term',
-      defaultMessage: 'Please provide your account password to authenticate, and complete e-signature',
+    title: {
+      id: 'c2s.components.AttestConsent.authentication.title',
+      defaultMessage: 'Please provide your e-signature to authenticate',
     },
-    label: {
-      id: 'c2s.components.AttestConsent.authentication.label',
-      defaultMessage: 'Password',
+    clearButton: {
+      id: 'c2s.components.AttestConsent.authentication.clearButton',
+      defaultMessage: 'Clear',
+    },
+    signButton: {
+      id: 'c2s.components.AttestConsent.authentication.signButton',
+      defaultMessage: 'Sign',
     },
   },
   validation: {
