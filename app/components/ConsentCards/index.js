@@ -24,7 +24,7 @@ function ConsentCards(props) {
       {(!consentData.loading && consentData.data && consentData.data.length > 0 ?
         <div>
           {!isEmpty(consentData.data) && consentData.data.map((consent) => (
-            <ConsentCard key={consent.logicalId} consent={consent} handleDeleteConsent={consentData.handleDeleteConsent} />
+            <ConsentCard key={consent.logicalId} consent={consent} handleDeleteConsent={consentData.handleDeleteConsent} user={consentData.user} />
           ))}
           <CenterAlignedUltimatePagination
             currentPage={consentData.currentPage}
@@ -72,6 +72,20 @@ ConsentCards.propTypes = {
         end: PropTypes.date,
       }),
     })).isRequired,
+    user: PropTypes.shape({
+      isPatient: PropTypes.bool.isRequired,
+      fhirResource: PropTypes.shape({
+        logicalId: PropTypes.string,
+        name: PropTypes.array,
+        identifiers: PropTypes.arrayOf(PropTypes.shape({
+          system: PropTypes.string,
+          oid: PropTypes.string,
+          value: PropTypes.string,
+          priority: PropTypes.number,
+          display: PropTypes.string,
+        })),
+      }),
+    }),
   }).isRequired,
 };
 

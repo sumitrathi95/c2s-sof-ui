@@ -21,11 +21,12 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ConsentCards from 'components/ConsentCards';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 import makeSelectConsents from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getConsents, getConsent, deleteConsent } from './actions';
+import { deleteConsent, getConsent, getConsents } from './actions';
 
 export class Consents extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -51,7 +52,10 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
-    const { consents } = this.props;
+    const {
+      consents,
+      user,
+    } = this.props;
     const consentData = {
       loading: consents.loading,
       data: consents.data,
@@ -61,6 +65,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
       totalElements: consents.totalElements,
       handlePageClick: this.handlePageChange,
       handleDeleteConsent: this.handleDeleteConsent,
+      user,
     };
 
     return (
@@ -96,10 +101,25 @@ Consents.propTypes = {
       PropTypes.bool,
     ]),
   }),
+  user: PropTypes.shape({
+    isPatient: PropTypes.bool.isRequired,
+    fhirResource: PropTypes.shape({
+      logicalId: PropTypes.string,
+      name: PropTypes.array,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   consents: makeSelectConsents(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

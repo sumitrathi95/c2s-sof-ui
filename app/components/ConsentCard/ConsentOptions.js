@@ -90,7 +90,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
   }
 
   render() {
-    const { consent } = this.props;
+    const { consent, user } = this.props;
     const { logicalId, status } = consent;
     return (
       <div>
@@ -124,7 +124,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                 </Cell>
               }
               {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) && (user && user.isPatient) &&
                 <Cell>
                   <Button
                     variant="raised"
@@ -146,7 +146,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                 </Button>
               </Cell>
               {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_ACTIVE) &&
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_ACTIVE) && (user && user.isPatient) &&
                 <Cell>
                   <Button
                     variant="raised"
@@ -234,6 +234,20 @@ ConsentOptions.propTypes = {
     sourceAttachment: PropTypes.string,
   }).isRequired,
   handleDeleteConsent: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    isPatient: PropTypes.bool.isRequired,
+    fhirResource: PropTypes.shape({
+      logicalId: PropTypes.string,
+      name: PropTypes.array,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
+    }),
+  }),
 };
 
 export default ConsentOptions;
