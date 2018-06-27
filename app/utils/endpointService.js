@@ -10,7 +10,6 @@ const BASE_API_URL = '/c2s-sof-api';
  * @type {string}
  */
 export const CONFIG_API_URL = 'c2s/utils/CONFIG_API_URL';
-export const LOGIN_API_URL = 'c2s/utils/LOGIN_API_URL';
 export const LOOKUPS_API_URL = 'c2s/utils/LOOKUPS_API_URL';
 export const BASE_CONSENTS_API_URL = 'c2s/utils/BASE_CONSENTS_API_URL';
 export const BASE_PATIENTS_API_URL = 'c2s/utils/BASE_PATIENTS_API_URL';
@@ -26,7 +25,6 @@ export const BASE_USER_CONTEXT_API_URL = 'c2s/utils/BASE_USER_CONTEXT_API_URL';
 const apiEndpoints = [
   { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/lookups`, isSecured: false },
-  { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
 
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/consents` },
