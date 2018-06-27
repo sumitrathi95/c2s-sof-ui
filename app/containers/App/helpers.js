@@ -9,6 +9,7 @@ import identity from 'lodash/identity';
 import { EMPTY_STRING, NEW_LINE_CHARACTER } from 'containers/App/constants';
 import { RESOURCE_TYPE } from 'containers/App/contextConstants';
 import Util from 'utils/Util';
+import split from 'lodash/split';
 
 
 const SSN_SYSTEM = '2.16.840.1.113883.4.1';
@@ -19,7 +20,9 @@ const SSN_SYSTEM_DISPLAY = 'SSN';
  * @returns {*}
  */
 export function isPatientResourceType(resourceType) {
-  return Util.equalsIgnoreCase(resourceType, RESOURCE_TYPE.PATIENT);
+  // RESOURCE_TYPE could be either 'c2s/Context/PATIENT' or 'c2s/Context/PRACTITIONER'
+  const profileArray = RESOURCE_TYPE.PATIENT && split(RESOURCE_TYPE.PATIENT, '/', 3);
+  return Util.equalsIgnoreCase(resourceType, profileArray[2]);
 }
 
 export function mapToName(nameArray) {
