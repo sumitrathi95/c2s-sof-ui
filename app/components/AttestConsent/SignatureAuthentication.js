@@ -19,36 +19,47 @@ import StyledDialog from 'components/StyledDialog';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import SignatureErrorText from './SignatureErrorText';
 import messages from './messages';
 
 class SignatureAuthentication extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      hasSigned: true,
+    };
+    this.handleSignatureDialogClose = this.handleSignatureDialogClose.bind(this);
     this.handleClearSignature = this.handleClearSignature.bind(this);
     this.handleSign = this.handleSign.bind(this);
   }
 
+  handleSignatureDialogClose() {
+    this.props.onSignatureDialogClose();
+    this.setState({ hasSigned: true });
+  }
+
   handleClearSignature() {
-    this.signaturePad.instance.clear();
+    this.signaturePad.clear();
   }
 
   handleSign() {
     if (this.signaturePad.isEmpty()) {
-      alert('Please provide a signature first.');
+      this.setState({ hasSigned: false });
     } else {
-      this.props.onConfirmAuthenticated(true, this.signaturePad.toDataURL());
       this.props.onSignatureDialogClose();
+      this.setState({ hasSigned: true });
+      this.props.onConfirmAuthenticated(true, this.signaturePad.toDataURL());
     }
   }
 
   render() {
-    const { signatureDialogOpen, onSignatureDialogClose } = this.props;
+    const { signatureDialogOpen } = this.props;
     return (
       <StyledDialog open={signatureDialogOpen} fullWidth>
         <DialogTitle>
           <HorizontalAlignment position={'end'}>
             <StyledTooltip title="Close">
-              <StyledIconButton onClick={onSignatureDialogClose}>
+              <StyledIconButton onClick={this.handleSignatureDialogClose}>
                 <Close />
               </StyledIconButton>
             </StyledTooltip>
@@ -76,6 +87,11 @@ class SignatureAuthentication extends React.Component {
               </StyledRaisedButton>
             </Cell>
           </Grid>
+          {!this.state.hasSigned &&
+          <SignatureErrorText>
+            <FormattedMessage {...messages.authentication.signErrorMessage} />
+          </SignatureErrorText>
+          }
         </DialogContent>
       </StyledDialog>
     );

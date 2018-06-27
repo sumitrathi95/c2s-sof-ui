@@ -83,6 +83,10 @@ export default defineMessages({
       id: 'c2s.components.AttestConsent.authentication.signButton',
       defaultMessage: 'Sign',
     },
+    signErrorMessage: {
+      id: 'c2s.components.AttestConsent.authentication.signErrorMessage',
+      defaultMessage: 'The e-signature is required',
+    },
   },
   validation: {
     required: {
