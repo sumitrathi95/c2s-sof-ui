@@ -35,7 +35,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
   }
 
   handleCheckPassword() {
-    this.setState({ authenticationDialogOpen: true });
+    this.setState({ isAuthenticated: true });
   }
 
   handleDialogCallback() {
@@ -50,14 +50,14 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { onSubmit, consent, isAuthenticated, patient, careCoordinatorContext } = this.props;
+    const { onSubmit, consent, patient, careCoordinatorContext } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
     const careCoordinatorName = careCoordinatorContext && careCoordinatorContext.name;
 
     const flattenedConsent = consent && flattenConsentData(consent);
     return (
       <div>
-        <StyledDialog fullWidth open={!isAuthenticated && this.state.authenticationDialogOpen}>
+        <StyledDialog fullWidth open={this.state.authenticationDialogOpen}>
           <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
         </StyledDialog>
         <Formik
@@ -114,7 +114,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                     </Grid>
                     <Checkbox
                       name="agreement"
-                      checked={isAuthenticated}
+                      checked={this.state.isAuthenticated}
                       label={
                         careCoordinatorName ?
                           <FormattedHTMLMessage
@@ -133,7 +133,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                       <StyledRaisedButton
                         fullWidth
                         type="submit"
-                        disabled={!isAuthenticated}
+                        disabled={!this.state.isAuthenticated}
                       >
                         Complete
                       </StyledRaisedButton>
