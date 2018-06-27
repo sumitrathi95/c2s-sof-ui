@@ -33,4 +33,12 @@ export default class LaunchService {
     }
     return null;
   }
+
+  static getLaunchStateIss() {
+    const state = sessionStorage.getItem(STATE_KEY);
+    if (state) {
+      return sessionStorage.getItem(makeIssKey(state));
+    }
+    return null;
+  }
 }

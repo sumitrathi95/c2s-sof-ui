@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
 import merge from 'lodash/merge';
 import isUndefined from 'lodash/isUndefined';
+
+import LaunchService from 'utils/LaunchService';
 import { retrieveToken } from './tokenService';
 import { isSecuredEndpoint } from './endpointService';
 
@@ -64,7 +66,18 @@ export default function request(requestURL, options) {
  * @return {object}           The response data
  */
 function requestWithoutJWT(url, options) {
-  return fetch(url, options)
+  let fetchOptions = options;
+  if (isUndefined(options)) {
+    fetchOptions = {};
+  }
+  const iss = LaunchService.getLaunchStateIss();
+  if (iss) {
+    merge(fetchOptions, { headers: { FhirServer: iss } });
+  } else {
+    console.log('No iss found');
+  }
+
+  return fetch(url, fetchOptions)
     .then(checkStatus)
     .then(parseJSON);
 }
@@ -76,6 +89,13 @@ function requestWithJWT(url, options) {
   }
   const authData = retrieveToken();
   const token = authData && authData.access_token;
+  const iss = LaunchService.getLaunchStateIss();
+  if (iss) {
+    merge(fetchOptions, { headers: { FhirServer: iss } });
+  } else {
+    console.log('No iss found');
+  }
+
   if (token) {
     merge(fetchOptions, { headers: { Authorization: `Bearer ${token}` } });
   } else {
