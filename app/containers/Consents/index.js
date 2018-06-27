@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import { Cell, Grid } from 'styled-css-grid';
 import Add from '@material-ui/icons/Add';
 import common from 'material-ui-next/colors/common';
+import isEmpty from 'lodash/isEmpty';
 
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
@@ -24,12 +25,13 @@ import makeSelectConsents from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getConsents } from './actions';
+import { getConsents, getConsent, deleteConsent } from './actions';
 
 export class Consents extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleDeleteConsent = this.handleDeleteConsent.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +40,14 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
 
   handlePageChange(currentPage) {
     this.props.getConsents(currentPage);
+  }
+
+  handleDeleteConsent(consent) {
+    let selConsent = consent;
+    if (isEmpty(consent)) {
+      selConsent = this.props.getConsent(consent.logicalId);
+    }
+    this.props.deleteConsent(selConsent);
   }
 
   render() {
@@ -50,6 +60,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
       currentPageSize: consents.currentPageSize,
       totalElements: consents.totalElements,
       handlePageClick: this.handlePageChange,
+      handleDeleteConsent: this.handleDeleteConsent,
     };
 
     return (
@@ -70,6 +81,8 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
 
 Consents.propTypes = {
   getConsents: PropTypes.func.isRequired,
+  getConsent: PropTypes.func.isRequired,
+  deleteConsent: PropTypes.func.isRequired,
   consents: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -92,6 +105,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getConsents: (pageNumber) => dispatch(getConsents(pageNumber)),
+    getConsent: (consent, consentId) => dispatch(getConsent(consent, consentId)),
+    deleteConsent: (consent) => dispatch(deleteConsent(consent)),
   };
 }
 

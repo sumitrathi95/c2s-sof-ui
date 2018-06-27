@@ -24,7 +24,7 @@ function ConsentCards(props) {
       {(!consentData.loading && consentData.data && consentData.data.length > 0 ?
         <div>
           {!isEmpty(consentData.data) && consentData.data.map((consent) => (
-            <ConsentCard key={consent.logicalId} consent={consent} />
+            <ConsentCard key={consent.logicalId} consent={consent} handleDeleteConsent={consentData.handleDeleteConsent} />
           ))}
           <CenterAlignedUltimatePagination
             currentPage={consentData.currentPage}
@@ -54,6 +54,7 @@ ConsentCards.propTypes = {
     currentPageSize: PropTypes.number,
     totalElements: PropTypes.number,
     handlePageClick: PropTypes.func.isRequired,
+    handleDeleteConsent: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,
       identifiers: PropTypes.arrayOf(PropTypes.shape({

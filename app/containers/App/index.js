@@ -27,6 +27,7 @@ import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
 import LaunchPage from 'containers/LaunchPage/Loadable';
 import ErrorPage from 'containers/ErrorPage/Loadable';
 import TokenRetrievePage from 'containers/TokenRetrievePage/Loadable';
+import { RevokeConsentPage } from 'containers/RevokeConsentPage';
 import saga from './saga';
 import './styles.css';
 
@@ -48,7 +49,7 @@ export function App() {
           <PrivateLayoutRoute exact path="/c2s-sof-ui/home" component={HomePage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
           <PrivateLayoutRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
-          <PrivateLayoutRoute path="/c2s-sof-ui/sign-consent/:id" component={AttestConsentPage} />
+          <PrivateLayoutRoute path="/c2s-sof-ui/revoke-consent/:id?" component={RevokeConsentPage} />
           <PublicLayoutRoute component={NotFoundPage} />
         </Switch>
         <Notification />

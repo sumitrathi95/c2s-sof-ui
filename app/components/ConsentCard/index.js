@@ -20,7 +20,7 @@ import messages from './messages';
 
 
 function ConsentCard(props) { // eslint-disable-line react/prefer-stateless-function
-  const { consent } = props;
+  const { consent, handleDeleteConsent } = props;
   return (
     <ConsentCardGrid columns={1}>
       <ConsentCardHeaderCell>
@@ -36,7 +36,7 @@ function ConsentCard(props) { // eslint-disable-line react/prefer-stateless-func
           </Cell>
           <Cell>
             <HorizontalAlignment position="end">
-              <ConsentOptions consent={consent} />
+              <ConsentOptions consent={consent} handleDeleteConsent={handleDeleteConsent} />
             </HorizontalAlignment>
           </Cell>
         </Grid>
@@ -63,6 +63,7 @@ ConsentCard.propTypes = {
       end: PropTypes.date,
     }),
   }).isRequired,
+  handleDeleteConsent: PropTypes.func.isRequired,
 };
 
 export default ConsentCard;
