@@ -8,11 +8,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Dialog, { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import Button from 'material-ui-next/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { Cell, Grid } from 'styled-css-grid';
-import { Document, Page } from 'react-pdf/dist/entry.webpack';
 
 import Util from 'utils/Util';
 import HorizontalAlignment from 'components/HorizontalAlignment';
@@ -20,6 +19,7 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
+import PreviewConsent from './PreviewConsent';
 import messages from './messages';
 
 const CONSENT_STATUS_DRAFT = 'DRAFT';
@@ -32,8 +32,6 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
       isManageConsentDialogOpen: false,
       isPreviewConsentDialogOpen: false,
       isDeleteConsentDialogOpen: false,
-      numPages: null,
-      pageNumber: 1,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
@@ -42,11 +40,6 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.handleDeleteConsentOpen = this.handleDeleteConsentOpen.bind(this);
     this.handleDeleteConsentClose = this.handleDeleteConsentClose.bind(this);
     this.handleDeleteConsentOk = this.handleDeleteConsentOk.bind(this);
-    this.onDocumentLoadSuccess = this.onDocumentLoadSuccess.bind(this);
-  }
-
-  onDocumentLoadSuccess(numPages) {
-    this.setState({ numPages });
   }
 
   handleOpenDialog() {
@@ -91,7 +84,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
 
   render() {
     const { consent, user } = this.props;
-    const { logicalId, status } = consent;
+    const { logicalId, status, sourceAttachment } = consent;
     return (
       <div>
         <StyledRaisedButton onClick={this.handleOpenDialog}>
@@ -173,20 +166,11 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
             </Grid>
           </DialogContent>
         </StyledDialog>
-        <Dialog open={this.state.isPreviewConsentDialogOpen} fullScreen>
-          <Button onClick={this.handlePreviewConsentClose}>
-            <CloseIcon />
-            <FormattedMessage {...messages.consentDialog.closeButton} />
-          </Button>
-          <DialogContent>
-            <Document
-              file={`data:application/pdf;base64,${this.props.consent.sourceAttachment}`}
-              onLoadSuccess={this.onDocumentLoadSuccess}
-            >
-              <Page pageNumber={this.state.pageNumber} scale={2} />
-            </Document>
-          </DialogContent>
-        </Dialog>
+        <PreviewConsent
+          previewConsentDialogOpen={this.state.isPreviewConsentDialogOpen}
+          onPreviewConsentDialogClose={this.handlePreviewConsentClose}
+          sourceAttachment={sourceAttachment}
+        />
         <StyledDialog open={this.state.isDeleteConsentDialogOpen} onClose={this.handleDeleteConsentClose} fullWidth>
           <DialogTitle>
             <FormattedMessage {...messages.consentDialog.deleteConsentTitle} />
