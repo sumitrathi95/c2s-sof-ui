@@ -21,16 +21,15 @@ import PageContent from 'components/PageContent';
 import AttestConsent from 'components/AttestConsent';
 import reducer from './reducer';
 import saga from './saga';
-import { attestConsent, checkPassword, getConsent, initializeAttestConsentPage } from './actions';
-import { makeSelectConsent, makeSelectIsAuthenticated } from './selectors';
+import { attestConsent, getConsent, initializeAttestConsentPage } from './actions';
+import { makeSelectConsent, makeSelectSubmitting } from './selectors';
 
 
 export class AttestConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
+    this.handleAttestConsent = this.handleAttestConsent.bind(this);
   }
 
   componentDidMount() {
@@ -44,16 +43,12 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeAttestConsentPage();
   }
 
-  handleSubmit(values, actions) {
-    this.props.attestConsent(this.props.match.params.id, () => actions.setSubmitting(false));
-  }
-
-  checkPassword(password, actions) {
-    this.props.checkPassword(password, () => actions.setSubmitting(false));
+  handleAttestConsent(signatureDataURL) {
+    this.props.attestConsent(this.props.match.params.id, signatureDataURL);
   }
 
   render() {
-    const { consent, isAuthenticated, patient, user } = this.props;
+    const { consent, patient, user, isSubmitting } = this.props;
     let careCoordinatorContext = null;
     if (user && !user.isPatient) {
       careCoordinatorContext = {
@@ -71,12 +66,11 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
         <PageHeader title="Sign Consent" />
         <PageContent>
           <AttestConsent
-            onSubmit={this.handleSubmit}
-            checkPassword={this.checkPassword}
+            onAttestConsent={this.handleAttestConsent}
             consent={consent}
             patient={patient}
-            isAuthenticated={isAuthenticated}
             careCoordinatorContext={careCoordinatorContext}
+            isSubmitting={isSubmitting}
           />
         </PageContent>
       </Page>
@@ -89,10 +83,9 @@ AttestConsentPage.propTypes = {
   initializeAttestConsentPage: PropTypes.func.isRequired,
   getConsent: PropTypes.func.isRequired,
   attestConsent: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
   user: PropTypes.shape({
     isPatient: PropTypes.bool.isRequired,
     fhirResource: PropTypes.shape({
@@ -111,17 +104,16 @@ AttestConsentPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
-  isAuthenticated: makeSelectIsAuthenticated(),
   patient: makeSelectPatient(),
   user: makeSelectUser(),
+  isSubmitting: makeSelectSubmitting(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeAttestConsentPage: () => dispatch(initializeAttestConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    attestConsent: (logicalId, handleSubmitting) => dispatch(attestConsent(logicalId, handleSubmitting)),
-    checkPassword: (password, handleSubmitting) => dispatch(checkPassword(password, handleSubmitting)),
+    attestConsent: (logicalId, signatureDataURL) => dispatch(attestConsent(logicalId, signatureDataURL)),
   };
 }
 
