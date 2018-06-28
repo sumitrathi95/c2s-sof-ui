@@ -27,7 +27,7 @@ import ManageConsentPage from 'containers/ManageConsentPage/Loadable';
 import LaunchPage from 'containers/LaunchPage/Loadable';
 import ErrorPage from 'containers/ErrorPage/Loadable';
 import TokenRetrievePage from 'containers/TokenRetrievePage/Loadable';
-import { RevokeConsentPage } from 'containers/RevokeConsentPage';
+import RevokeConsentPage from 'containers/RevokeConsentPage';
 import saga from './saga';
 import './styles.css';
 

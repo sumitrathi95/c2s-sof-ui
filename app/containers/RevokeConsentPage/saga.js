@@ -1,13 +1,12 @@
-
 import { goBack } from 'react-router-redux';
-import { call, put, takeLatest, all, select } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { verifyAttestor, verifyAttestorErrorDetail } from 'containers/AttestConsentPage/api';
 import { getConsent, revokeConsent } from './api';
-import { getConsentError, getConsentSuccess, checkPasswordError, revokeConsentError, checkPasswordSuccess } from './actions';
-import { GET_CONSENT, CHECK_PASSWORD, REVOKE_CONSENT } from './constants';
+import { checkPasswordError, checkPasswordSuccess, getConsentError, getConsentSuccess, revokeConsentError } from './actions';
+import { CHECK_PASSWORD, GET_CONSENT, REVOKE_CONSENT } from './constants';
 
 
 function* getConsentSaga({ logicalId }) {
@@ -36,7 +35,7 @@ function* checkPasswordSaga(action) {
   }
 }
 
-function* RevokeConsentSaga(action) {
+function* revokeConsentSaga(action) {
   try {
     const consent = yield call(revokeConsent, action.logicalId);
     yield put(getConsentSuccess(consent));
@@ -55,7 +54,7 @@ function* watchGetConsentSaga() {
 }
 
 function* watchRevokeConsentSaga() {
-  yield takeLatest(REVOKE_CONSENT, RevokeConsentSaga);
+  yield takeLatest(REVOKE_CONSENT, revokeConsentSaga);
 }
 
 function* watchCheckPasswordSaga() {

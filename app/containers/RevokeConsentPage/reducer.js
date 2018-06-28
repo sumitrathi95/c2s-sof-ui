@@ -6,7 +6,7 @@
 
 
 import { fromJS } from 'immutable';
-import { GET_CONSENT_ERROR, GET_CONSENT_SUCCESS, INITIALIZE_REVOKE_CONSENT, CHECK_PASSWORD_ERROR, CHECK_PASSWORD_SUCCESS } from './constants';
+import { CHECK_PASSWORD_ERROR, CHECK_PASSWORD_SUCCESS, GET_CONSENT_ERROR, GET_CONSENT_SUCCESS, INITIALIZE_REVOKE_CONSENT } from './constants';
 
 const initialState = fromJS({
   error: false,
