@@ -42,11 +42,11 @@ export function getConsentError(error) {
   };
 }
 
-export function attestConsent(logicalId, handleSubmitting) {
+export function attestConsent(logicalId, signatureDataURL) {
   return {
     type: ATTEST_CONSENT,
     logicalId,
-    handleSubmitting,
+    signatureDataURL,
   };
 }
 

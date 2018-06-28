@@ -29,7 +29,7 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAttestConsent = this.handleAttestConsent.bind(this);
   }
 
   componentDidMount() {
@@ -43,8 +43,8 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeAttestConsentPage();
   }
 
-  handleSubmit(values, actions) {
-    this.props.attestConsent(this.props.match.params.id, () => actions.setSubmitting(false));
+  handleAttestConsent(signatureDataURL) {
+    this.props.attestConsent(this.props.match.params.id, signatureDataURL);
   }
 
   render() {
@@ -66,7 +66,7 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
         <PageHeader title="Sign Consent" />
         <PageContent>
           <AttestConsent
-            onSubmit={this.handleSubmit}
+            onAttestConsent={this.handleAttestConsent}
             consent={consent}
             patient={patient}
             careCoordinatorContext={careCoordinatorContext}

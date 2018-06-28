@@ -1,6 +1,6 @@
 /**
  *
- * SignatureAuthority
+ * SignatureAuthentication
  *
  */
 

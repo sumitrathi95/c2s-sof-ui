@@ -17,17 +17,15 @@ function* getConsentSaga({ logicalId }) {
   }
 }
 
-function* attestConsentSaga(action) {
+function* attestConsentSaga({ logicalId, signatureDataURL }) {
   try {
-    const consent = yield call(attestConsent, action.logicalId);
+    const consent = yield call(attestConsent, logicalId, signatureDataURL);
     yield put(getConsentSuccess(consent));
     yield put(showNotification('Successfully signed consent.'));
-    yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
     yield put(showNotification('Failed to sign consent.'));
     yield put(attestConsentError(error));
-    yield call(action.handleSubmitting);
   }
 }
 

@@ -8,9 +8,13 @@ export function getConsent(logicalId) {
   return request(requestURL);
 }
 
-export function attestConsent(logicalId) {
+export function attestConsent(logicalId, signatureDataURL) {
   const requestURL = `${baseEndpoint}/${logicalId}/attestation`;
   return request(requestURL, {
     method: 'PUT',
+    body: JSON.stringify({ signatureDataURL }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
