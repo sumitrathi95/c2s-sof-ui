@@ -44,10 +44,10 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     this.setState({ signatureDialogOpen: false });
   }
 
-  confirmAuthenticated(hasSigned, signatureData) {
-    if (hasSigned && signatureData) {
+  confirmAuthenticated(signatureDataURL) {
+    if (signatureDataURL) {
       this.setState({ isAuthenticated: true });
-      console.log(signatureData);
+      console.log(signatureDataURL);
     }
   }
 

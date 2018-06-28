@@ -75,18 +75,6 @@ export default defineMessages({
       id: 'c2s.components.AttestConsent.authentication.title',
       defaultMessage: 'Please provide your e-signature to authenticate',
     },
-    clearButton: {
-      id: 'c2s.components.AttestConsent.authentication.clearButton',
-      defaultMessage: 'Clear',
-    },
-    signButton: {
-      id: 'c2s.components.AttestConsent.authentication.signButton',
-      defaultMessage: 'Sign',
-    },
-    signErrorMessage: {
-      id: 'c2s.components.AttestConsent.authentication.signErrorMessage',
-      defaultMessage: 'The e-signature is required',
-    },
   },
   validation: {
     required: {
