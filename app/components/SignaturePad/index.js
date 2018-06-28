@@ -13,6 +13,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import PanelSection from 'components/PanelSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import SelectPenColor from './SelectPenColor';
 import SignatureErrorText from './SignatureErrorText';
 import messages from './messages';
 
@@ -25,6 +26,7 @@ class SignaturePad extends React.Component { // eslint-disable-line react/prefer
     };
     this.handleClearSignature = this.handleClearSignature.bind(this);
     this.handleSign = this.handleSign.bind(this);
+    this.handleSelectColor = this.handleSelectColor.bind(this);
   }
 
   handleClearSignature() {
@@ -40,13 +42,17 @@ class SignaturePad extends React.Component { // eslint-disable-line react/prefer
     }
   }
 
+  handleSelectColor(color) {
+    this.signaturePad.penColor = color;
+  }
+
   render() {
     return (
       <div>
         <PanelSection>
           <SignaturePadWrapper ref={(ref) => (this.signaturePad = ref)} />
         </PanelSection>
-        <Grid columns={2} gap="10px">
+        <Grid columns={3} gap="10px">
           <Cell>
             <Button
               variant="raised"
@@ -55,6 +61,9 @@ class SignaturePad extends React.Component { // eslint-disable-line react/prefer
             >
               <FormattedMessage {...messages.clearButton} />
             </Button>
+          </Cell>
+          <Cell>
+            <SelectPenColor onSelectedColor={this.handleSelectColor} />
           </Cell>
           <Cell>
             <StyledRaisedButton fullWidth onClick={this.handleSign}>

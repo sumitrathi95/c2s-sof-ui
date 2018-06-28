@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'c2s.components.SignaturePad.signErrorMessage',
     defaultMessage: 'The e-signature is required',
   },
+  switchInkColor: {
+    id: 'c2s.components.SignaturePad.switchInkColor',
+    defaultMessage: 'Switch ink color',
+  },
 });
