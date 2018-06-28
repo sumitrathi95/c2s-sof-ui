@@ -22,7 +22,7 @@ import AttestConsent from 'components/AttestConsent';
 import reducer from './reducer';
 import saga from './saga';
 import { attestConsent, getConsent, initializeAttestConsentPage } from './actions';
-import { makeSelectConsent } from './selectors';
+import { makeSelectConsent, makeSelectSubmitting } from './selectors';
 
 
 export class AttestConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -48,7 +48,7 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { consent, patient, user } = this.props;
+    const { consent, patient, user, isSubmitting } = this.props;
     let careCoordinatorContext = null;
     if (user && !user.isPatient) {
       careCoordinatorContext = {
@@ -70,6 +70,7 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
             consent={consent}
             patient={patient}
             careCoordinatorContext={careCoordinatorContext}
+            isSubmitting={isSubmitting}
           />
         </PageContent>
       </Page>
@@ -82,6 +83,7 @@ AttestConsentPage.propTypes = {
   initializeAttestConsentPage: PropTypes.func.isRequired,
   getConsent: PropTypes.func.isRequired,
   attestConsent: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
   user: PropTypes.shape({
@@ -104,13 +106,14 @@ const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
   patient: makeSelectPatient(),
   user: makeSelectUser(),
+  isSubmitting: makeSelectSubmitting(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeAttestConsentPage: () => dispatch(initializeAttestConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    attestConsent: (logicalId, handleSubmitting) => dispatch(attestConsent(logicalId, handleSubmitting)),
+    attestConsent: (logicalId, signatureDataURL) => dispatch(attestConsent(logicalId, signatureDataURL)),
   };
 }
 

@@ -60,7 +60,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { consent, patient, careCoordinatorContext } = this.props;
+    const { consent, patient, careCoordinatorContext, isSubmitting } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
     const careCoordinatorName = careCoordinatorContext && careCoordinatorContext.name;
 
@@ -141,7 +141,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                 <StyledRaisedButton
                   fullWidth
                   onClick={this.handleAttestConsent}
-                  disabled={!this.state.isAuthenticated}
+                  disabled={!this.state.isAuthenticated || isSubmitting}
                 >
                   Complete
                 </StyledRaisedButton>
@@ -164,6 +164,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
 
 AttestConsent.propTypes = {
   onAttestConsent: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
   careCoordinatorContext: PropTypes.shape({
