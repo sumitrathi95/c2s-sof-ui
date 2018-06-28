@@ -88,19 +88,28 @@ function requestWithJWT(url, options) {
     fetchOptions = {};
   }
   const authData = retrieveToken();
-  const token = authData && authData.access_token;
+  const accessToken = authData && authData.access_token;
+  const idToken = authData && authData.id_token;
   const iss = LaunchService.getLaunchStateIss();
+
+  if (accessToken) {
+    merge(fetchOptions, { headers: { Authorization: `Bearer ${accessToken}` } });
+  } else {
+    console.log('No access token found');
+  }
+
+  if (idToken) {
+    merge(fetchOptions, { headers: { IDToken: idToken } });
+  } else {
+    console.log('No id token found');
+  }
+
   if (iss) {
     merge(fetchOptions, { headers: { FhirServer: iss } });
   } else {
     console.log('No iss found');
   }
 
-  if (token) {
-    merge(fetchOptions, { headers: { Authorization: `Bearer ${token}` } });
-  } else {
-    console.log('No token found');
-  }
   return fetch(url, fetchOptions)
     .then(checkStatus)
     .then(parseJSON);
