@@ -14,7 +14,6 @@ import Checkbox from 'components/Checkbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import ConsentFormSection from 'components/ConsentFormSection';
-import CheckPassword from 'components/AttestConsent/CheckPassword';
 import messages from './messages';
 import RevokeConsentGrid from './RevokeConsentGrid';
 
@@ -46,6 +45,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
     }
   }
 
+  // Todo: Add signature pad to authenticate consent revoke
   render() {
     const { onSubmit, consent, patient } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
@@ -54,9 +54,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
       <div>
         <Dialog
           open={this.state.authenticationDialogOpen}
-        >
-          <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
-        </Dialog>
+        ></Dialog>
         <Formik
           onSubmit={(values, actions) => onSubmit(values, actions)}
           render={({ isSubmitting }) => (
