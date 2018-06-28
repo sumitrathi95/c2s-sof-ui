@@ -32,7 +32,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
   }
 
   handleCheckPassword() {
-    this.setState({ authenticationDialogOpen: true });
+    this.setState({ isAuthenticated: true });
   }
 
   handleDialogCallback() {
@@ -47,13 +47,13 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { onSubmit, consent, isAuthenticated, patient } = this.props;
+    const { onSubmit, consent, patient } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
 
     return (
       <div>
         <Dialog
-          open={!isAuthenticated && this.state.authenticationDialogOpen}
+          open={this.state.authenticationDialogOpen}
         >
           <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
         </Dialog>
@@ -81,7 +81,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
                     <FormattedHTMLMessage {...messages.revokeTerm} />
                     <Checkbox
                       name="agreement"
-                      checked={isAuthenticated}
+                      checked={this.state.isAuthenticated}
                       label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
                       onCheck={this.handleCheckPassword}
                     />
@@ -96,7 +96,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
                       <StyledRaisedButton
                         fullWidth
                         type="submit"
-                        disabled={!isAuthenticated}
+                        disabled={!this.state.isAuthenticated}
                       >
                         Complete
                       </StyledRaisedButton>
@@ -117,7 +117,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
 
 RevokeConsent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func.isRequired,
+  checkPassword: PropTypes.func,
   consent: PropTypes.object,
   patient: PropTypes.object,
   isAuthenticated: PropTypes.bool,
