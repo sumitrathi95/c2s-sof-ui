@@ -15,8 +15,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RevokeConsent from 'components/RevokeConsent';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { revokeConsent, checkPassword, getConsent, initializeRevokeConsentPage } from './actions';
-import { makeSelectConsent, makeSelectIsAuthenticated } from './selectors';
+import { getConsent, initializeRevokeConsentPage, revokeConsent } from './actions';
+import { makeSelectConsent } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -25,8 +25,8 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
   }
+
   componentDidMount() {
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -42,12 +42,8 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
     this.props.revokeConsent(this.props.match.params.id, () => actions.setSubmitting(false));
   }
 
-  checkPassword(password, actions) {
-    this.props.checkPassword(password, () => actions.setSubmitting(false));
-  }
-
   render() {
-    const { consent, isAuthenticated, patient } = this.props;
+    const { consent, patient } = this.props;
     return (
       <div>
         <Helmet>
@@ -56,10 +52,8 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
         </Helmet>
         <RevokeConsent
           onSubmit={this.handleSubmit}
-          checkPassword={this.checkPassword}
           consent={consent}
           patient={patient}
-          isAuthenticated={isAuthenticated}
         />
       </div>
     );
@@ -71,15 +65,12 @@ RevokeConsentPage.propTypes = {
   initializeRevokeConsentPage: PropTypes.func.isRequired,
   getConsent: PropTypes.func.isRequired,
   revokeConsent: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
-  isAuthenticated: makeSelectIsAuthenticated(),
   patient: makeSelectPatient(),
 });
 
@@ -88,7 +79,6 @@ function mapDispatchToProps(dispatch) {
     initializeRevokeConsentPage: () => dispatch(initializeRevokeConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
     revokeConsent: (logicalId, handleSubmitting) => dispatch(revokeConsent(logicalId, handleSubmitting)),
-    checkPassword: (password, handleSubmitting) => dispatch(checkPassword(password, handleSubmitting)),
   };
 }
 

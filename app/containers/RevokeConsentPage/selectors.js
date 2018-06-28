@@ -16,14 +16,8 @@ const makeSelectConsent = () => createSelector(
   (subState) => subState && subState.get('consent'),
 );
 
-const makeSelectIsAuthenticated = () => createSelector(
-  selectRevokeConsentPageDomain,
-  (subState) => subState && subState.get('isAuthenticated'),
-);
-
 export {
   selectRevokeConsentPageDomain,
   makeSelectGetConsentError,
   makeSelectConsent,
-  makeSelectIsAuthenticated,
 };

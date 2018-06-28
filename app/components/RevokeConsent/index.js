@@ -27,7 +27,6 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
     };
     this.handleCheckPassword = this.handleCheckPassword.bind(this);
     this.handleDialogCallback = this.handleDialogCallback.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
   }
 
   handleCheckPassword() {
@@ -36,13 +35,6 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
 
   handleDialogCallback() {
     this.setState({ authenticationDialogOpen: false });
-  }
-
-  checkPassword(password, actions) {
-    this.props.checkPassword(password, actions);
-    if (this.props.isAuthenticated) {
-      this.setState({ authenticationDialogOpen: false });
-    }
   }
 
   // Todo: Add signature pad to authenticate consent revoke
@@ -54,7 +46,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
       <div>
         <Dialog
           open={this.state.authenticationDialogOpen}
-        ></Dialog>
+        />
         <Formik
           onSubmit={(values, actions) => onSubmit(values, actions)}
           render={({ isSubmitting }) => (
@@ -115,10 +107,8 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
 
 RevokeConsent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func,
   consent: PropTypes.object,
   patient: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
 };
 
 export default RevokeConsent;

@@ -6,12 +6,11 @@
 
 
 import { fromJS } from 'immutable';
-import { CHECK_PASSWORD_ERROR, CHECK_PASSWORD_SUCCESS, GET_CONSENT_ERROR, GET_CONSENT_SUCCESS, INITIALIZE_REVOKE_CONSENT } from './constants';
+import { GET_CONSENT_ERROR, GET_CONSENT_SUCCESS, INITIALIZE_REVOKE_CONSENT } from './constants';
 
 const initialState = fromJS({
   error: false,
   consent: null,
-  isAuthenticated: false,
 });
 
 function RevokeConsentPageReducer(state = initialState, action) {
@@ -22,12 +21,6 @@ function RevokeConsentPageReducer(state = initialState, action) {
       return state
         .set('consent', action.consent);
     case GET_CONSENT_ERROR:
-      return state
-        .set('error', action.error);
-    case CHECK_PASSWORD_SUCCESS:
-      return state
-        .set('isAuthenticated', true);
-    case CHECK_PASSWORD_ERROR:
       return state
         .set('error', action.error);
     default:
