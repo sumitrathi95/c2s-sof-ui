@@ -23,6 +23,7 @@ import StyledIconButton from 'components/StyledIconButton';
 import messages from './messages';
 
 const CONSENT_STATUS_DRAFT = 'DRAFT';
+const CONSENT_STATUS_ACTIVE = 'ACTIVE';
 
 class ConsentOptions extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -30,6 +31,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.state = {
       isManageConsentDialogOpen: false,
       isPreviewConsentDialogOpen: false,
+      isDeleteConsentDialogOpen: false,
       numPages: null,
       pageNumber: 1,
     };
@@ -37,6 +39,9 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handlePreviewConsentOpen = this.handlePreviewConsentOpen.bind(this);
     this.handlePreviewConsentClose = this.handlePreviewConsentClose.bind(this);
+    this.handleDeleteConsentOpen = this.handleDeleteConsentOpen.bind(this);
+    this.handleDeleteConsentClose = this.handleDeleteConsentClose.bind(this);
+    this.handleDeleteConsentOk = this.handleDeleteConsentOk.bind(this);
     this.onDocumentLoadSuccess = this.onDocumentLoadSuccess.bind(this);
   }
 
@@ -52,6 +57,10 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.setState({ isManageConsentDialogOpen: false });
   }
 
+  handlePreviewConsentClose() {
+    this.setState({ isPreviewConsentDialogOpen: false });
+  }
+
   handlePreviewConsentOpen() {
     this.setState({
       isManageConsentDialogOpen: false,
@@ -59,12 +68,29 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     });
   }
 
-  handlePreviewConsentClose() {
-    this.setState({ isPreviewConsentDialogOpen: false });
+  handleDeleteConsentOpen() {
+    this.setState({
+      isDeleteConsentDialogOpen: true,
+    });
+  }
+
+  handleDeleteConsentClose() {
+    this.setState({ isDeleteConsentDialogOpen: false });
+  }
+
+  handleDeleteConsentOk() {
+    const { consent } = this.props;
+    if (this.state.isDeleteConsentDialogOpen) {
+      this.props.handleDeleteConsent(consent);
+      this.setState({
+        isDeleteConsentDialogOpen: false,
+        isManageConsentDialogOpen: false,
+      });
+    }
   }
 
   render() {
-    const { consent } = this.props;
+    const { consent, user } = this.props;
     const { logicalId, status } = consent;
     return (
       <div>
@@ -98,7 +124,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                 </Cell>
               }
               {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) && (user && user.isPatient) &&
                 <Cell>
                   <Button
                     variant="raised"
@@ -119,6 +145,31 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                   <FormattedMessage {...messages.consentDialog.previewConsentOption} />
                 </Button>
               </Cell>
+              {
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_ACTIVE) && (user && user.isPatient) &&
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    component={Link}
+                    to={`/c2s-sof-ui/revoke-consent/${logicalId}`}
+                  >
+                    <FormattedMessage {...messages.consentDialog.revokeConsentOption} />
+                  </Button>
+                </Cell>
+              }
+              {
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    onClick={this.handleDeleteConsentOpen}
+                  >
+                    <FormattedMessage {...messages.consentDialog.deleteConsentOption} />
+                  </Button>
+                </Cell>
+              }
             </Grid>
           </DialogContent>
         </StyledDialog>
@@ -136,6 +187,28 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
             </Document>
           </DialogContent>
         </Dialog>
+        <StyledDialog open={this.state.isDeleteConsentDialogOpen} onClose={this.handleDeleteConsentClose} fullWidth>
+          <DialogTitle>
+            <FormattedMessage {...messages.consentDialog.deleteConsentTitle} />
+          </DialogTitle>
+          <DialogContent>
+            <FormattedMessage {...messages.consentDialog.deleteConsentMessage} />
+            <HorizontalAlignment position={'end'}>
+              <Grid columns={2} alignContent="space-between">
+                <Cell>
+                  <StyledRaisedButton fullWidth onClick={this.handleDeleteConsentOk}>
+                    <FormattedMessage {...messages.consentDialog.okButton} />
+                  </StyledRaisedButton>
+                </Cell>
+                <Cell>
+                  <StyledRaisedButton fullWidth onClick={this.handleDeleteConsentClose}>
+                    <FormattedMessage {...messages.consentDialog.cancelButton} />
+                  </StyledRaisedButton>
+                </Cell>
+              </Grid>
+            </HorizontalAlignment>
+          </DialogContent>
+        </StyledDialog>
       </div>
     );
   }
@@ -160,6 +233,21 @@ ConsentOptions.propTypes = {
     }),
     sourceAttachment: PropTypes.string,
   }).isRequired,
+  handleDeleteConsent: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    isPatient: PropTypes.bool.isRequired,
+    fhirResource: PropTypes.shape({
+      logicalId: PropTypes.string,
+      name: PropTypes.array,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
+    }),
+  }),
 };
 
 export default ConsentOptions;

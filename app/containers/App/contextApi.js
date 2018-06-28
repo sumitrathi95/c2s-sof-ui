@@ -1,9 +1,4 @@
-import {
-  BASE_ORGANIZATIONS_API_URL,
-  BASE_PATIENTS_API_URL,
-  BASE_PRACTITIONERS_API_URL,
-  getEndpoint,
-} from 'utils/endpointService';
+import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
 import { isPatientResourceType } from 'containers/App/helpers';
 

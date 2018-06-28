@@ -7,58 +7,82 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'c2s.components.ConsentCard.header',
+    id: 'ocpui.components.ConsentCard.header',
     defaultMessage: 'This is the ConsentCard component !',
   },
   consentStatus: {
-    id: 'c2s.components.ConsentCard.consentStatus',
+    id: 'ocpui.components.ConsentCard.consentStatus',
     defaultMessage: 'Consent state:',
   },
   manageConsentButton: {
-    id: 'c2s.components.ConsentCard.manageConsentButton',
+    id: 'ocpui.components.ConsentCard.manageConsentButton',
     defaultMessage: 'Manage Consent',
   },
   consentCardHeader: {
     authorizedLabel: {
-      id: 'c2s.components.ConsentCard.consentCardHeader.authorizedLabel',
+      id: 'ocpui.components.ConsentCard.consentCardHeader.authorizedLabel',
       defaultMessage: 'Authorized to share:',
     },
     sharingLabel: {
-      id: 'c2s.components.ConsentCard.consentCardHeader.sharingLabel',
+      id: 'ocpui.components.ConsentCard.consentCardHeader.sharingLabel',
       defaultMessage: 'Sharing with:',
     },
     effectiveDatesLabel: {
-      id: 'c2s.components.ConsentCard.consentCardHeader.effectiveDatesLabel',
+      id: 'ocpui.components.ConsentCard.consentCardHeader.effectiveDatesLabel',
       defaultMessage: 'Effective dates:',
     },
     medicalInfoLabel: {
-      id: 'c2s.components.ConsentCard.consentCardHeader.medicalInfoLabel',
+      id: 'ocpui.components.ConsentCard.consentCardHeader.medicalInfoLabel',
       defaultMessage: 'Medical information disclosed:',
     },
     purposeLabel: {
-      id: 'c2s.components.ConsentCard.consentCardHeader.purposeLabel',
+      id: 'ocpui.components.ConsentCard.consentCardHeader.purposeLabel',
       defaultMessage: 'Share the following purposes:',
     },
   },
   consentDialog: {
     title: {
-      id: 'c2s.components.ConsentCard.consentDialog.title',
+      id: 'ocpui.components.ConsentCard.consentDialog.title',
       defaultMessage: 'Consent Options',
     },
     editConsentOption: {
-      id: 'c2s.components.ConsentCard.consentDialog.editConsentOption',
+      id: 'ocpui.components.ConsentCard.consentDialog.editConsentOption',
       defaultMessage: 'Edit This Consent',
     },
     attestConsentOption: {
-      id: 'c2s.components.ConsentCard.consentDialog.attestConsentOption',
+      id: 'ocpui.components.ConsentCard.consentDialog.attestConsentOption',
       defaultMessage: 'Provide Signature',
     },
+    revokeConsentOption: {
+      id: 'ocpui.components.ConsentCard.consentDialog.revokeConsentOption',
+      defaultMessage: 'Revoke This Consent',
+    },
+    deleteConsentOption: {
+      id: 'ocpui.components.ConsentCard.consentDialog.deleteConsentOption',
+      defaultMessage: 'Delete This Consent',
+    },
+    deleteConsentTitle: {
+      id: 'ocpui.components.ConsentCard.consentDialog.deleteConsentTitle',
+      defaultMessage: 'Delete Consent',
+    },
+    deleteConsentMessage: {
+      id: 'ocpui.components.ConsentCard.consentDialog.deleteConsentMessage',
+      defaultMessage: 'Are you sure you want to delete this consent?',
+    },
+    okButton: {
+      id: 'ocpui.components.ConsentCard.consentDialog.okButton',
+      defaultMessage: 'OK',
+    },
+    cancelButton: {
+      id: 'ocpui.components.ConsentCard.consentDialog.cancelButton',
+      defaultMessage: 'Cancel',
+    },
     previewConsentOption: {
-      id: 'c2s.components.ConsentCard.consentDialog.previewConsentOption',
+      id: 'ocpui.components.ConsentCard.consentDialog.previewConsentOption',
       defaultMessage: 'Preview This Consent',
     },
     closeButton: {
-      id: 'c2s.components.ConsentCard.consentDialog.closeButton',
+      id: 'ocpui.components.ConsentCard.consentDialog.closeButton',
       defaultMessage: 'Close',
     },
   },

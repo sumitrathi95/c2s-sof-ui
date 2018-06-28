@@ -2,25 +2,8 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import split from 'lodash/split';
 
 import { showNotification } from 'containers/Notification/actions';
-import {
-  getOrganization as getOrganizationAction,
-  getOrganizationError,
-  getPatient as getPatientAction,
-  getPatientError,
-  getUserContextError,
-  refreshOrganization,
-  refreshPatient,
-  setOrganization,
-  setPatient,
-  setUser,
-} from './contextActions';
-import {
-  GET_ORGANIZATION,
-  GET_PATIENT,
-  INITIALIZE_CONTEXT,
-  REFRESH_ORGANIZATION,
-  REFRESH_PATIENT,
-} from './contextConstants';
+import { getOrganization as getOrganizationAction, getOrganizationError, getPatient as getPatientAction, getPatientError, getUserContextError, refreshOrganization, refreshPatient, setOrganization, setPatient, setUser } from './contextActions';
+import { GET_ORGANIZATION, GET_PATIENT, INITIALIZE_CONTEXT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './contextConstants';
 import { makeSelectOrganization, makeSelectPatient } from './contextSelectors';
 import { getErrorDetail, getOrganization, getPatient, getUserProfile } from './contextApi';
 import { isPatientResourceType } from './helpers';
