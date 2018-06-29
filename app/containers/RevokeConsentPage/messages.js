@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.RevokeConsentPage.header',
-    defaultMessage: 'Revoke Consent Page container',
+    defaultMessage: 'Revoke Consent',
   },
 });

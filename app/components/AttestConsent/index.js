@@ -16,7 +16,7 @@ import GoBackButton from 'components/GoBackButton';
 import { flattenConsentData } from 'components/ConsentCard/helpers';
 import TextLabelGroup from 'components/TextLabelGroup';
 import ConsentFormSection from 'components/ConsentFormSection';
-import SignatureAuthentication from './SignatureAuthentication';
+import SignatureAuthenticationDialog from 'components/SignatureAuthenticationDialog';
 import AttestConsentGrid from './AttestConsentGrid';
 import messages from './messages';
 
@@ -31,8 +31,8 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     };
     this.handleSignatureDialogOpen = this.handleSignatureDialogOpen.bind(this);
     this.handleSignatureDialogClose = this.handleSignatureDialogClose.bind(this);
+    this.handleSaveSignature = this.handleSaveSignature.bind(this);
     this.handleAttestConsent = this.handleAttestConsent.bind(this);
-    this.confirmAuthenticated = this.confirmAuthenticated.bind(this);
   }
 
   handleSignatureDialogOpen() {
@@ -46,17 +46,17 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     this.setState({ signatureDialogOpen: false });
   }
 
-  handleAttestConsent() {
-    this.props.onAttestConsent(this.state.signatureDataURL);
-  }
-
-  confirmAuthenticated(signatureDataURL) {
+  handleSaveSignature(signatureDataURL) {
     if (signatureDataURL) {
       this.setState({
         isAuthenticated: true,
         signatureDataURL,
       });
     }
+  }
+
+  handleAttestConsent() {
+    this.props.onAttestConsent(this.state.signatureDataURL);
   }
 
   render() {
@@ -82,8 +82,8 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
               </Grid>
             </ConsentFormSection>
           </Cell>
-          <Cell area="medicalInfoGroup">
-            <ConsentFormSection title={<FormattedMessage {...messages.subtitle.medicalInfoGroup} />}>
+          <Cell area="consentActorsGroup">
+            <ConsentFormSection title={<FormattedMessage {...messages.subtitle.consentActorsGroup} />}>
               <Grid columns="repeat(2, 1fr) 0.2fr">
                 <Cell>
                   <TextLabelGroup
@@ -143,19 +143,19 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                   onClick={this.handleAttestConsent}
                   disabled={!this.state.isAuthenticated || isSubmitting}
                 >
-                  Complete
+                  <FormattedMessage {...messages.completeButton} />
                 </StyledRaisedButton>
               </Cell>
               <Cell>
-                <GoBackButton />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
         </AttestConsentGrid>
-        <SignatureAuthentication
+        <SignatureAuthenticationDialog
           signatureDialogOpen={this.state.signatureDialogOpen}
           onSignatureDialogClose={this.handleSignatureDialogClose}
-          onConfirmAuthenticated={this.confirmAuthenticated}
+          onSaveSignature={this.handleSaveSignature}
         />
       </div>
     );

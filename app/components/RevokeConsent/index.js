@@ -5,108 +5,118 @@
  */
 
 import React from 'react';
-import { Cell, Grid } from 'styled-css-grid';
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
-import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
-import Checkbox from 'components/Checkbox';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { FormControlLabel, FormGroup } from 'material-ui-next/Form';
+import Checkbox from 'material-ui-next/Checkbox';
+import { Cell, Grid } from 'styled-css-grid';
+
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
+import SignatureAuthenticationDialog from 'components/SignatureAuthenticationDialog';
 import ConsentFormSection from 'components/ConsentFormSection';
-import messages from './messages';
 import RevokeConsentGrid from './RevokeConsentGrid';
+import messages from './messages';
 
 class RevokeConsent extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
     this.state = {
       isAuthenticated: false,
-      authenticationDialogOpen: false,
+      signatureDialogOpen: false,
+      signatureDataURL: null,
     };
-    this.handleCheckPassword = this.handleCheckPassword.bind(this);
-    this.handleDialogCallback = this.handleDialogCallback.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
+    this.handleSignatureDialogOpen = this.handleSignatureDialogOpen.bind(this);
+    this.handleSignatureDialogClose = this.handleSignatureDialogClose.bind(this);
+    this.handleSaveSignature = this.handleSaveSignature.bind(this);
+    this.handleRevokeConsent = this.handleRevokeConsent.bind(this);
   }
 
-  handleCheckPassword() {
-    this.setState({ isAuthenticated: true });
+  handleSignatureDialogOpen() {
+    this.setState({
+      signatureDialogOpen: true,
+      isAuthenticated: false,
+    });
   }
 
-  handleDialogCallback() {
-    this.setState({ authenticationDialogOpen: false });
+  handleSignatureDialogClose() {
+    this.setState({ signatureDialogOpen: false });
   }
 
-  checkPassword(password, actions) {
-    this.props.checkPassword(password, actions);
-    if (this.props.isAuthenticated) {
-      this.setState({ authenticationDialogOpen: false });
+  handleSaveSignature(signatureDataURL) {
+    if (signatureDataURL) {
+      this.setState({
+        isAuthenticated: true,
+        signatureDataURL,
+      });
     }
   }
 
-  // Todo: Add signature pad to authenticate consent revoke
+  handleRevokeConsent() {
+    this.props.onRevokeConsent(this.state.signatureDataURL);
+  }
+
   render() {
-    const { onSubmit, consent, patient } = this.props;
+    const { consent, patient, isSubmitting } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
 
     return (
       <div>
-        <Dialog
-          open={this.state.authenticationDialogOpen}
-        ></Dialog>
-        <Formik
-          onSubmit={(values, actions) => onSubmit(values, actions)}
-          render={({ isSubmitting }) => (
-            <Form>
-              <RevokeConsentGrid>
-                <Cell area="patientGroup">
-                  <ConsentFormSection title={<FormattedMessage {...messages.header} />}>
-                    <Grid columns={1} gap={'20px'}>
-                      <Cell>
-                        <FormattedMessage {...messages.label.consentRef} />
-                        <strong>{consent && consent.logicalId}</strong>
-                      </Cell>
-                      <Cell>
-                        <FormattedMessage {...messages.label.patientName} />
-                        <strong>{consent && consent.patient && consent.patient.display}</strong>
-                      </Cell>
-                      <Cell>
-                        <FormattedMessage {...messages.label.patientDob} />
-                        <strong>{patient && patient.birthDate}</strong>
-                      </Cell>
-                    </Grid>
-                    <FormattedHTMLMessage {...messages.revokeTerm} />
-                    <Checkbox
-                      name="agreement"
-                      checked={this.state.isAuthenticated}
-                      label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
-                      onCheck={this.handleCheckPassword}
-                    />
-                  </ConsentFormSection>
+        <RevokeConsentGrid>
+          <Cell area="revocationConsentGroup">
+            <ConsentFormSection title={<FormattedMessage {...messages.header} />}>
+              <Grid columns={1} gap={'20px'}>
+                <Cell>
+                  <FormattedMessage {...messages.label.consentRef} />
+                  <strong>{consent && consent.logicalId}</strong>
                 </Cell>
                 <Cell>
-
+                  <FormattedMessage {...messages.label.patientName} />
+                  <strong>{consent && consent.patient && consent.patient.display}</strong>
                 </Cell>
-                <Cell area="buttonGroup">
-                  <Grid columns={2}>
-                    <Cell>
-                      <StyledRaisedButton
-                        fullWidth
-                        type="submit"
-                        disabled={!this.state.isAuthenticated}
-                      >
-                        Complete
-                      </StyledRaisedButton>
-                    </Cell>
-                    <Cell>
-                      <GoBackButton disabled={isSubmitting} />
-                    </Cell>
-                  </Grid>
+                <Cell>
+                  <FormattedMessage {...messages.label.patientDob} />
+                  <strong>{patient && patient.birthDate}</strong>
                 </Cell>
-              </RevokeConsentGrid>
-            </Form>
-          )}
+              </Grid>
+              <FormattedHTMLMessage {...messages.revokeTerm} />
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={this.state.isAuthenticated}
+                      onChange={this.handleSignatureDialogOpen}
+                    />
+                  }
+                  label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
+                />
+              </FormGroup>
+            </ConsentFormSection>
+          </Cell>
+          <Cell>
+          </Cell>
+          <Cell area="buttonGroup">
+            <Grid columns={2}>
+              <Cell>
+                <StyledRaisedButton
+                  fullWidth
+                  onClick={this.handleRevokeConsent}
+                  disabled={!this.state.isAuthenticated || isSubmitting}
+                >
+                  <FormattedMessage {...messages.completeButton} />
+                </StyledRaisedButton>
+              </Cell>
+              <Cell>
+                <GoBackButton disabled={isSubmitting} />
+              </Cell>
+            </Grid>
+          </Cell>
+        </RevokeConsentGrid>
+        <SignatureAuthenticationDialog
+          signatureDialogOpen={this.state.signatureDialogOpen}
+          onSignatureDialogClose={this.handleSignatureDialogClose}
+          onSaveSignature={this.handleSaveSignature}
         />
       </div>
     );
@@ -114,11 +124,10 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
 }
 
 RevokeConsent.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func,
+  onRevokeConsent: PropTypes.func.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
+  isSubmitting: PropTypes.bool.isRequired,
 };
 
 export default RevokeConsent;

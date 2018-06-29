@@ -59,24 +59,8 @@ export default defineMessages({
     id: 'ocpui.components.RevokeConsent.agreementTerm',
     defaultMessage: 'I, <strong>{patientName}</strong>, hereby accept and understand the terms of this consent.',
   },
-  authentication: {
-    header: {
-      id: 'ocpui.components.RevokeConsent.authentication.header',
-      defaultMessage: 'Please Authenticate',
-    },
-    term: {
-      id: 'ocpui.components.RevokeConsent.authentication.term',
-      defaultMessage: 'Please provide your account password to authenticate, and complete e-signature',
-    },
-    label: {
-      id: 'ocpui.components.RevokeConsent.authentication.label',
-      defaultMessage: 'Password',
-    },
-  },
-  validation: {
-    required: {
-      id: 'ocpui.components.ManageTask.manageForm.validation.required',
-      defaultMessage: 'Required',
-    },
+  completeButton: {
+    id: 'ocpui.components.RevokeConsent.completeButton',
+    defaultMessage: 'Complete',
   },
 });

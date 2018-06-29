@@ -5,16 +5,13 @@
  */
 
 import {
-  REVOKE_CONSENT,
-  REVOKE_CONSENT_ERROR,
-  REVOKE_CONSENT_SUCCESS,
-  CHECK_PASSWORD,
-  CHECK_PASSWORD_ERROR,
-  CHECK_PASSWORD_SUCCESS,
   GET_CONSENT,
   GET_CONSENT_ERROR,
   GET_CONSENT_SUCCESS,
   INITIALIZE_REVOKE_CONSENT,
+  REVOKE_CONSENT,
+  REVOKE_CONSENT_ERROR,
+  REVOKE_CONSENT_SUCCESS,
 } from './constants';
 
 export function initializeRevokeConsentPage() {
@@ -45,33 +42,11 @@ export function getConsentError(error) {
   };
 }
 
-export function checkPassword(password, handleSubmitting) {
-  return {
-    type: CHECK_PASSWORD,
-    password,
-    handleSubmitting,
-  };
-}
-
-export function checkPasswordSuccess(isAuthenticated) {
-  return {
-    type: CHECK_PASSWORD_SUCCESS,
-    isAuthenticated,
-  };
-}
-
-export function checkPasswordError(error) {
-  return {
-    type: CHECK_PASSWORD_ERROR,
-    error,
-  };
-}
-
-export function revokeConsent(logicalId, handleSubmitting) {
+export function revokeConsent(logicalId, signatureDataURL) {
   return {
     type: REVOKE_CONSENT,
     logicalId,
-    handleSubmitting,
+    signatureDataURL,
   };
 }
 

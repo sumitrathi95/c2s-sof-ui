@@ -1,12 +1,12 @@
 /**
  *
- * SignatureAuthentication
+ * SignatureAuthenticationDialog
  *
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import Close from '@material-ui/icons/Close';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
@@ -17,7 +17,8 @@ import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
-class SignatureAuthentication extends React.Component {
+
+class SignatureAuthenticationDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSaveSignature = this.handleSaveSignature.bind(this);
@@ -25,7 +26,7 @@ class SignatureAuthentication extends React.Component {
 
   handleSaveSignature(signatureDataURL) {
     this.props.onSignatureDialogClose();
-    this.props.onConfirmAuthenticated(signatureDataURL);
+    this.props.onSaveSignature(signatureDataURL);
   }
 
   render() {
@@ -40,10 +41,10 @@ class SignatureAuthentication extends React.Component {
               </StyledIconButton>
             </StyledTooltip>
           </HorizontalAlignment>
-          <FormattedMessage {...messages.authentication.header} />
+          <FormattedMessage {...messages.header} />
         </DialogTitle>
         <DialogContent>
-          <FormattedMessage {...messages.authentication.title} />
+          <FormattedMessage {...messages.title} />
           <SignaturePad onSaveSignature={this.handleSaveSignature} />
         </DialogContent>
       </StyledDialog>
@@ -51,10 +52,10 @@ class SignatureAuthentication extends React.Component {
   }
 }
 
-SignatureAuthentication.propTypes = {
+SignatureAuthenticationDialog.propTypes = {
   signatureDialogOpen: PropTypes.bool.isRequired,
   onSignatureDialogClose: PropTypes.func.isRequired,
-  onConfirmAuthenticated: PropTypes.func.isRequired,
+  onSaveSignature: PropTypes.func.isRequired,
 };
 
-export default SignatureAuthentication;
+export default SignatureAuthenticationDialog;

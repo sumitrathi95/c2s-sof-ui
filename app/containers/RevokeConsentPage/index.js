@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -13,20 +14,24 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import RevokeConsent from 'components/RevokeConsent';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { revokeConsent, checkPassword, getConsent, initializeRevokeConsentPage } from './actions';
-import { makeSelectConsent, makeSelectIsAuthenticated } from './selectors';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import RevokeConsent from 'components/RevokeConsent';
+import { getConsent, initializeRevokeConsentPage, revokeConsent } from './actions';
+import { makeSelectConsent, makeSelectSubmitting } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import messages from './messages';
+
 
 export class RevokeConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
+    this.handleRevokeConsent = this.handleRevokeConsent.bind(this);
   }
+
   componentDidMount() {
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -38,30 +43,28 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeRevokeConsentPage();
   }
 
-  handleSubmit(values, actions) {
-    this.props.revokeConsent(this.props.match.params.id, () => actions.setSubmitting(false));
-  }
-
-  checkPassword(password, actions) {
-    this.props.checkPassword(password, () => actions.setSubmitting(false));
+  handleRevokeConsent(signatureDataURL) {
+    this.props.revokeConsent(this.props.match.params.id, signatureDataURL);
   }
 
   render() {
-    const { consent, isAuthenticated, patient } = this.props;
+    const { consent, patient, isSubmitting } = this.props;
     return (
-      <div>
+      <Page color="secondary">
         <Helmet>
           <title>RevokeConsentPage</title>
-          <meta name="description" content="Revoke Consent" />
+          <meta name="description" content="Revoke consent page of Consent2Share Smart On Fhir" />
         </Helmet>
-        <RevokeConsent
-          onSubmit={this.handleSubmit}
-          checkPassword={this.checkPassword}
-          consent={consent}
-          patient={patient}
-          isAuthenticated={isAuthenticated}
-        />
-      </div>
+        <PageHeader title={<FormattedMessage {...messages.header} />} />
+        <PageContent>
+          <RevokeConsent
+            consent={consent}
+            patient={patient}
+            isSubmitting={isSubmitting}
+            onRevokeConsent={this.handleRevokeConsent}
+          />
+        </PageContent>
+      </Page>
     );
   }
 }
@@ -69,26 +72,24 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
 RevokeConsentPage.propTypes = {
   match: PropTypes.object.isRequired,
   initializeRevokeConsentPage: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   getConsent: PropTypes.func.isRequired,
   revokeConsent: PropTypes.func.isRequired,
-  checkPassword: PropTypes.func.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
-  isAuthenticated: makeSelectIsAuthenticated(),
   patient: makeSelectPatient(),
+  isSubmitting: makeSelectSubmitting(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeRevokeConsentPage: () => dispatch(initializeRevokeConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    revokeConsent: (logicalId, handleSubmitting) => dispatch(revokeConsent(logicalId, handleSubmitting)),
-    checkPassword: (password, handleSubmitting) => dispatch(checkPassword(password, handleSubmitting)),
+    revokeConsent: (logicalId, signatureDataURL) => dispatch(revokeConsent(logicalId, signatureDataURL)),
   };
 }
 
