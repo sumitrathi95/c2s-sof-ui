@@ -20,6 +20,7 @@ import StyledDialog from 'components/StyledDialog';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
 import PreviewConsent from './PreviewConsent';
+import DeleteConsent from './DeleteConsent';
 import messages from './messages';
 
 const CONSENT_STATUS_DRAFT = 'DRAFT';
@@ -39,7 +40,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.handlePreviewConsentClose = this.handlePreviewConsentClose.bind(this);
     this.handleDeleteConsentOpen = this.handleDeleteConsentOpen.bind(this);
     this.handleDeleteConsentClose = this.handleDeleteConsentClose.bind(this);
-    this.handleDeleteConsentOk = this.handleDeleteConsentOk.bind(this);
+    this.handleDeleteConsent = this.handleDeleteConsent.bind(this);
   }
 
   handleOpenDialog() {
@@ -63,6 +64,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
 
   handleDeleteConsentOpen() {
     this.setState({
+      isManageConsentDialogOpen: false,
       isDeleteConsentDialogOpen: true,
     });
   }
@@ -71,15 +73,13 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.setState({ isDeleteConsentDialogOpen: false });
   }
 
-  handleDeleteConsentOk() {
-    const { consent } = this.props;
-    if (this.state.isDeleteConsentDialogOpen) {
-      this.props.handleDeleteConsent(consent);
-      this.setState({
-        isDeleteConsentDialogOpen: false,
-        isManageConsentDialogOpen: false,
-      });
-    }
+  handleDeleteConsent() {
+    const { consent, handleDeleteConsent } = this.props;
+    handleDeleteConsent(consent);
+    this.setState({
+      isDeleteConsentDialogOpen: false,
+      isManageConsentDialogOpen: false,
+    });
   }
 
   render() {
@@ -171,28 +171,11 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
           onPreviewConsentDialogClose={this.handlePreviewConsentClose}
           sourceAttachment={sourceAttachment}
         />
-        <StyledDialog open={this.state.isDeleteConsentDialogOpen} onClose={this.handleDeleteConsentClose} fullWidth>
-          <DialogTitle>
-            <FormattedMessage {...messages.consentDialog.deleteConsentTitle} />
-          </DialogTitle>
-          <DialogContent>
-            <FormattedMessage {...messages.consentDialog.deleteConsentMessage} />
-            <HorizontalAlignment position={'end'}>
-              <Grid columns={2} alignContent="space-between">
-                <Cell>
-                  <StyledRaisedButton fullWidth onClick={this.handleDeleteConsentOk}>
-                    <FormattedMessage {...messages.consentDialog.okButton} />
-                  </StyledRaisedButton>
-                </Cell>
-                <Cell>
-                  <StyledRaisedButton fullWidth onClick={this.handleDeleteConsentClose}>
-                    <FormattedMessage {...messages.consentDialog.cancelButton} />
-                  </StyledRaisedButton>
-                </Cell>
-              </Grid>
-            </HorizontalAlignment>
-          </DialogContent>
-        </StyledDialog>
+        <DeleteConsent
+          deleteConsentDialogOpen={this.state.isDeleteConsentDialogOpen}
+          onDeleteConsentDialogClose={this.handleDeleteConsentClose}
+          onDeleteConsent={this.handleDeleteConsent}
+        />
       </div>
     );
   }
