@@ -7,28 +7,23 @@ const RevokeConsentGrid = Grid.extend`
   grid-row-gap: 2vh;
   grid-template-columns: 1fr;
   grid-template-areas:
-    "header"
-    "patientGroup"
-    "consentTerm"
+    "revocationConsentGroup"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "header header"
-      "patientGroup patientGroup"
+      "revocationConsentGroup revocationConsentGroup"
       "buttonGroup  .";
   }
 
   @media only screen and (min-width: 1200px) {
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
-      "header header header header header header header header header header header header"
-      "patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup"
+      "revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup revocationConsentGroup"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;
-
 
 RevokeConsentGrid.propTypes = Grid.propTypes;
 

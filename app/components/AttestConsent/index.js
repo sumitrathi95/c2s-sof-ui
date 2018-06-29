@@ -82,8 +82,8 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
               </Grid>
             </ConsentFormSection>
           </Cell>
-          <Cell area="medicalInfoGroup">
-            <ConsentFormSection title={<FormattedMessage {...messages.subtitle.medicalInfoGroup} />}>
+          <Cell area="consentActorsGroup">
+            <ConsentFormSection title={<FormattedMessage {...messages.subtitle.consentActorsGroup} />}>
               <Grid columns="repeat(2, 1fr) 0.2fr">
                 <Cell>
                   <TextLabelGroup

@@ -16,8 +16,14 @@ const makeSelectConsent = () => createSelector(
   (subState) => subState && subState.get('consent'),
 );
 
+const makeSelectSubmitting = () => createSelector(
+  selectRevokeConsentPageDomain,
+  (subState) => subState.get('isSubmitting'),
+);
+
 export {
   selectRevokeConsentPageDomain,
   makeSelectGetConsentError,
   makeSelectConsent,
+  makeSelectSubmitting,
 };

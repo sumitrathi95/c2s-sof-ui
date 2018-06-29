@@ -11,8 +11,8 @@ export default defineMessages({
     defaultMessage: 'Consent to Share My Medical Information',
   },
   subtitle: {
-    medicalInfoGroup: {
-      id: 'c2s.components.AttestConsent.subtitle.medicalInfoGroup',
+    consentActorsGroup: {
+      id: 'c2s.components.AttestConsent.subtitle.consentActorsGroup',
       defaultMessage: 'AUTHORIZATION TO DISCLOSE:',
     },
     purposeOfUseGroup: {

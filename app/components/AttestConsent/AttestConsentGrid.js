@@ -7,9 +7,8 @@ const AttestConsentGrid = Grid.extend`
   grid-row-gap: 2vh;
   grid-template-columns: 1fr;
   grid-template-areas:
-    "header"
     "patientGroup"
-    "medicalInfoGroup"
+    "consentActorsGroup"
     "purposeOfUseGroup"
     "consentTerm"
     "buttonGroup";
@@ -17,9 +16,8 @@ const AttestConsentGrid = Grid.extend`
   @media only screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "header header"
       "patientGroup patientGroup"
-      "medicalInfoGroup medicalInfoGroup"
+      "consentActorsGroup consentActorsGroup"
       "disclose disclose"
       "purposeOfUseGroup purposeOfUseGroup"
       "consentTerm consentTerm"
@@ -29,9 +27,8 @@ const AttestConsentGrid = Grid.extend`
   @media only screen and (min-width: 1200px) {
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
-      "header header header header header header header header header header header header"
       "patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup patientGroup"
-      "medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup"
+      "consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup consentActorsGroup"
       "purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup"
       "consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";

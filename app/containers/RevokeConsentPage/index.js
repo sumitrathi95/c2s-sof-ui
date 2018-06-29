@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -13,12 +14,17 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import RevokeConsent from 'components/RevokeConsent';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import RevokeConsent from 'components/RevokeConsent';
 import { getConsent, initializeRevokeConsentPage, revokeConsent } from './actions';
-import { makeSelectConsent } from './selectors';
+import { makeSelectConsent, makeSelectSubmitting } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import messages from './messages';
+
 
 export class RevokeConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -43,19 +49,22 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { consent, patient } = this.props;
+    const { consent, patient, isSubmitting } = this.props;
     return (
-      <div>
+      <Page color="secondary">
         <Helmet>
           <title>RevokeConsentPage</title>
-          <meta name="description" content="Revoke Consent" />
+          <meta name="description" content="Revoke consent page of Consent2Share Smart On Fhir" />
         </Helmet>
-        <RevokeConsent
-          onSubmit={this.handleSubmit}
-          consent={consent}
-          patient={patient}
-        />
-      </div>
+        <PageHeader title={<FormattedMessage {...messages.header} />} />
+        <PageContent>
+          <RevokeConsent
+            consent={consent}
+            patient={patient}
+            isSubmitting={isSubmitting}
+          />
+        </PageContent>
+      </Page>
     );
   }
 }
@@ -63,6 +72,7 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
 RevokeConsentPage.propTypes = {
   match: PropTypes.object.isRequired,
   initializeRevokeConsentPage: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   getConsent: PropTypes.func.isRequired,
   revokeConsent: PropTypes.func.isRequired,
   consent: PropTypes.object,
@@ -72,6 +82,7 @@ RevokeConsentPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
   patient: makeSelectPatient(),
+  isSubmitting: makeSelectSubmitting(),
 });
 
 function mapDispatchToProps(dispatch) {
