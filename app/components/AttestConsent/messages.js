@@ -66,20 +66,8 @@ export default defineMessages({
     id: 'c2s.components.AttestConsent.agreementTerm',
     defaultMessage: 'I, <strong>{careCoordinatorName}</strong> on behalf of <strong>{patientName}</strong>, hereby accept and understand the terms of this consent.',
   },
-  authentication: {
-    header: {
-      id: 'c2s.components.AttestConsent.authentication.header',
-      defaultMessage: 'Attest Consent Authentication',
-    },
-    title: {
-      id: 'c2s.components.AttestConsent.authentication.title',
-      defaultMessage: 'Please provide your e-signature to authenticate',
-    },
-  },
-  validation: {
-    required: {
-      id: 'c2s.components.ManageTask.manageForm.validation.required',
-      defaultMessage: 'Required',
-    },
+  completeButton: {
+    id: 'ocpui.components.AttestConsent.completeButton',
+    defaultMessage: 'Complete',
   },
 });

@@ -82,10 +82,9 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
               <Cell>
                 <StyledRaisedButton
                   fullWidth
-                  type="submit"
                   disabled={!this.state.isAuthenticated || isSubmitting}
                 >
-                  Complete
+                  <FormattedMessage {...messages.completeButton} />
                 </StyledRaisedButton>
               </Cell>
               <Cell>

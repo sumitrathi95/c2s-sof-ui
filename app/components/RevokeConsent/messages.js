@@ -59,6 +59,10 @@ export default defineMessages({
     id: 'ocpui.components.RevokeConsent.agreementTerm',
     defaultMessage: 'I, <strong>{patientName}</strong>, hereby accept and understand the terms of this consent.',
   },
+  completeButton: {
+    id: 'ocpui.components.RevokeConsent.completeButton',
+    defaultMessage: 'Complete',
+  },
   authentication: {
     header: {
       id: 'ocpui.components.RevokeConsent.authentication.header',
