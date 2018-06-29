@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { LinearProgress } from 'material-ui-next/Progress';
 import isEmpty from 'lodash/isEmpty';
 
 import CenterAlign from 'components/Align/CenterAlign';
@@ -21,27 +22,37 @@ function ConsentCards(props) {
   const { consentData } = props;
   return (
     <div>
-      {(!consentData.loading && consentData.data && consentData.data.length > 0 ?
-        <div>
-          {!isEmpty(consentData.data) && consentData.data.map((consent) => (
-            <ConsentCard key={consent.logicalId} consent={consent} handleDeleteConsent={consentData.handleDeleteConsent} user={consentData.user} />
-          ))}
-          <CenterAlignedUltimatePagination
-            currentPage={consentData.currentPage}
-            totalPages={consentData.totalNumberOfPages}
-            onChange={consentData.handlePageClick}
+      {consentData.loading && <LinearProgress />}
+
+      {!consentData.loading && consentData.data && consentData.data.length === 0 &&
+      <CenterAlign>
+        <NoResultsFoundText><FormattedMessage {...messages.noConsentFoundText} /></NoResultsFoundText>
+      </CenterAlign>
+      }
+
+      {!consentData.loading && consentData.data && consentData.data.length > 0 &&
+      <div>
+        {!isEmpty(consentData.data) && consentData.data.map((consent) => (
+          <ConsentCard
+            key={consent.logicalId}
+            consent={consent}
+            handleDeleteConsent={consentData.handleDeleteConsent}
+            user={consentData.user}
           />
-          <RecordsRange
-            currentPage={consentData.currentPage}
-            totalPages={consentData.totalNumberOfPages}
-            totalElements={consentData.totalElements}
-            currentPageSize={consentData.currentPageSize}
-          />
-        </div> : (
-          <CenterAlign>
-            <NoResultsFoundText><FormattedMessage {...messages.noConsentFoundText} /></NoResultsFoundText>
-          </CenterAlign>
         ))}
+        <CenterAlignedUltimatePagination
+          currentPage={consentData.currentPage}
+          totalPages={consentData.totalNumberOfPages}
+          onChange={consentData.handlePageClick}
+        />
+        <RecordsRange
+          currentPage={consentData.currentPage}
+          totalPages={consentData.totalNumberOfPages}
+          totalElements={consentData.totalElements}
+          currentPageSize={consentData.currentPageSize}
+        />
+      </div>
+      }
     </div>
   );
 }

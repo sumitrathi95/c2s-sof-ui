@@ -170,11 +170,13 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
             </Grid>
           </DialogContent>
         </StyledDialog>
+        {sourceAttachment &&
         <PreviewConsent
           previewConsentDialogOpen={this.state.isPreviewConsentDialogOpen}
           onPreviewConsentDialogClose={this.handlePreviewConsentClose}
           sourceAttachment={sourceAttachment}
         />
+        }
         <DeleteConsent
           deleteConsentDialogOpen={this.state.isDeleteConsentDialogOpen}
           onDeleteConsentDialogClose={this.handleDeleteConsentClose}
