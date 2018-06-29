@@ -13,18 +13,17 @@ import Button from 'material-ui-next/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { Cell, Grid } from 'styled-css-grid';
 
-import Util from 'utils/Util';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
+import ConsentOptionsVisibility from './ConsentOptionsVisibility';
 import PreviewConsent from './PreviewConsent';
 import DeleteConsent from './DeleteConsent';
+import { CONSENT_STATUS_ACTIVE, CONSENT_STATUS_DRAFT, CONSENT_STATUS_INACTIVE } from './constants';
 import messages from './messages';
 
-const CONSENT_STATUS_DRAFT = 'DRAFT';
-const CONSENT_STATUS_ACTIVE = 'ACTIVE';
 
 class ConsentOptions extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -103,8 +102,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
           </DialogTitle>
           <DialogContent>
             <Grid columns={1}>
-              {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+              <ConsentOptionsVisibility allowedStatuses={CONSENT_STATUS_DRAFT} consentStatus={status}>
                 <Cell>
                   <Button
                     variant="raised"
@@ -115,9 +113,9 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                     <FormattedMessage {...messages.consentDialog.editConsentOption} />
                   </Button>
                 </Cell>
-              }
-              {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) && (user && user.isPatient) &&
+              </ConsentOptionsVisibility>
+              {(user && user.isPatient) &&
+              <ConsentOptionsVisibility allowedStatuses={CONSENT_STATUS_DRAFT} consentStatus={status}>
                 <Cell>
                   <Button
                     variant="raised"
@@ -128,18 +126,24 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                     <FormattedMessage {...messages.consentDialog.attestConsentOption} />
                   </Button>
                 </Cell>
+              </ConsentOptionsVisibility>
               }
-              <Cell>
-                <Button
-                  variant="raised"
-                  fullWidth
-                  onClick={this.handlePreviewConsentOpen}
-                >
-                  <FormattedMessage {...messages.consentDialog.previewConsentOption} />
-                </Button>
-              </Cell>
-              {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_ACTIVE) && (user && user.isPatient) &&
+              <ConsentOptionsVisibility
+                allowedStatuses={[CONSENT_STATUS_DRAFT, CONSENT_STATUS_ACTIVE, CONSENT_STATUS_INACTIVE]}
+                consentStatus={status}
+              >
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    onClick={this.handlePreviewConsentOpen}
+                  >
+                    <FormattedMessage {...messages.consentDialog.previewConsentOption} />
+                  </Button>
+                </Cell>
+              </ConsentOptionsVisibility>
+              {(user && user.isPatient) &&
+              <ConsentOptionsVisibility allowedStatuses={CONSENT_STATUS_ACTIVE} consentStatus={status}>
                 <Cell>
                   <Button
                     variant="raised"
@@ -150,9 +154,9 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                     <FormattedMessage {...messages.consentDialog.revokeConsentOption} />
                   </Button>
                 </Cell>
+              </ConsentOptionsVisibility>
               }
-              {
-                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+              <ConsentOptionsVisibility allowedStatuses={CONSENT_STATUS_DRAFT} consentStatus={status}>
                 <Cell>
                   <Button
                     variant="raised"
@@ -162,7 +166,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                     <FormattedMessage {...messages.consentDialog.deleteConsentOption} />
                   </Button>
                 </Cell>
-              }
+              </ConsentOptionsVisibility>
             </Grid>
           </DialogContent>
         </StyledDialog>
