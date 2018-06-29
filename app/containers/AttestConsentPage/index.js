@@ -26,7 +26,6 @@ import { makeSelectConsent, makeSelectSubmitting } from './selectors';
 
 
 export class AttestConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
     this.handleAttestConsent = this.handleAttestConsent.bind(this);

@@ -27,10 +27,9 @@ import messages from './messages';
 
 
 export class RevokeConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRevokeConsent = this.handleRevokeConsent.bind(this);
   }
 
   componentDidMount() {
@@ -44,8 +43,8 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeRevokeConsentPage();
   }
 
-  handleSubmit(values, actions) {
-    this.props.revokeConsent(this.props.match.params.id, () => actions.setSubmitting(false));
+  handleRevokeConsent(signatureDataURL) {
+    this.props.revokeConsent(this.props.match.params.id, signatureDataURL);
   }
 
   render() {
@@ -62,6 +61,7 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
             consent={consent}
             patient={patient}
             isSubmitting={isSubmitting}
+            onRevokeConsent={this.handleRevokeConsent}
           />
         </PageContent>
       </Page>
@@ -89,7 +89,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeRevokeConsentPage: () => dispatch(initializeRevokeConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    revokeConsent: (logicalId, handleSubmitting) => dispatch(revokeConsent(logicalId, handleSubmitting)),
+    revokeConsent: (logicalId, signatureDataURL) => dispatch(revokeConsent(logicalId, signatureDataURL)),
   };
 }
 

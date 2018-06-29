@@ -13,6 +13,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
+import SignatureAuthenticationDialog from 'components/SignatureAuthenticationDialog';
 import ConsentFormSection from 'components/ConsentFormSection';
 import RevokeConsentGrid from './RevokeConsentGrid';
 import messages from './messages';
@@ -22,21 +23,39 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
     super(props);
     this.state = {
       isAuthenticated: false,
-      authenticationDialogOpen: false,
+      signatureDialogOpen: false,
+      signatureDataURL: null,
     };
-    this.handleCheckPassword = this.handleCheckPassword.bind(this);
-    this.handleDialogCallback = this.handleDialogCallback.bind(this);
+    this.handleSignatureDialogOpen = this.handleSignatureDialogOpen.bind(this);
+    this.handleSignatureDialogClose = this.handleSignatureDialogClose.bind(this);
+    this.handleSaveSignature = this.handleSaveSignature.bind(this);
+    this.handleRevokeConsent = this.handleRevokeConsent.bind(this);
   }
 
-  handleCheckPassword() {
-    this.setState({ isAuthenticated: true });
+  handleSignatureDialogOpen() {
+    this.setState({
+      signatureDialogOpen: true,
+      isAuthenticated: false,
+    });
   }
 
-  handleDialogCallback() {
-    this.setState({ authenticationDialogOpen: false });
+  handleSignatureDialogClose() {
+    this.setState({ signatureDialogOpen: false });
   }
 
-  // Todo: Add signature pad to authenticate consent revoke
+  handleSaveSignature(signatureDataURL) {
+    if (signatureDataURL) {
+      this.setState({
+        isAuthenticated: true,
+        signatureDataURL,
+      });
+    }
+  }
+
+  handleRevokeConsent() {
+    this.props.onRevokeConsent(this.state.signatureDataURL);
+  }
+
   render() {
     const { consent, patient, isSubmitting } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
@@ -67,7 +86,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
                     <Checkbox
                       color="primary"
                       checked={this.state.isAuthenticated}
-                      onChange={this.handleCheckPassword}
+                      onChange={this.handleSignatureDialogOpen}
                     />
                   }
                   label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
@@ -82,6 +101,7 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
               <Cell>
                 <StyledRaisedButton
                   fullWidth
+                  onClick={this.handleRevokeConsent}
                   disabled={!this.state.isAuthenticated || isSubmitting}
                 >
                   <FormattedMessage {...messages.completeButton} />
@@ -93,12 +113,18 @@ class RevokeConsent extends React.Component { // eslint-disable-line react/prefe
             </Grid>
           </Cell>
         </RevokeConsentGrid>
+        <SignatureAuthenticationDialog
+          signatureDialogOpen={this.state.signatureDialogOpen}
+          onSignatureDialogClose={this.handleSignatureDialogClose}
+          onSaveSignature={this.handleSaveSignature}
+        />
       </div>
     );
   }
 }
 
 RevokeConsent.propTypes = {
+  onRevokeConsent: PropTypes.func.isRequired,
   consent: PropTypes.object,
   patient: PropTypes.object,
   isSubmitting: PropTypes.bool.isRequired,
