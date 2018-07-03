@@ -13,7 +13,7 @@ describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
     const numberOfEndpoints = 7;
-    const numberOfUnsecuredEndpoints = 2;
+    const numberOfUnsecuredEndpoints = 0;
 
     // Act
     const configuredEndpoints = collectEndpoints();
@@ -69,7 +69,7 @@ describe('endpointService.js', () => {
     const isOrganizationsUrlSecured = isSecuredEndpoint(TEST_ORGANIZATIONS_API_URL);
 
     // Assert
-    expect(isLookupUrlSecured).toBeFalsy();
+    expect(isLookupUrlSecured).toBeTruthy();
 
     expect(isOrganizationsUrlSecured).toBeTruthy();
   });

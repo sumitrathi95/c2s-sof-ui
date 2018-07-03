@@ -23,8 +23,8 @@ export const BASE_USER_CONTEXT_API_URL = 'c2s/utils/BASE_USER_CONTEXT_API_URL';
  * @type {*[]}
  */
 const apiEndpoints = [
-  { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
-  { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/lookups`, isSecured: false },
+  { key: CONFIG_API_URL, url: `${BASE_API_URL}/config` },
+  { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/lookups` },
 
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/consents` },
