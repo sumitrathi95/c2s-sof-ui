@@ -1,6 +1,6 @@
 {
   "name": "c2s-sof-ui-server",
-  "version": "0.2.0-SNAPSHOT",
+  "version": "0.3.0-SNAPSHOT",
   "description": "Consent2Share SMART on FHIR User Interface Server",
   "main": "index.js",
   "scripts": {
