@@ -16,7 +16,7 @@ import messages from './messages';
 function PatientBanner(props) {
   const { patient } = props;
   const flattenedPatient = flattenPatientData(patient);
-  const { name, identifier, birthDate, genderCode } = flattenedPatient;
+  const { name, identifier, birthDate, genderCode, mrn } = flattenedPatient;
   return (
     <PatientBannerSection>
       <Padding left={10} right={10} top={10} bottom={10}>
@@ -35,6 +35,12 @@ function PatientBanner(props) {
                     <TextLabelGroup
                       label={<FormattedMessage {...messages.patientBanner.identifier} />}
                       text={identifier}
+                    />
+                  </Cell>
+                  <Cell>
+                    <TextLabelGroup
+                      label={<FormattedMessage {...messages.patientBanner.mrn} />}
+                      text={mrn}
                     />
                   </Cell>
                   <Cell>

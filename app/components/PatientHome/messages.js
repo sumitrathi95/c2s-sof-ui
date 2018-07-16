@@ -23,5 +23,9 @@ export default defineMessages({
       id: 'c2s.components.PatientHome.patientBanner.gender',
       defaultMessage: 'Gender',
     },
+    mrn: {
+      id: 'c2s.components.PatientHome.patientBanner.mrn',
+      defaultMessage: 'MRN',
+    },
   },
 });
