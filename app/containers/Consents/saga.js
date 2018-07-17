@@ -5,7 +5,13 @@ import { showNotification } from 'containers/Notification/actions';
 import isEmpty from 'lodash/isEmpty';
 import { goBack } from 'react-router-redux';
 import { DELETE_CONSENT, GET_CONSENT, GET_CONSENTS } from './constants';
-import { getConsentError, getConsents as getConsentsAction, getConsentsError, getConsentsSuccess, getConsentSuccess } from './actions';
+import {
+  getConsentError,
+  getConsents as getConsentsAction,
+  getConsentsError,
+  getConsentsSuccess,
+  getConsentSuccess,
+} from './actions';
 import { deleteConsent, getConsentByIdFromStore, getConsents, getErrorDetail } from './api';
 import makeSelectConsents from './selectors';
 
@@ -15,9 +21,9 @@ export function* getConsentsSaga({ pageNumber }) {
       pageNumber,
     };
     const patient = yield select(makeSelectPatient());
-    const practitioner = yield select(makeSelectUser());
+    const user = yield select(makeSelectUser());
     const patientId = patient ? patient.id : null;
-    const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
+    const practitionerId = (user && user.fhirResource) ? user.fhirResource.logicalId : null;
     if (patientId && practitionerId) {
       queryParams = {
         pageNumber,

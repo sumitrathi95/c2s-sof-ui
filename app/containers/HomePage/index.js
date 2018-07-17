@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { LinearProgress } from 'material-ui-next/Progress';
 
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientHome from 'components/PatientHome';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -23,7 +23,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <title>Home</title>
           <meta name="description" content="Home page of Consent2Share Smart On Fhir" />
         </Helmet>
-        {this.props.patient ?
+        {(this.props.patient && this.props.user) ?
           <PatientHome patient={this.props.patient} /> :
           <LinearProgress />
         }
@@ -33,6 +33,10 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 }
 
 HomePage.propTypes = {
+  user: PropTypes.shape({
+    user_id: PropTypes.string,
+    user_name: PropTypes.string,
+  }),
   patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
@@ -40,6 +44,7 @@ HomePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
   patient: makeSelectPatient(),
 });
 
