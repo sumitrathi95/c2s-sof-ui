@@ -17,9 +17,9 @@ function* getConsentSaga({ logicalId }) {
   }
 }
 
-function* attestConsentSaga({ logicalId, signatureDataURL }) {
+function* attestConsentSaga({ logicalId }) {
   try {
-    yield call(attestConsent, logicalId, signatureDataURL);
+    yield call(attestConsent, logicalId);
     yield put(showNotification('Successfully signed consent.'));
     yield put(goBack());
   } catch (error) {
