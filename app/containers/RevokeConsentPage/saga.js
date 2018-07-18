@@ -18,9 +18,9 @@ function* getConsentSaga({ logicalId }) {
   }
 }
 
-function* revokeConsentSaga({ logicalId, signatureDataURL }) {
+function* revokeConsentSaga({ logicalId }) {
   try {
-    yield call(revokeConsent, logicalId, signatureDataURL);
+    yield call(revokeConsent, logicalId);
     yield put(showNotification('Successfully revoke the consent.'));
     yield put(goBack());
   } catch (error) {

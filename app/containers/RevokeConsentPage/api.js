@@ -8,13 +8,9 @@ export function getConsent(logicalId) {
   return request(requestURL);
 }
 
-export function revokeConsent(logicalId, signatureDataURL) {
+export function revokeConsent(logicalId) {
   const requestURL = `${baseEndpoint}/${logicalId}/revocation`;
   return request(requestURL, {
     method: 'PUT',
-    body: JSON.stringify({ signatureDataURL }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 }

@@ -43,8 +43,8 @@ export class RevokeConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeRevokeConsentPage();
   }
 
-  handleRevokeConsent(signatureDataURL) {
-    this.props.revokeConsent(this.props.match.params.id, signatureDataURL);
+  handleRevokeConsent() {
+    this.props.revokeConsent(this.props.match.params.id);
   }
 
   render() {
@@ -89,7 +89,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeRevokeConsentPage: () => dispatch(initializeRevokeConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    revokeConsent: (logicalId, signatureDataURL) => dispatch(revokeConsent(logicalId, signatureDataURL)),
+    revokeConsent: (logicalId) => dispatch(revokeConsent(logicalId)),
   };
 }
 
