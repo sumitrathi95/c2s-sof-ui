@@ -16,7 +16,6 @@ import GoBackButton from 'components/GoBackButton';
 import { flattenConsentData } from 'components/ConsentCard/helpers';
 import TextLabelGroup from 'components/TextLabelGroup';
 import ConsentFormSection from 'components/ConsentFormSection';
-import SignatureAuthenticationDialog from 'components/SignatureAuthenticationDialog';
 import AttestConsentGrid from './AttestConsentGrid';
 import messages from './messages';
 
@@ -26,41 +25,16 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     super(props);
     this.state = {
       isAuthenticated: false,
-      signatureDialogOpen: false,
-      signatureDataURL: null,
     };
-    this.handleSignatureDialogOpen = this.handleSignatureDialogOpen.bind(this);
-    this.handleSignatureDialogClose = this.handleSignatureDialogClose.bind(this);
-    this.handleSaveSignature = this.handleSaveSignature.bind(this);
-    this.handleAttestConsent = this.handleAttestConsent.bind(this);
+    this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
   }
 
-  handleSignatureDialogOpen() {
-    this.setState({
-      signatureDialogOpen: true,
-      isAuthenticated: false,
-    });
-  }
-
-  handleSignatureDialogClose() {
-    this.setState({ signatureDialogOpen: false });
-  }
-
-  handleSaveSignature(signatureDataURL) {
-    if (signatureDataURL) {
-      this.setState({
-        isAuthenticated: true,
-        signatureDataURL,
-      });
-    }
-  }
-
-  handleAttestConsent() {
-    this.props.onAttestConsent(this.state.signatureDataURL);
+  handleChangeCheckbox() {
+    this.setState({ isAuthenticated: !this.state.isAuthenticated });
   }
 
   render() {
-    const { consent, patient, careCoordinatorContext, isSubmitting } = this.props;
+    const { consent, patient, careCoordinatorContext, isSubmitting, onAttestConsent } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
     const careCoordinatorName = careCoordinatorContext && careCoordinatorContext.name;
 
@@ -121,7 +95,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                     <Checkbox
                       color="primary"
                       checked={this.state.isAuthenticated}
-                      onChange={this.handleSignatureDialogOpen}
+                      onChange={this.handleChangeCheckbox}
                     />
                   }
                   label={
@@ -140,7 +114,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
               <Cell>
                 <StyledRaisedButton
                   fullWidth
-                  onClick={this.handleAttestConsent}
+                  onClick={onAttestConsent}
                   disabled={!this.state.isAuthenticated || isSubmitting}
                 >
                   <FormattedMessage {...messages.completeButton} />
@@ -152,11 +126,6 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
             </Grid>
           </Cell>
         </AttestConsentGrid>
-        <SignatureAuthenticationDialog
-          signatureDialogOpen={this.state.signatureDialogOpen}
-          onSignatureDialogClose={this.handleSignatureDialogClose}
-          onSaveSignature={this.handleSaveSignature}
-        />
       </div>
     );
   }

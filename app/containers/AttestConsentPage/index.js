@@ -42,8 +42,8 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeAttestConsentPage();
   }
 
-  handleAttestConsent(signatureDataURL) {
-    this.props.attestConsent(this.props.match.params.id, signatureDataURL);
+  handleAttestConsent() {
+    this.props.attestConsent(this.props.match.params.id);
   }
 
   render() {
@@ -112,7 +112,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeAttestConsentPage: () => dispatch(initializeAttestConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    attestConsent: (logicalId, signatureDataURL) => dispatch(attestConsent(logicalId, signatureDataURL)),
+    attestConsent: (logicalId) => dispatch(attestConsent(logicalId)),
   };
 }
 

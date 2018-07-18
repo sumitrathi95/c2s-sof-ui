@@ -42,11 +42,10 @@ export function getConsentError(error) {
   };
 }
 
-export function revokeConsent(logicalId, signatureDataURL) {
+export function revokeConsent(logicalId) {
   return {
     type: REVOKE_CONSENT,
     logicalId,
-    signatureDataURL,
   };
 }
 
