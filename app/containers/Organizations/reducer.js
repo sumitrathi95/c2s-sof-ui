@@ -5,7 +5,6 @@
  */
 
 import { fromJS } from 'immutable';
-import isEmpty from 'lodash/isEmpty';
 import {
   GET_ORGANIZATIONS,
   GET_ORGANIZATIONS_ERROR,
@@ -26,10 +25,6 @@ const initialState = fromJS({
 function organizationsReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_ORGANIZATIONS: {
-      if (!isEmpty(action.organizations)) {
-        return initialState
-          .set('data', fromJS(action.organizations));
-      }
       return initialState;
     }
     case GET_ORGANIZATIONS:
