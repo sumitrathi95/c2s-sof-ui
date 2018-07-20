@@ -3,22 +3,21 @@ import queryString from 'utils/queryString';
 import { BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
-export function getPractitionersInOrganization(organizationId, page, pageSize) {
+export function getPractitioners(page, pageSize) {
   const size = pageSize || DEFAULT_PAGE_SIZE;
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ page, size, organization: organizationId });
+  const params = queryString({ page, size });
   const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
-export function searchPractitioners(searchType, searchValue, showInactive, organization, page) {
+export function searchPractitioners(searchType, searchValue, showInactive, page) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const params = queryString({
     searchType,
     searchValue,
     showInactive,
     size: DEFAULT_PAGE_SIZE,
-    organization,
     page,
     showAll: true,
   });
