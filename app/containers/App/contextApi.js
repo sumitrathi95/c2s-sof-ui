@@ -1,6 +1,7 @@
 import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
 import { isPatientResourceType } from 'containers/App/helpers';
+import queryString from 'utils/queryString';
 
 export function getPatient(id) {
   const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
@@ -8,9 +9,9 @@ export function getPatient(id) {
   return request(requestURL);
 }
 
-export function getOrganization(id) {
-  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-  const requestURL = `${baseEndpoint}/${id}`;
+export function getOrganizationsByPractitioner(practitionerId) {
+  const params = queryString({ practitionerId });
+  const requestURL = `${getEndpoint(BASE_ORGANIZATIONS_API_URL)}${params}`;
   return request(requestURL);
 }
 

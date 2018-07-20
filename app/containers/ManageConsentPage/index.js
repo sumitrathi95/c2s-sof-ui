@@ -20,7 +20,7 @@ import {
   makeSelectPurposeOfUse,
   makeSelectSecurityLabel,
 } from 'containers/App/lookupSelectors';
-import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectOrganizations, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
@@ -60,7 +60,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     const {
       patient,
       user,
-      organization,
+      organizations,
       consentStateCodes,
       securityLabels,
       purposeOfUse,
@@ -79,11 +79,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
         logicalId: user.fhirResource.logicalId,
         name: mapResourceName(user.fhirResource.name),
         identifiers: user.fhirResource.identifiers,
-        organization: {
-          logicalId: organization.logicalId,
-          name: organization.name,
-          identifiers: organization.identifiers,
-        },
+        organizations,
       };
     }
     const consentProps = {
@@ -170,7 +166,7 @@ ManageConsentPage.propTypes = {
       })),
     }),
   }),
-  organization: PropTypes.shape({
+  organizations: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     identifiers: PropTypes.arrayOf(PropTypes.shape({
@@ -180,7 +176,7 @@ ManageConsentPage.propTypes = {
       priority: PropTypes.number,
       display: PropTypes.string,
     })),
-  }),
+  })),
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
@@ -189,7 +185,7 @@ ManageConsentPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  organization: makeSelectOrganization(),
+  organizations: makeSelectOrganizations(),
   patient: makeSelectPatient(),
   consentStateCodes: makeSelectConsentStateCodes(),
   securityLabels: makeSelectSecurityLabel(),

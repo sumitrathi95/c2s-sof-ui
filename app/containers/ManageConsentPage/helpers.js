@@ -1,3 +1,4 @@
+import concat from 'lodash/concat';
 import isEmpty from 'lodash/isEmpty';
 import union from 'lodash/union';
 
@@ -35,15 +36,15 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
         display: careCoordinatorContext.name,
         identifiers: careCoordinatorContext.identifiers,
       };
-      const orgReference = {
+      const orgReferences = careCoordinatorContext.organizations.map((organization) => ({
         reference: {
-          logicalId: careCoordinatorContext.organization.logicalId,
+          logicalId: organization.logicalId,
           type: 'Organization',
         },
-        display: careCoordinatorContext.organization.name,
-        identifiers: careCoordinatorContext.organization.identifiers,
-      };
-      const fromActor = [orgReference, practitionerReference];
+        display: organization.name,
+        identifiers: organization.identifiers,
+      }));
+      const fromActor = concat(orgReferences, practitionerReference);
       formData = {
         consentType: false,
         consentStart,

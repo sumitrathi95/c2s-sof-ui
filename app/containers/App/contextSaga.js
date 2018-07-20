@@ -2,28 +2,31 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import split from 'lodash/split';
 
 import { showNotification } from 'containers/Notification/actions';
-import { getOrganization as getOrganizationAction, getOrganizationError, getPatient as getPatientAction, getPatientError, getUserContextError, refreshOrganization, refreshPatient, setOrganization, setPatient, setUser } from './contextActions';
-import { GET_ORGANIZATION, GET_PATIENT, INITIALIZE_CONTEXT, REFRESH_ORGANIZATION, REFRESH_PATIENT } from './contextConstants';
-import { makeSelectOrganization, makeSelectPatient } from './contextSelectors';
-import { getErrorDetail, getOrganization, getPatient, getUserProfile } from './contextApi';
+import {
+  getOrganizationsByPractitionerError,
+  getOrganizationsPractitionerSuccess,
+  getPatient as getPatientAction,
+  getPatientError,
+  getUserContextError,
+  refreshPatient,
+  setPatient,
+  setUser,
+} from './contextActions';
+import { GET_PATIENT, INITIALIZE_CONTEXT, REFRESH_PATIENT } from './contextConstants';
+import { makeSelectPatient, makeSelectUser } from './contextSelectors';
+import { getErrorDetail, getOrganizationsByPractitioner, getPatient, getUserProfile } from './contextApi';
 import { isPatientResourceType } from './helpers';
 
 
-export function* initializeContextSaga({ userAuthContext, patientId, organizationId }) {
+export function* initializeContextSaga({ userAuthContext, patientId }) {
   const patient = yield select(makeSelectPatient());
-  const organization = yield select(makeSelectOrganization());
   if (patient && patient.id && patient.id === patientId) {
     yield put(refreshPatient());
   } else {
     yield put(getPatientAction(patientId));
   }
 
-  if (organization && organization.logicalId && organization.logicalId === organizationId) {
-    yield put(refreshOrganization());
-  } else {
-    yield put(getOrganizationAction(organizationId));
-  }
-
+  // initial user context
   try {
     const { user_id, user_name, email, profile } = userAuthContext;
     const profileArray = profile && split(profile, '/', 2);
@@ -36,6 +39,17 @@ export function* initializeContextSaga({ userAuthContext, patientId, organizatio
   } catch (error) {
     yield put(getUserContextError(getErrorDetail(error)));
   }
+
+  const user = yield select(makeSelectUser());
+  if (user && !user.isPatient) {
+    try {
+      const organization = yield call(getOrganizationsByPractitioner, user.fhirResource.logicalId);
+      yield put(getOrganizationsPractitionerSuccess(organization));
+    } catch (error) {
+      yield put(getOrganizationsByPractitionerError(getErrorDetail(error)));
+      yield put(showNotification('No match organization found.'));
+    }
+  }
 }
 
 export function* refreshPatientSaga() {
@@ -45,16 +59,6 @@ export function* refreshPatientSaga() {
     yield put(setPatient(newPatient));
   } else {
     yield put(showNotification('Cannot refresh patient context, no patient is selected.'));
-  }
-}
-
-export function* refreshOrganizationSaga() {
-  const organization = yield select(makeSelectOrganization());
-  if (organization && organization.logicalId) {
-    const newOrganization = yield call(getOrganization, organization.logicalId);
-    yield put(setOrganization(newOrganization));
-  } else {
-    yield put(showNotification('Cannot refresh organization context, no organization is selected.'));
   }
 }
 
@@ -71,19 +75,6 @@ export function* getPatientSaga({ logicalId }) {
   }
 }
 
-export function* getOrganizationSaga({ logicalId }) {
-  try {
-    if (logicalId) {
-      const newOrganization = yield call(getOrganization, logicalId);
-      yield put(setOrganization(newOrganization));
-    } else {
-      yield put(showNotification('Cannot get organization context, no organization is selected.'));
-    }
-  } catch (error) {
-    yield put(getOrganizationError(getErrorDetail(error)));
-  }
-}
-
 export function* watchInitializeContextSaga() {
   yield takeLatest(INITIALIZE_CONTEXT, initializeContextSaga);
 }
@@ -92,24 +83,14 @@ export function* watchRefreshPatientSaga() {
   yield takeLatest(REFRESH_PATIENT, refreshPatientSaga);
 }
 
-export function* watchRefreshOrganizationSaga() {
-  yield takeLatest(REFRESH_ORGANIZATION, refreshOrganizationSaga);
-}
-
 export function* watchGetPatientSaga() {
   yield takeLatest(GET_PATIENT, getPatientSaga);
-}
-
-export function* watchGetOrganizationSaga() {
-  yield takeLatest(GET_ORGANIZATION, getOrganizationSaga);
 }
 
 export default function* rootSaga() {
   yield all([
     watchInitializeContextSaga(),
     watchRefreshPatientSaga(),
-    watchRefreshOrganizationSaga(),
     watchGetPatientSaga(),
-    watchGetOrganizationSaga(),
   ]);
 }

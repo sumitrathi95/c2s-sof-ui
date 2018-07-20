@@ -13,7 +13,7 @@ describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
     const numberOfEndpoints = 7;
-    const numberOfUnsecuredEndpoints = 0;
+    const numberOfUnsecuredEndpoints = 1;
 
     // Act
     const configuredEndpoints = collectEndpoints();

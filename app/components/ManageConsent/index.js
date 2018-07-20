@@ -130,7 +130,7 @@ ManageConsent.propTypes = {
   careCoordinatorContext: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     name: PropTypes.string,
-    organization: PropTypes.object.isRequired,
+    organizations: PropTypes.array.isRequired,
   }),
   onSave: PropTypes.func.isRequired,
   initialConsentFormValues: PropTypes.func.isRequired,

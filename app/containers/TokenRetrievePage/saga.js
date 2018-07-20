@@ -37,11 +37,11 @@ export function* getTokenSaga({ code, state, config }) {
         };
         try {
           const tokenResponse = yield call(request, `${tokenEndpoint}?${query}`, options);
-          const { organization, patient, access_token, id_token } = tokenResponse;
+          const { patient, access_token, id_token } = tokenResponse;
           const { user_id, user_name, email } = jwt.decode(access_token);
           const { profile } = jwt.decode(id_token);
           storeToken(tokenResponse);
-          yield put(initializeContext({ user_id, user_name, email, profile }, patient, organization));
+          yield put(initializeContext({ user_id, user_name, email, profile }, patient));
           yield put(push('/c2s-sof-ui/home'));
         } catch (error) {
           yield put(push('/c2s-sof-ui/error?code=tokenRetrieveFailed'));
