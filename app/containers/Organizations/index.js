@@ -9,14 +9,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { setOrganization } from 'containers/App/contextActions';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { initializePractitioners } from 'containers/Practitioners/actions';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
@@ -39,27 +35,15 @@ export class Organizations extends React.Component {
     super(props);
     this.state = {
       ...Organizations.initialState,
-      showViewAllButton: !isEmpty(this.props.organization),
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
-    this.handleViewAll = this.handleViewAll.bind(this);
   }
 
   componentDidMount() {
     this.props.initializeOrganizations();
     this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { organization } = this.props;
-    const { organization: newOrganization } = nextProps;
-    if (!isEqual(organization, newOrganization)) {
-      this.props.initializeOrganizations([newOrganization]);
-      this.setState({ ...Organizations.initialState });
-      this.setState({ showViewAllButton: true });
-    }
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -78,12 +62,6 @@ export class Organizations extends React.Component {
     this.props.searchOrganizations(this.state.searchOrganizations.searchValue, this.state.searchOrganizations.showInactive, this.state.searchOrganizations.searchType, currentPage);
   }
 
-  handleViewAll() {
-    this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
-    this.props.initializePractitioners();
-    this.setState({ showViewAllButton: false });
-  }
-
   render() {
     const { organizations, ...rest } = this.props;
     const organizationData = {
@@ -98,10 +76,7 @@ export class Organizations extends React.Component {
 
     const viewComponentProps = {
       onSearch: this.handleSearch,
-      onOrganizationClick: this.props.onOrganizationClick || this.props.setOrganization,
-      onViewAll: this.handleViewAll,
-      isShowViewAllButton: this.state.showViewAllButton,
-      organizationInContext: this.props.organization,
+      onOrganizationClick: this.props.onOrganizationClick,
       flattenOrganizationData,
       organizationData,
       ...rest,
@@ -116,8 +91,6 @@ export class Organizations extends React.Component {
 Organizations.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func]).isRequired,
   initializeOrganizations: PropTypes.func.isRequired,
-  organization: PropTypes.object,
-  setOrganization: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
   onOrganizationClick: PropTypes.func,
   getOrganizations: PropTypes.func.isRequired,
@@ -147,7 +120,6 @@ Organizations.defaultProps = {
 
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
-  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -156,7 +128,6 @@ function mapDispatchToProps(dispatch) {
     initializePractitioners: () => dispatch(initializePractitioners()),
     getOrganizations: (currentPage, pageSize) => dispatch(getOrganizations(currentPage, pageSize)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
-    setOrganization: (organization) => dispatch(setOrganization(organization)),
   };
 }
 

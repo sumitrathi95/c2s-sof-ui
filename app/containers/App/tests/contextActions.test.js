@@ -1,21 +1,5 @@
-import {
-  clearAll,
-  clearOrganization,
-  clearPatient,
-  clearUser,
-  setOrganization,
-  setPatient,
-  setUser,
-} from 'containers/App/contextActions';
-import {
-  CLEAR_ALL,
-  CLEAR_ORGANIZATION,
-  CLEAR_PATIENT,
-  CLEAR_USER,
-  SET_ORGANIZATION,
-  SET_PATIENT,
-  SET_USER,
-} from 'containers/App/contextConstants';
+import { clearAll, clearPatient, clearUser, setPatient, setUser } from 'containers/App/contextActions';
+import { CLEAR_ALL, CLEAR_PATIENT, CLEAR_USER, SET_PATIENT, SET_USER } from 'containers/App/contextConstants';
 
 
 describe('Context actions', () => {
@@ -53,23 +37,6 @@ describe('Context actions', () => {
     });
   });
 
-  describe('setOrganization Action', () => {
-    it('has a type of SET_ORGANIZATION', () => {
-      // Arrange
-      const organization = { name: 'name' };
-      const expected = {
-        type: SET_ORGANIZATION,
-        organization,
-      };
-
-      // Act
-      const action = setOrganization(organization);
-
-      // Assert
-      expect(action).toEqual(expected);
-    });
-  });
-
   describe('clearPatient Action', () => {
     it('has a type of CLEAR_PATIENT', () => {
       // Arrange
@@ -94,21 +61,6 @@ describe('Context actions', () => {
 
       // Act
       const action = clearUser();
-
-      // Assert
-      expect(action).toEqual(expected);
-    });
-  });
-
-  describe('clearOrganization Action', () => {
-    it('has a type of CLEAR_ORGANIZATION', () => {
-      // Arrange
-      const expected = {
-        type: CLEAR_ORGANIZATION,
-      };
-
-      // Act
-      const action = clearOrganization();
 
       // Assert
       expect(action).toEqual(expected);

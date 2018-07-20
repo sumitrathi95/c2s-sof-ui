@@ -6,29 +6,25 @@
 
 import {
   CLEAR_ALL,
-  CLEAR_ORGANIZATION,
   CLEAR_PATIENT,
   CLEAR_USER,
-  GET_ORGANIZATION,
-  GET_ORGANIZATION_ERROR,
+  GET_ORGANIZATIONS_BY_PRACTITIONER_ERROR,
+  GET_ORGANIZATIONS_BY_PRACTITIONER_SUCCESS,
   GET_PATIENT,
   GET_PATIENT_ERROR,
   GET_USER_CONTEXT_ERROR,
   INITIALIZE_CONTEXT,
-  REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
-  SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
 } from './contextConstants';
 
 
-export function initializeContext(userAuthContext, patientId, organizationId) {
+export function initializeContext(userAuthContext, patientId) {
   return {
     type: INITIALIZE_CONTEXT,
     userAuthContext,
     patientId,
-    organizationId,
   };
 }
 
@@ -46,13 +42,6 @@ export function setUser(user) {
   };
 }
 
-export function setOrganization(organization) {
-  return {
-    type: SET_ORGANIZATION,
-    organization,
-  };
-}
-
 export function clearPatient() {
   return {
     type: CLEAR_PATIENT,
@@ -65,12 +54,6 @@ export function clearUser() {
   };
 }
 
-export function clearOrganization() {
-  return {
-    type: CLEAR_ORGANIZATION,
-  };
-}
-
 export function clearAll() {
   return {
     type: CLEAR_ALL,
@@ -80,12 +63,6 @@ export function clearAll() {
 export function refreshPatient() {
   return {
     type: REFRESH_PATIENT,
-  };
-}
-
-export function refreshOrganization() {
-  return {
-    type: REFRESH_ORGANIZATION,
   };
 }
 
@@ -110,16 +87,16 @@ export function getPatientError(error) {
   };
 }
 
-export function getOrganization(logicalId) {
+export function getOrganizationsPractitionerSuccess(organizations) {
   return {
-    type: GET_ORGANIZATION,
-    logicalId,
+    type: GET_ORGANIZATIONS_BY_PRACTITIONER_SUCCESS,
+    organizations,
   };
 }
 
-export function getOrganizationError(error) {
+export function getOrganizationsByPractitionerError(error) {
   return {
-    type: GET_ORGANIZATION_ERROR,
+    type: GET_ORGANIZATIONS_BY_PRACTITIONER_ERROR,
     error,
   };
 }

@@ -18,9 +18,9 @@ const makeSelectUser = () => createSelector(
   (substate) => substate.get('user') && substate.get('user').toJS(),
 );
 
-const makeSelectOrganization = () => createSelector(
+const makeSelectOrganizations = () => createSelector(
   selectContextDomain,
-  (substate) => substate.get('organization') && substate.get('organization').toJS(),
+  (substate) => substate.get('organizations') && substate.get('organizations').toJS(),
 );
 
 /**
@@ -37,5 +37,5 @@ export {
   selectContextDomain,
   makeSelectPatient,
   makeSelectUser,
-  makeSelectOrganization,
+  makeSelectOrganizations,
 };

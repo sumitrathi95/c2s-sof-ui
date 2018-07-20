@@ -9,13 +9,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
+import { getPractitioners, initializePractitioners, searchPractitioners } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectPractitioners from './selectors';
@@ -41,45 +39,23 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
   componentDidMount() {
     this.props.initializePractitioners();
-    const { organization } = this.props;
-    if (organization) {
-      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { organization } = this.props;
-    const { organization: newOrganization } = nextProps;
-    if (!isEqual(organization, newOrganization)) {
-      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
-    }
+    this.props.getPractitioners(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
-    const { organization } = this.props;
     this.setState({
       isShowSearchResult: true,
       searchPractitioners: { searchType, searchValue, includeInactive },
     });
-
-    if (organization) {
-      this.props.searchPractitioners(searchType, searchValue, includeInactive, organization.logicalId, this.state.searchPractitioners.currentPage);
-    } else {
-      this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
-    }
+    this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
   }
 
   handleChangeSearchPage(currentPage) {
-    const { organization } = this.props;
-    if (organization) {
-      this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage, organization.logicalId);
-    } else {
-      this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
-    }
+    this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
   }
 
   handleChangeListPage(currentPage) {
-    this.props.getPractitionersInOrganization(currentPage, this.props.pageSize);
+    this.props.getPractitioners(currentPage, this.props.pageSize);
   }
 
   render() {
@@ -112,32 +88,6 @@ Practitioners.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func]).isRequired,
   pageSize: PropTypes.number,
   onPractitionerSelect: PropTypes.func,
-  organization: PropTypes.shape({
-    logicalId: PropTypes.string.isRequired,
-    identifiers: PropTypes.arrayOf(PropTypes.shape({
-      system: PropTypes.string,
-      oid: PropTypes.string,
-      value: PropTypes.string,
-      priority: PropTypes.number,
-      display: PropTypes.string,
-    })),
-    active: PropTypes.bool,
-    name: PropTypes.string,
-    addresses: PropTypes.arrayOf(PropTypes.shape({
-      line1: PropTypes.string,
-      line2: PropTypes.string,
-      city: PropTypes.string,
-      stateCode: PropTypes.string,
-      postalCode: PropTypes.string,
-      countryCode: PropTypes.string,
-      use: PropTypes.string,
-    })),
-    telecoms: PropTypes.arrayOf(PropTypes.shape({
-      system: PropTypes.string,
-      value: PropTypes.string,
-      use: PropTypes.string,
-    })),
-  }),
   practitioners: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -151,21 +101,20 @@ Practitioners.propTypes = {
       PropTypes.bool,
     ]),
   }),
-  getPractitionersInOrganization: PropTypes.func.isRequired,
+  getPractitioners: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  organization: makeSelectOrganization(),
   practitioners: makeSelectPractitioners(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getPractitionersInOrganization: (currentPage, pageSize) => dispatch(getPractitionersInOrganization(currentPage, pageSize)),
-    searchPractitioners: (searchType, searchValue, includeInactive, currentPage, organization) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage, organization)),
+    getPractitioners: (currentPage, pageSize) => dispatch(getPractitioners(currentPage, pageSize)),
+    searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }
 
