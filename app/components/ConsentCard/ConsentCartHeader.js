@@ -38,7 +38,7 @@ class ConsentCartHeader extends React.Component { // eslint-disable-line react/p
     return (
       <div>
         <Padding left={10} right={10}>
-          <Grid columns="repeat(3, 1fr) 0.3fr">
+          <Grid columns="repeat(2, 1fr) 0.4fr 0.3fr">
             <Cell>
               <TextLabelGroup
                 label={<FormattedMessage {...messages.consentCardHeader.authorizedLabel} />}
@@ -57,7 +57,7 @@ class ConsentCartHeader extends React.Component { // eslint-disable-line react/p
                 text={period}
               />
             </Cell>
-            <Cell middle>
+            <Cell center>
               <StyledFlatButton onClick={this.handlePanelOpen}>
                 {this.state.expansionPanelOpen ? 'Less Details' : 'More Details'}
               </StyledFlatButton>
