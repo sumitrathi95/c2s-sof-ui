@@ -13,6 +13,7 @@ function ConsentPanel() {
   return (
     <PanelSection>
       <ControlledAccordion
+        defaultExpanded
         accordionTitle={
           <StyledText fontSize="16px" whiteSpace>
             <FormattedMessage {...messages.consentPanelSummary} />
