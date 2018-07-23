@@ -22,7 +22,7 @@ class ControlledAccordion extends React.Component { // eslint-disable-line react
   constructor(props) {
     super(props);
     this.state = {
-      expansionPanelOpen: false,
+      expansionPanelOpen: props.defaultExpanded,
     };
     this.handlePanelOpen = this.handlePanelOpen.bind(this);
   }
@@ -53,10 +53,15 @@ class ControlledAccordion extends React.Component { // eslint-disable-line react
 
 ControlledAccordion.propTypes = {
   expandIcon: PropTypes.node,
+  defaultExpanded: PropTypes.bool,
   accordionTitle: PropTypes.node.isRequired,
   children: PropTypes.shape({
     type: PropTypes.oneOf([ExpansionPanelDetails, FullWidthPanelDetails, ExpansionPanelActions]),
   }),
+};
+
+ControlledAccordion.defaultProps = {
+  defaultExpanded: false,
 };
 
 export default ControlledAccordion;
