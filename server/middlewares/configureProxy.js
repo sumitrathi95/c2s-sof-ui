@@ -6,7 +6,7 @@ module.exports = (app) => {
   const check = '✓';
   const cross = '✗';
   // Defaults
-  const DEFAULT_API_ENDPOINT = 'http://localhost:8450';
+  const DEFAULT_API_ENDPOINT = 'http://localhost:8451';
   const routes = [
     { route: '/c2s-sof-api', url: process.env.API_ENDPOINT || DEFAULT_API_ENDPOINT },
   ];
