@@ -20,10 +20,10 @@ function* getConsentSaga({ logicalId }) {
 function* attestConsentSaga({ logicalId }) {
   try {
     yield call(attestConsent, logicalId);
-    yield put(showNotification('Successfully signed consent.'));
+    yield put(showNotification('Successfully signed the consent.'));
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification('Failed to sign consent.'));
+    yield put(showNotification('Failed to sign the consent.'));
     yield put(attestConsentError(error));
   }
 }
