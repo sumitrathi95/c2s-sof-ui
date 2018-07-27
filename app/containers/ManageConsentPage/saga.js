@@ -14,7 +14,7 @@ function* getConsentSaga({ consentId }) {
     yield put(getConsentSuccess(consent));
   } catch (error) {
     yield put(getConsentError(getErrorDetail(error)));
-    yield put(showNotification('No match consent found.'));
+    yield put(showNotification('No matching consent found.'));
     yield put(goBack());
   }
 }
@@ -23,11 +23,11 @@ function* saveConsentSaga(action) {
   try {
     const patient = yield select(makeSelectPatient());
     yield call(saveConsent, action.consentFormData, patient);
-    yield put(showNotification(`Successfully ${action.consentFormData.logicalId ? 'edit' : 'create'} the Consent Resource.`));
+    yield put(showNotification(`Successfully ${action.consentFormData.logicalId ? 'updated' : 'created'} the consent.`));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification(`Failed to ${action.consentFormData.logicalId ? 'edit' : 'create'} the Consent Resource.${getErrorDetail(error)}`));
+    yield put(showNotification(`Failed to ${action.consentFormData.logicalId ? 'update' : 'create'} the consent. ${getErrorDetail(error)}`));
     yield call(action.handleSubmitting);
     yield put(saveConsentError(error));
   }

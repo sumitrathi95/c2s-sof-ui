@@ -21,10 +21,10 @@ function* getConsentSaga({ logicalId }) {
 function* revokeConsentSaga({ logicalId }) {
   try {
     yield call(revokeConsent, logicalId);
-    yield put(showNotification('Successfully revoke the consent.'));
+    yield put(showNotification('Successfully revoked the consent.'));
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification('Failed to revoke consent.'));
+    yield put(showNotification('Failed to revoke the consent.'));
     yield put(revokeConsentError(error));
   }
 }
