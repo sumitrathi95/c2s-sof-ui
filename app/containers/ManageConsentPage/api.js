@@ -56,12 +56,7 @@ function updateConsent(logicalId, consentFormData, patient) {
 
 
 function mapToBffConsentDto(consentFormData, patient) {
-  // TODO: Handle UI hard-coded data
   const status = 'draft';
-  const category = [{
-    code: '59284-0',
-    display: 'Patient Consent',
-  }];
   const {
     consentFromActors, consentToActors, medicalInformation, purpose, consentStart, consentEnd, consentType,
   } = consentFormData;
@@ -81,7 +76,6 @@ function mapToBffConsentDto(consentFormData, patient) {
   if (consentType) {
     consentData = {
       status,
-      category,
       period,
       generalDesignation: consentType,
       patient: patientReference,
@@ -95,7 +89,6 @@ function mapToBffConsentDto(consentFormData, patient) {
       .map((actor) => actorDto(actor));
     consentData = {
       status,
-      category,
       period,
       generalDesignation: consentType,
       patient: patientReference,
