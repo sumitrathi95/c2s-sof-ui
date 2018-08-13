@@ -12,7 +12,7 @@ export function mapResourceName(nameArray) {
     const fName = nameArray[0];
     const firstName = Util.setEmptyStringWhenUndefined(fName.firstName);
     const lastName = Util.setEmptyStringWhenUndefined(fName.lastName);
-    name = `${firstName}-${lastName}`;
+    name = `${firstName} ${lastName}`;
   }
   return name;
 }

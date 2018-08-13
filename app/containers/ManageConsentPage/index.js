@@ -98,7 +98,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
           <meta name="description" content="Manage Consent page of Consent2Share Smart On Fhir" />
         </Helmet>
         {patient &&
-        <PageHeader title={`I,${mapResourceName(patient.name)},here by authorize`} />
+        <PageHeader title={`I, ${mapResourceName(patient.name)}, hereby authorize`} />
         }
         <PageContent>
           <ManageConsent

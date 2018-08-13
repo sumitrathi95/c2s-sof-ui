@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   consentToActorsButton: {
     id: 'c2s.components.ConsentToActors.consentToActorsButton',
-    defaultMessage: 'To Disclose my information To',
+    defaultMessage: 'And Disclose My Information To',
   },
   consentToActorsDialogTitle: {
     id: 'c2s.components.ConsentToActors.consentToActorsDialogTitle',
