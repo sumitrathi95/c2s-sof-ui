@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { LinearProgress } from 'material-ui-next/Progress';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -34,7 +35,7 @@ function ConsentCards(props) {
       <div>
         {!isEmpty(consentData.data) && consentData.data.map((consent) => (
           <ConsentCard
-            key={consent.logicalId}
+            key={uniqueId()}
             consent={consent}
             handleDeleteConsent={consentData.handleDeleteConsent}
             user={consentData.user}
