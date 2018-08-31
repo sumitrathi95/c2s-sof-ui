@@ -16,7 +16,7 @@ export default defineMessages({
   },
   medicalInformationTitle: {
     id: 'c2s.components.ManageConsent.medicalInformationTitle',
-    defaultMessage: 'Medical Information',
+    defaultMessage: 'Medical Record',
   },
   purposeOfUseTitle: {
     id: 'c2s.components.ManageConsent.purposeOfUseTitle',
@@ -33,7 +33,7 @@ export default defineMessages({
   validation: {
     minMedicalInfo: {
       id: 'c2s.components.ManageConsent.manageForm.validation.minMedicalInfo',
-      defaultMessage: 'Consent must have at least ONE medical information',
+      defaultMessage: 'Consent must have at least ONE medical information category',
     },
     minPurpose: {
       id: 'c2s.components.ManageConsent.manageForm.validation.minPurpose',

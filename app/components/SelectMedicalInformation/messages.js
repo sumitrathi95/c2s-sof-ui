@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   medicalInfoTitle: {
     id: 'c2s.components.SelectMedicalInformation.medicalInfoTitle',
-    defaultMessage: 'Select how you would like to share your medical information.',
+    defaultMessage: 'Select how you would like to share your medical record.',
   },
   shareAll: {
     id: 'c2s.components.SelectMedicalInformation.shareAll',
@@ -24,7 +24,7 @@ export default defineMessages({
   },
   medicalInfoDialogSubtitle: {
     id: 'c2s.components.SelectMedicalInformation.medicalInfoDialogSubtitle',
-    defaultMessage: 'Please select the medical information that you want to share',
+    defaultMessage: 'Please select the medical record that you want to share',
   },
   okButton: {
     id: 'c2s.components.SelectMedicalInformation.okButton',

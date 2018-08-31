@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   purposeOfUseTitle: {
     id: 'c2s.components.PurposeOfUse.purposeOfUseTitle',
-    defaultMessage: 'Choose for what purposes your medical information may be used.',
+    defaultMessage: 'Choose for what purposes your medical record may be used.',
   },
   purposeOfUseSubTitle: {
     id: 'c2s.components.PurposeOfUse.purposeOfUseSubTitle',
